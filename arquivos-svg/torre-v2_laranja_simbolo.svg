@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="t d">
+  <title id="t">RSA Infralink — Torre de Precisão v2 Laranja (símbolo)</title>
+  <desc id="d">Todos elementos em azul marinho sobre fundo laranja.</desc>
+  <rect width="200" height="200" fill="#f47b20"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="100" y1="8" x2="100" y2="28" stroke="#1a2d6e" stroke-width="5"/>
+    <line x1="100" y1="28" x2="58" y2="168" stroke="#1a2d6e" stroke-width="7"/>
+    <line x1="100" y1="28" x2="142" y2="168" stroke="#1a2d6e" stroke-width="7"/>
+    <line x1="58" y1="168" x2="142" y2="168" stroke="#1a2d6e" stroke-width="7"/>
+    <line x1="81" y1="98" x2="119" y2="98" stroke="#1a2d6e" stroke-width="5"/>
+    <line x1="70" y1="133" x2="130" y2="133" stroke="#1a2d6e" stroke-width="5"/>
+  </g>
+  <g fill="none" stroke="#1a2d6e" stroke-linecap="round">
+    <path d="M 116,31 Q 135,40 116,49" stroke-width="3"/>
+    <path d="M 124,26 Q 152,40 124,54" stroke-width="3.5"/>
+    <path d="M 133,21 Q 171,40 133,59" stroke-width="4"/>
+    <path d="M 84,31 Q 65,40 84,49" stroke-width="3"/>
+    <path d="M 76,26 Q 48,40 76,54" stroke-width="3.5"/>
+    <path d="M 67,21 Q 29,40 67,59" stroke-width="4"/>
+  </g>
+</svg>

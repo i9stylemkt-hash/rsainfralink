@@ -1,0 +1,11 @@
+# Logs e arquivos temporários da IA
+.system_generated/
+*.log
+
+# Arquivos de Office e compactados
+*.docx
+*.zip
+
+# Arquivos do sistema operacional
+Thumbs.db
+.DS_Store

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 180" role="img" aria-labelledby="title desc">
+  <title id="title">RSA Infralink — Monograma Infralink (colorida horizontal)</title>
+  <desc id="desc">Monograma geométrico que funde INFRA (uprights convergentes / torre) e LINK (nó de conexão laranja no ápice), ao lado do lettermark RSA INFRALINK com LINK em laranja. Fonte recomendada: Space Grotesk (700/800).</desc>
+  <g id="simbolo" transform="translate(6,16) scale(1.1)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path id="uprights" d="M28 104L60 30 M92 104L60 30" stroke="#1a2d6e" stroke-width="13"/>
+    <path id="link-bar" d="M40 76L80 76" stroke="#1a2d6e" stroke-width="11"/>
+    <path id="sinal" d="M48 19Q60 9 72 19" stroke="#38d6c8" stroke-width="3.5"/>
+    <circle id="no" cx="60" cy="30" r="9.5" fill="#f47b20" stroke="none"/>
+  </g>
+  <g id="lettermark" font-family="'Space Grotesk','Montserrat','Segoe UI',Arial,sans-serif">
+    <text x="165" y="92" font-size="76" font-weight="800" fill="#1a2d6e" letter-spacing="1">RSA</text>
+    <text x="167" y="128" font-size="30" font-weight="600" letter-spacing="2"><tspan fill="#1a2d6e">INFRA</tspan><tspan fill="#f47b20" font-weight="700">LINK</tspan></text>
+  </g>
+  <g id="tagline" font-family="'Space Grotesk','Montserrat','Segoe UI',Arial,sans-serif">
+    <text x="169" y="151" font-size="12.5" font-weight="600" fill="#92a8bf" letter-spacing="5">TELECOMUNICAÇÕES</text>
+  </g>
+</svg>

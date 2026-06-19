@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand Board · RSA Infralink — Torre de Precisão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nv:#1a2d6e; --nv-deep:#0f2740; --bg-dark:#0a1c2e;
+  --orange:#f47b20; --orange-soft:#ffb877;
+  --cyan:#38d6c8; --ink:#eaf1f8; --muted:#92a8bf; --faint:#637a92;
+  --paper:#f7f5ef; --paper2:#efece3; --line:#e2ddd0;
+  --d-display:'Space Grotesk',system-ui,sans-serif;
+  --d-body:'Manrope',system-ui,sans-serif;
+  --d-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--nv-deep);font-family:var(--d-body);line-height:1.6;-webkit-font-smoothing:antialiased}
+.sheet{max-width:1040px;margin:0 auto;padding:0 28px}
+
+/* header */
+.bhead{background:var(--nv);color:var(--ink);padding:38px 0 34px;margin-bottom:8px}
+.bhead .sheet{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.bhead .eyebrow{font-family:var(--d-mono);font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--orange-soft);font-weight:600}
+.bhead h1{font-family:var(--d-display);font-weight:700;font-size:clamp(26px,4vw,40px);margin:8px 0 4px;letter-spacing:-.01em}
+.bhead p{margin:0;color:var(--muted);font-size:14.5px;max-width:46ch}
+.bhead .logo-chip{background:#fff;border-radius:14px;padding:14px 20px;flex:0 0 auto}
+.bhead .logo-chip svg{display:block;width:230px;height:auto}
+
+/* section */
+section{padding:34px 0;border-bottom:1px solid var(--line)}
+.tag{font-family:var(--d-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);font-weight:600}
+.tag .num{color:var(--faint);margin-right:8px}
+h2{font-family:var(--d-display);font-weight:700;font-size:clamp(19px,3vw,26px);margin:7px 0 4px;letter-spacing:-.01em;color:var(--nv)}
+.intro{color:var(--faint);max-width:62ch;margin:0 0 20px;font-size:14.5px}
+
+/* logo showcase */
+.logo-main{background:#fff;border:1px solid var(--line);border-radius:18px;padding:34px;display:flex;justify-content:center;align-items:center;box-shadow:0 16px 40px -28px rgba(26,45,110,.4)}
+.logo-main svg{width:min(560px,100%);height:auto}
+
+.logo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+.lg-cell{border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;align-items:center;gap:14px;justify-content:center;min-height:170px}
+.lg-cell.on-dark{background:var(--bg-dark);border-color:var(--nv-deep)}
+.lg-cell.on-paper{background:var(--paper2)}
+.lg-cell svg{width:100%;max-width:300px;height:auto}
+.lg-cell.sym svg{max-width:120px}
+.lg-label{font-family:var(--d-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.lg-cell.on-dark .lg-label{color:var(--muted)}
+
+/* color palette */
+.palette{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.swatch{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.swatch .chip{height:96px;display:flex;align-items:flex-end;padding:10px}
+.swatch .meta{padding:12px 14px}
+.swatch .nm{font-family:var(--d-display);font-weight:600;font-size:14px}
+.swatch .role{font-size:11.5px;color:var(--faint);margin:2px 0 8px}
+.swatch .hex{font-family:var(--d-mono);font-size:12px;color:var(--nv);background:var(--paper2);padding:3px 8px;border-radius:6px;display:inline-block}
+.swatch .pct{font-family:var(--d-mono);font-size:10px;color:#fff;opacity:.85}
+
+/* typography */
+.type-row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:14px}
+.type-row .face{font-family:var(--d-mono);font-size:11px;color:var(--orange);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.type-row .role{font-size:12.5px;color:var(--faint);margin-bottom:14px}
+.type-display{font-family:var(--d-display);font-weight:700;font-size:40px;color:var(--nv);line-height:1.1}
+.type-body{font-family:var(--d-body);font-size:17px;color:var(--nv-deep)}
+.type-mono{font-family:var(--d-mono);font-size:15px;color:var(--nv)}
+.type-scale{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-family:var(--d-mono);font-size:11px;color:var(--faint)}
+
+/* archetype / voice */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.card h3{font-family:var(--d-display);font-size:16px;margin:0 0 4px;color:var(--nv)}
+.card h3 .ic{margin-right:7px}
+.card p{margin:0;font-size:13.5px;color:var(--faint)}
+.pill{display:inline-block;font-family:var(--d-mono);font-size:11px;background:var(--nv);color:#fff;padding:3px 11px;border-radius:20px;margin:3px 5px 0 0}
+.pill.or{background:var(--orange)}
+
+/* do / dont */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dd .box{border-radius:14px;padding:18px 20px;border:1px solid}
+.dd .yes{background:rgba(52,211,153,.07);border-color:rgba(52,150,100,.3)}
+.dd .no{background:rgba(244,123,32,.06);border-color:rgba(244,123,32,.28)}
+.dd h4{margin:0 0 10px;font-family:var(--d-display);font-size:14px;display:flex;align-items:center;gap:8px}
+.dd .yes h4{color:#2f8f5b}.dd .no h4{color:#c45a1a}
+.dd ul{margin:0;padding-left:18px}
+.dd li{font-size:13px;margin-bottom:6px;color:var(--nv-deep)}
+
+/* applications */
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.app{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.app .canvas{height:150px;display:flex;align-items:center;justify-content:center;position:relative}
+.app .label{padding:11px 14px;font-size:12.5px;color:var(--faint);border-top:1px solid var(--line)}
+.app .label b{color:var(--nv);font-family:var(--d-display);display:block;font-size:13.5px;margin-bottom:1px}
+/* whatsapp avatar */
+.wa{background:#0b8a6f}
+.wa .circle{width:104px;height:104px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.wa .circle svg{width:78px;height:78px}
+/* favicon row */
+.fav{background:var(--paper2);gap:14px}
+.fav .browser{background:#fff;border:1px solid var(--line);border-radius:8px 8px 0 0;padding:8px 12px;display:flex;align-items:center;gap:8px;width:80%}
+.fav .browser svg{width:18px;height:18px}
+.fav .browser .url{font-family:var(--d-mono);font-size:10px;color:var(--faint);background:var(--paper);padding:3px 8px;border-radius:5px;flex:1}
+/* doc header */
+.doc{background:var(--paper2)}
+.doc .paper{background:#fff;border:1px solid var(--line);border-radius:6px;width:78%;padding:12px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.doc .paper svg{width:130px;height:auto;display:block}
+.doc .paper .lines{margin-top:10px}
+.doc .paper .lines i{display:block;height:5px;background:var(--paper2);border-radius:3px;margin-bottom:5px}
+.doc .paper .lines i:nth-child(2){width:80%}.doc .paper .lines i:nth-child(3){width:60%}
+/* shirt */
+.shirt{background:var(--nv)}
+.shirt svg{width:120px;height:auto}
+/* card business */
+.bizcard{background:linear-gradient(135deg,#13234f,#1a2d6e)}
+.bizcard .bc{width:80%;background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 8px 22px rgba(0,0,0,.3)}
+.bizcard .bc svg{width:120px;height:auto}
+.bizcard .bc .info{margin-top:8px;font-size:9px;color:var(--faint);font-family:var(--d-mono);line-height:1.5}
+.bizcard .bc .info b{color:var(--nv);display:block;font-family:var(--d-display);font-size:11px}
+
+/* clear space / sizing */
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.spec{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.spec h4{margin:0 0 6px;font-family:var(--d-display);font-size:14px;color:var(--nv)}
+.spec p{margin:0;font-size:13px;color:var(--faint)}
+.clearbox{margin-top:14px;border:2px dashed var(--orange);border-radius:8px;padding:18px;display:flex;justify-content:center;background:var(--paper2)}
+.clearbox svg{width:200px;height:auto}
+.sizes{display:flex;align-items:flex-end;gap:22px;margin-top:14px;flex-wrap:wrap}
+.sizes .s{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sizes .s svg{height:auto}
+.sizes .s span{font-family:var(--d-mono);font-size:10px;color:var(--faint)}
+
+footer{padding:30px 0 50px;color:var(--faint);font-size:12px;text-align:center}
+footer b{color:var(--nv)}
+
+@media(max-width:760px){
+  .logo-grid,.two,.dd,.specs{grid-template-columns:1fr}
+  .apps{grid-template-columns:1fr 1fr}
+  .bhead .logo-chip{display:none}
+}
+@media print{
+  body{background:#fff}
+  section{break-inside:avoid}
+  .bhead{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="bhead">
+  <div class="sheet">
+    <div>
+      <div class="eyebrow">Brand Board · v1.0 · 14/06/2026</div>
+      <h1>RSA Infralink</h1>
+      <p>Direção visual escolhida: <strong style="color:var(--orange-soft)">Torre de Precisão</strong>. Identidade de um especialista ágil e regional em serviços de campo para telecomunicações no Sul.</p>
+    </div>
+    <div class="logo-chip">
+      <!-- LOGO A inline -->
+      <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" aria-label="RSA Infralink">
+        <defs><style>
+          .nv{fill:#1a2d6e}.or{fill:#f47b20}
+          .nvline{stroke:#1a2d6e;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+          .nvthin{stroke:#1a2d6e;stroke-width:1.7;fill:none;stroke-linecap:round}
+          .orline{stroke:#f47b20;stroke-width:4.2;fill:none;stroke-linecap:round}
+          .wRSA{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;letter-spacing:-1px}
+          .wINF{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:25.5px;letter-spacing:6.5px}
+          .tg{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:11px;letter-spacing:4px;fill:#92a8bf}
+        </style></defs>
+        <g><path class="orline" d="M71 46 a28 28 0 0 0 0 42" opacity=".95"/><path class="orline" d="M59 36 a42 42 0 0 0 0 62" opacity=".68"/><path class="orline" d="M47 26 a56 56 0 0 0 0 82" opacity=".42"/><path class="orline" d="M139 46 a28 28 0 0 1 0 42" opacity=".95"/><path class="orline" d="M151 36 a42 42 0 0 1 0 62" opacity=".68"/><path class="orline" d="M163 26 a56 56 0 0 1 0 82" opacity=".42"/></g>
+        <g><line class="nvline" x1="105" y1="20" x2="105" y2="48"/><circle class="nv" cx="105" cy="18" r="5"/><rect class="nv" x="89" y="48" width="6.5" height="24" rx="1.5"/><rect class="nv" x="114.5" y="48" width="6.5" height="24" rx="1.5"/><line class="nvline" x1="105" y1="48" x2="75" y2="174"/><line class="nvline" x1="105" y1="48" x2="135" y2="174"/><line class="nvthin" x1="99.5" y1="70" x2="110.5" y2="70"/><line class="nvthin" x1="96.5" y1="91" x2="113.5" y2="91"/><line class="nvthin" x1="93.3" y1="112" x2="116.7" y2="112"/><line class="nvthin" x1="89.8" y1="133" x2="120.2" y2="133"/><line class="nvthin" x1="86" y1="154" x2="124" y2="154"/><path class="nvthin" d="M99.5 70 L113.5 91 M110.5 70 L96.5 91"/><path class="nvthin" d="M96.5 91 L116.7 112 M113.5 91 L93.3 112"/><path class="nvthin" d="M93.3 112 L120.2 133 M116.7 112 L89.8 133"/><path class="nvthin" d="M89.8 133 L124 154 M120.2 133 L86 154"/><path class="nvthin" d="M86 154 L135 174 M124 154 L75 174"/><line class="nvline" x1="66" y1="180" x2="144" y2="180"/><line class="nvthin" x1="75" y1="174" x2="68" y2="180"/><line class="nvthin" x1="135" y1="174" x2="142" y2="180"/><line class="nvthin" x1="86" y1="174" x2="92" y2="180"/><line class="nvthin" x1="124" y1="174" x2="118" y2="180"/></g>
+        <g><text x="214" y="109" class="wRSA"><tspan class="nv">RS</tspan><tspan class="or">A</tspan></text><text x="216" y="141" class="wINF nv">INFRALINK</text></g>
+        <text x="217" y="167" class="tg">TELECOMUNICAÇÕES · RS · SC · PR</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main class="sheet">
+
+<!-- 1 · LOGO -->
+<section>
+  <div class="tag"><span class="num">01</span>Logotipo</div>
+  <h2>A marca e suas versões</h2>
+  <p class="intro">A logo combina a <strong>torre treliçada</strong> (precisão técnica, telecom inconfundível) com o lettermark <strong>RSA</strong> proeminente — o "A" em laranja é o acento de assinatura. Toda aplicação parte de uma destas quatro versões.</p>
+
+  <div class="logo-main">
+    <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" aria-label="RSA Infralink logo principal">
+      <defs><style>
+        .nv{fill:#1a2d6e}.or{fill:#f47b20}
+        .nvline{stroke:#1a2d6e;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+        .nvthin{stroke:#1a2d6e;stroke-width:1.7;fill:none;stroke-linecap:round}
+        .orline{stroke:#f47b20;stroke-width:4.2;fill:none;stroke-linecap:round}
+        .wRSA{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;letter-spacing:-1px}
+        .wINF{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:25.5px;letter-spacing:6.5px}
+        .tg{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:11px;letter-spacing:4px;fill:#92a8bf}
+      </style></defs>
+      <g><path class="orline" d="M71 46 a28 28 0 0 0 0 42" opacity=".95"/><path class="orline" d="M59 36 a42 42 0 0 0 0 62" opacity=".68"/><path class="orline" d="M47 26 a56 56 0 0 0 0 82" opacity=".42"/><path class="orline" d="M139 46 a28 28 0 0 1 0 42" opacity=".95"/><path class="orline" d="M151 36 a42 42 0 0 1 0 62" opacity=".68"/><path class="orline" d="M163 26 a56 56 0 0 1 0 82" opacity=".42"/></g>
+      <g><line class="nvline" x1="105" y1="20" x2="105" y2="48"/><circle class="nv" cx="105" cy="18" r="5"/><rect class="nv" x="89" y="48" width="6.5" height="24" rx="1.5"/><rect class="nv" x="114.5" y="48" width="6.5" height="24" rx="1.5"/><line class="nvline" x1="105" y1="48" x2="75" y2="174"/><line class="nvline" x1="105" y1="48" x2="135" y2="174"/><line class="nvthin" x1="99.5" y1="70" x2="110.5" y2="70"/><line class="nvthin" x1="96.5" y1="91" x2="113.5" y2="91"/><line class="nvthin" x1="93.3" y1="112" x2="116.7" y2="112"/><line class="nvthin" x1="89.8" y1="133" x2="120.2" y2="133"/><line class="nvthin" x1="86" y1="154" x2="124" y2="154"/><path class="nvthin" d="M99.5 70 L113.5 91 M110.5 70 L96.5 91"/><path class="nvthin" d="M96.5 91 L116.7 112 M113.5 91 L93.3 112"/><path class="nvthin" d="M93.3 112 L120.2 133 M116.7 112 L89.8 133"/><path class="nvthin" d="M89.8 133 L124 154 M120.2 133 L86 154"/><path class="nvthin" d="M86 154 L135 174 M124 154 L75 174"/><line class="nvline" x1="66" y1="180" x2="144" y2="180"/><line class="nvthin" x1="75" y1="174" x2="68" y2="180"/><line class="nvthin" x1="135" y1="174" x2="142" y2="180"/><line class="nvthin" x1="86" y1="174" x2="92" y2="180"/><line class="nvthin" x1="124" y1="174" x2="118" y2="180"/></g>
+      <g><text x="214" y="109" class="wRSA"><tspan class="nv">RS</tspan><tspan class="or">A</tspan></text><text x="216" y="141" class="wINF nv">INFRALINK</text></g>
+      <text x="217" y="167" class="tg">TELECOMUNICAÇÕES · RS · SC · PR</text>
+    </svg>
+  </div>
+
+  <div class="logo-grid">
+    <div class="lg-cell on-paper">
+      <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" aria-label="versão monocromática">
+        <defs><style>.m{fill:#1a2d6e}.ml{stroke:#1a2d6e;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}.mt{stroke:#1a2d6e;stroke-width:1.7;fill:none;stroke-linecap:round}.ms{stroke:#1a2d6e;stroke-width:4.2;fill:none;stroke-linecap:round}.wR{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;letter-spacing:-1px;fill:#1a2d6e}.wI{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:25.5px;letter-spacing:6.5px;fill:#1a2d6e}.t2{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:11px;letter-spacing:4px;fill:#1a2d6e;opacity:.6}</style></defs>
+        <g><path class="ms" d="M71 46 a28 28 0 0 0 0 42" opacity=".9"/><path class="ms" d="M59 36 a42 42 0 0 0 0 62" opacity=".6"/><path class="ms" d="M47 26 a56 56 0 0 0 0 82" opacity=".35"/><path class="ms" d="M139 46 a28 28 0 0 1 0 42" opacity=".9"/><path class="ms" d="M151 36 a42 42 0 0 1 0 62" opacity=".6"/><path class="ms" d="M163 26 a56 56 0 0 1 0 82" opacity=".35"/></g>
+        <g><line class="ml" x1="105" y1="20" x2="105" y2="48"/><circle class="m" cx="105" cy="18" r="5"/><rect class="m" x="89" y="48" width="6.5" height="24" rx="1.5"/><rect class="m" x="114.5" y="48" width="6.5" height="24" rx="1.5"/><line class="ml" x1="105" y1="48" x2="75" y2="174"/><line class="ml" x1="105" y1="48" x2="135" y2="174"/><line class="mt" x1="99.5" y1="70" x2="110.5" y2="70"/><line class="mt" x1="96.5" y1="91" x2="113.5" y2="91"/><line class="mt" x1="93.3" y1="112" x2="116.7" y2="112"/><line class="mt" x1="89.8" y1="133" x2="120.2" y2="133"/><line class="mt" x1="86" y1="154" x2="124" y2="154"/><path class="mt" d="M99.5 70 L113.5 91 M110.5 70 L96.5 91"/><path class="mt" d="M96.5 91 L116.7 112 M113.5 91 L93.3 112"/><path class="mt" d="M93.3 112 L120.2 133 M116.7 112 L89.8 133"/><path class="mt" d="M89.8 133 L124 154 M120.2 133 L86 154"/><path class="mt" d="M86 154 L135 174 M124 154 L75 174"/><line class="ml" x1="66" y1="180" x2="144" y2="180"/><line class="mt" x1="75" y1="174" x2="68" y2="180"/><line class="mt" x1="135" y1="174" x2="142" y2="180"/><line class="mt" x1="86" y1="174" x2="92" y2="180"/><line class="mt" x1="124" y1="174" x2="118" y2="180"/></g>
+        <g><text x="214" y="109" class="wR">RSA</text><text x="216" y="141" class="wI">INFRALINK</text></g>
+        <text x="217" y="167" class="t2">TELECOMUNICAÇÕES · RS · SC · PR</text>
+      </svg>
+      <div class="lg-label">Monocromática · fundos claros / impressão</div>
+    </div>
+
+    <div class="lg-cell on-dark">
+      <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" aria-label="versão fundo escuro">
+        <defs><style>.lt{fill:#eaf1f8}.dor{fill:#f47b20}.ltl{stroke:#eaf1f8;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}.ltt{stroke:#cdd9e8;stroke-width:1.7;fill:none;stroke-linecap:round}.orl{stroke:#f47b20;stroke-width:4.2;fill:none;stroke-linecap:round}.wRd{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;letter-spacing:-1px}.wId{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:25.5px;letter-spacing:6.5px;fill:#eaf1f8}.tgd{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:11px;letter-spacing:4px;fill:#92a8bf}</style></defs>
+        <g><path class="orl" d="M71 46 a28 28 0 0 0 0 42" opacity=".95"/><path class="orl" d="M59 36 a42 42 0 0 0 0 62" opacity=".68"/><path class="orl" d="M47 26 a56 56 0 0 0 0 82" opacity=".42"/><path class="orl" d="M139 46 a28 28 0 0 1 0 42" opacity=".95"/><path class="orl" d="M151 36 a42 42 0 0 1 0 62" opacity=".68"/><path class="orl" d="M163 26 a56 56 0 0 1 0 82" opacity=".42"/></g>
+        <g><line class="ltl" x1="105" y1="20" x2="105" y2="48"/><circle class="dor" cx="105" cy="18" r="5"/><rect class="lt" x="89" y="48" width="6.5" height="24" rx="1.5"/><rect class="lt" x="114.5" y="48" width="6.5" height="24" rx="1.5"/><line class="ltl" x1="105" y1="48" x2="75" y2="174"/><line class="ltl" x1="105" y1="48" x2="135" y2="174"/><line class="ltt" x1="99.5" y1="70" x2="110.5" y2="70"/><line class="ltt" x1="96.5" y1="91" x2="113.5" y2="91"/><line class="ltt" x1="93.3" y1="112" x2="116.7" y2="112"/><line class="ltt" x1="89.8" y1="133" x2="120.2" y2="133"/><line class="ltt" x1="86" y1="154" x2="124" y2="154"/><path class="ltt" d="M99.5 70 L113.5 91 M110.5 70 L96.5 91"/><path class="ltt" d="M96.5 91 L116.7 112 M113.5 91 L93.3 112"/><path class="ltt" d="M93.3 112 L120.2 133 M116.7 112 L89.8 133"/><path class="ltt" d="M89.8 133 L124 154 M120.2 133 L86 154"/><path class="ltt" d="M86 154 L135 174 M124 154 L75 174"/><line class="ltl" x1="66" y1="180" x2="144" y2="180"/><line class="ltt" x1="75" y1="174" x2="68" y2="180"/><line class="ltt" x1="135" y1="174" x2="142" y2="180"/><line class="ltt" x1="86" y1="174" x2="92" y2="180"/><line class="ltt" x1="124" y1="174" x2="118" y2="180"/></g>
+        <g><text x="214" y="109" class="wRd"><tspan class="lt">RS</tspan><tspan class="dor">A</tspan></text><text x="216" y="141" class="wId">INFRALINK</text></g>
+        <text x="217" y="167" class="tgd">TELECOMUNICAÇÕES · RS · SC · PR</text>
+      </svg>
+      <div class="lg-label">Fundo escuro · dark mode / redes</div>
+    </div>
+
+    <div class="lg-cell sym on-paper">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="símbolo isolado claro">
+        <defs><style>.s1{fill:#1a2d6e}.sl{stroke:#1a2d6e;stroke-width:3.6;fill:none;stroke-linecap:round;stroke-linejoin:round}.st{stroke:#1a2d6e;stroke-width:2.1;fill:none;stroke-linecap:round}.so{stroke:#f47b20;stroke-width:5;fill:none;stroke-linecap:round}</style></defs>
+        <g><path class="so" d="M66 56 a32 32 0 0 0 0 50" opacity=".95"/><path class="so" d="M52 44 a48 48 0 0 0 0 74" opacity=".66"/><path class="so" d="M38 32 a64 64 0 0 0 0 98" opacity=".4"/><path class="so" d="M134 56 a32 32 0 0 1 0 50" opacity=".95"/><path class="so" d="M148 44 a48 48 0 0 1 0 74" opacity=".66"/><path class="so" d="M162 32 a64 64 0 0 1 0 98" opacity=".4"/></g>
+        <g><line class="sl" x1="100" y1="24" x2="100" y2="52"/><circle class="s1" cx="100" cy="21" r="5.5"/><rect class="s1" x="82" y="52" width="7.5" height="26" rx="2"/><rect class="s1" x="110.5" y="52" width="7.5" height="26" rx="2"/><line class="sl" x1="100" y1="52" x2="68" y2="172"/><line class="sl" x1="100" y1="52" x2="132" y2="172"/><line class="st" x1="93" y1="76" x2="107" y2="76"/><line class="st" x1="89.5" y1="100" x2="110.5" y2="100"/><line class="st" x1="85.5" y1="124" x2="114.5" y2="124"/><line class="st" x1="81.5" y1="148" x2="118.5" y2="148"/><path class="st" d="M93 76 L110.5 100 M107 76 L89.5 100"/><path class="st" d="M89.5 100 L114.5 124 M110.5 100 L85.5 124"/><path class="st" d="M85.5 124 L118.5 148 M114.5 124 L81.5 148"/><path class="st" d="M81.5 148 L132 172 M118.5 148 L68 172"/><line class="sl" x1="60" y1="178" x2="140" y2="178"/><line class="st" x1="68" y1="172" x2="61" y2="178"/><line class="st" x1="132" y1="172" x2="139" y2="178"/><line class="st" x1="81.5" y1="172" x2="88" y2="178"/><line class="st" x1="118.5" y1="172" x2="112" y2="178"/></g>
+      </svg>
+      <div class="lg-label">Símbolo · favicon / avatar</div>
+    </div>
+
+    <div class="lg-cell sym on-dark">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="símbolo isolado escuro">
+        <defs><style>.d1{fill:#eaf1f8}.dl{stroke:#eaf1f8;stroke-width:3.6;fill:none;stroke-linecap:round;stroke-linejoin:round}.dt{stroke:#cdd9e8;stroke-width:2.1;fill:none;stroke-linecap:round}.do2{stroke:#f47b20;stroke-width:5;fill:none;stroke-linecap:round}</style></defs>
+        <g><path class="do2" d="M66 56 a32 32 0 0 0 0 50" opacity=".95"/><path class="do2" d="M52 44 a48 48 0 0 0 0 74" opacity=".66"/><path class="do2" d="M38 32 a64 64 0 0 0 0 98" opacity=".4"/><path class="do2" d="M134 56 a32 32 0 0 1 0 50" opacity=".95"/><path class="do2" d="M148 44 a48 48 0 0 1 0 74" opacity=".66"/><path class="do2" d="M162 32 a64 64 0 0 1 0 98" opacity=".4"/></g>
+        <g><line class="dl" x1="100" y1="24" x2="100" y2="52"/><circle fill="#f47b20" cx="100" cy="21" r="5.5"/><rect class="d1" x="82" y="52" width="7.5" height="26" rx="2"/><rect class="d1" x="110.5" y="52" width="7.5" height="26" rx="2"/><line class="dl" x1="100" y1="52" x2="68" y2="172"/><line class="dl" x1="100" y1="52" x2="132" y2="172"/><line class="dt" x1="93" y1="76" x2="107" y2="76"/><line class="dt" x1="89.5" y1="100" x2="110.5" y2="100"/><line class="dt" x1="85.5" y1="124" x2="114.5" y2="124"/><line class="dt" x1="81.5" y1="148" x2="118.5" y2="148"/><path class="dt" d="M93 76 L110.5 100 M107 76 L89.5 100"/><path class="dt" d="M89.5 100 L114.5 124 M110.5 100 L85.5 124"/><path class="dt" d="M85.5 124 L118.5 148 M114.5 124 L81.5 148"/><path class="dt" d="M81.5 148 L132 172 M118.5 148 L68 172"/><line class="dl" x1="60" y1="178" x2="140" y2="178"/><line class="dt" x1="68" y1="172" x2="61" y2="178"/><line class="dt" x1="132" y1="172" x2="139" y2="178"/><line class="dt" x1="81.5" y1="172" x2="88" y2="178"/><line class="dt" x1="118.5" y1="172" x2="112" y2="178"/></g>
+      </svg>
+      <div class="lg-label">Símbolo invertido · app icon escuro</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · PALETA -->
+<section>
+  <div class="tag"><span class="num">02</span>Paleta de cores</div>
+  <h2>As cores da marca</h2>
+  <p class="intro">Azul é a base institucional (confiança e técnica = <strong>Sábio</strong>). Laranja é a energia (sinal e mobilização = <strong>Herói</strong>). Os neutros sustentam textos e fundos.</p>
+  <div class="palette">
+    <div class="swatch"><div class="chip" style="background:#1a2d6e"><span class="pct">~70% de uso</span></div><div class="meta"><div class="nm">Azul Marinho Técnico</div><div class="role">Primária · torre, RSA, texto</div><span class="hex">#1a2d6e</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#f47b20"><span class="pct">~20% de uso</span></div><div class="meta"><div class="nm">Laranja Sinal</div><div class="role">Acento · ondas, destaque</div><span class="hex">#f47b20</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#38d6c8"><span class="pct" style="color:#0a1c2e">~5% · opcional</span></div><div class="meta"><div class="nm">Ciano Enlace</div><div class="role">Apoio · gradientes, web</div><span class="hex">#38d6c8</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#0a1c2e"><span class="pct">fundo dark</span></div><div class="meta"><div class="nm">Azul Profundo</div><div class="role">Fundo escuro da marca</div><span class="hex">#0a1c2e</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#92a8bf"><span class="pct">secundário</span></div><div class="meta"><div class="nm">Cinza Azulado</div><div class="role">Taglines, texto de apoio</div><span class="hex">#92a8bf</span></div></div>
+    <div class="swatch"><div class="chip" style="background:#faf9f5;border-bottom:1px solid #e2ddd0"><span class="pct" style="color:#92a8bf">fundo claro</span></div><div class="meta"><div class="nm">Off-White</div><div class="role">Fundo claro, texto sobre escuro</div><span class="hex">#faf9f5</span></div></div>
+  </div>
+</section>
+
+<!-- 3 · TIPOGRAFIA -->
+<section>
+  <div class="tag"><span class="num">03</span>Tipografia</div>
+  <h2>As fontes da marca</h2>
+  <p class="intro">Uma família geométrica para a marca e títulos; uma humanista para textos longos; uma monoespaçada para dados e detalhes técnicos. Todas gratuitas (Google Fonts).</p>
+
+  <div class="type-row">
+    <div class="face">Space Grotesk · 600/700</div>
+    <div class="role">Display & Logotipo — sólida, técnica, confiável. Usada em "RSA INFRALINK", títulos e destaques.</div>
+    <div class="type-display">RSA Infralink · ABCDEFG · 0123</div>
+    <div class="type-scale"><span>Logo 64px/700</span><span>H1 40px/700</span><span>H2 26px/700</span><span>Subtítulo 25px/600</span></div>
+  </div>
+
+  <div class="type-row">
+    <div class="face">Manrope · 400/600</div>
+    <div class="role">Corpo de texto — legível e moderna. Usada em parágrafos, propostas, site e materiais.</div>
+    <div class="type-body">O parceiro de campo que chega onde os grandes não chegam, e documenta tudo. Vistorias, manutenções e instalações em torres móveis e centrais fixas no Sul do Brasil.</div>
+    <div class="type-scale"><span>Body 16–17px/400</span><span>Destaque 16px/600</span><span>Legenda 13px/500</span></div>
+  </div>
+
+  <div class="type-row">
+    <div class="face">JetBrains Mono · 400/600</div>
+    <div class="role">Utilitária / dados — taglines espaçadas, etiquetas técnicas, números.</div>
+    <div class="type-mono">RS · SC · PR — SLA · 24H — TELECOMUNICAÇÕES</div>
+  </div>
+</section>
+
+<!-- 4 · PERSONALIDADE -->
+<section>
+  <div class="tag"><span class="num">04</span>Personalidade & Voz</div>
+  <h2>Como a marca se comporta</h2>
+  <div class="two">
+    <div class="card">
+      <h3><span class="ic">🛡️</span>Arquétipo: Herói + Sábio</h3>
+      <p>Confiável, resolve, mobiliza 24h, com competência técnica comprovada. O Herói que resolve — não a Celebridade que aparece.</p>
+      <div style="margin-top:12px">
+        <span class="pill">Confiável</span><span class="pill">Técnico</span><span class="pill or">Ágil</span><span class="pill or">Resolutivo</span><span class="pill">Regional</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3><span class="ic">🗣️</span>Tom de voz</h3>
+      <p>Técnico, direto, sem exagero. Fala como um especialista de campo do Sul — não como uma agência corporativa. Honesto sobre o porte, confiante na execução.</p>
+      <div style="margin-top:12px">
+        <span class="pill">Direto</span><span class="pill">Sem floreio</span><span class="pill">Próximo</span><span class="pill or">Confiante</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · USO -->
+<section>
+  <div class="tag"><span class="num">05</span>Regras de uso</div>
+  <h2>O que fazer e o que evitar</h2>
+  <div class="dd">
+    <div class="box yes">
+      <h4>✓ Faça</h4>
+      <ul>
+        <li>Mantenha "RSA" sempre legível e proeminente</li>
+        <li>Use a versão certa para cada fundo (clara/escura/mono)</li>
+        <li>Respeite a área de proteção ao redor da logo</li>
+        <li>Use azul como base e laranja como acento pontual</li>
+        <li>Prefira o símbolo isolado em espaços pequenos (favicon, avatar)</li>
+      </ul>
+    </div>
+    <div class="box no">
+      <h4>✕ Nunca</h4>
+      <ul>
+        <li>Usar a palavra "Engenharia" (risco CREA · superpromessa)</li>
+        <li>Prometer porte nacional/global (mapa do Brasil, múltiplas torres)</li>
+        <li>Distorcer, inclinar ou recolorir fora da paleta</li>
+        <li>Colocar a versão azul sobre fundo escuro (some)</li>
+        <li>Sobrecarregar de laranja — ele é acento, não base</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · CONSTRUÇÃO -->
+<section>
+  <div class="tag"><span class="num">06</span>Área de proteção & tamanho mínimo</div>
+  <h2>Construção técnica</h2>
+  <div class="specs">
+    <div class="spec">
+      <h4>Área de proteção</h4>
+      <p>Mantenha ao redor da logo um espaço livre igual à altura da letra "R". Nada invade essa margem.</p>
+      <div class="clearbox">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="área de proteção">
+          <defs><style>.p1{fill:#1a2d6e}.pl{stroke:#1a2d6e;stroke-width:3.6;fill:none;stroke-linecap:round;stroke-linejoin:round}.pt{stroke:#1a2d6e;stroke-width:2.1;fill:none;stroke-linecap:round}.po{stroke:#f47b20;stroke-width:5;fill:none;stroke-linecap:round}</style></defs>
+          <g><path class="po" d="M66 56 a32 32 0 0 0 0 50" opacity=".95"/><path class="po" d="M52 44 a48 48 0 0 0 0 74" opacity=".66"/><path class="po" d="M134 56 a32 32 0 0 1 0 50" opacity=".95"/><path class="po" d="M148 44 a48 48 0 0 1 0 74" opacity=".66"/></g>
+          <g><line class="pl" x1="100" y1="24" x2="100" y2="52"/><circle class="p1" cx="100" cy="21" r="5.5"/><rect class="p1" x="82" y="52" width="7.5" height="26" rx="2"/><rect class="p1" x="110.5" y="52" width="7.5" height="26" rx="2"/><line class="pl" x1="100" y1="52" x2="68" y2="172"/><line class="pl" x1="100" y1="52" x2="132" y2="172"/><line class="pt" x1="89.5" y1="100" x2="110.5" y2="100"/><line class="pt" x1="85.5" y1="124" x2="114.5" y2="124"/><line class="pt" x1="81.5" y1="148" x2="118.5" y2="148"/><path class="pt" d="M89.5 100 L114.5 124 M110.5 100 L85.5 124"/><path class="pt" d="M85.5 124 L118.5 148 M114.5 124 L81.5 148"/><path class="pt" d="M81.5 148 L132 172 M118.5 148 L68 172"/><line class="pl" x1="60" y1="178" x2="140" y2="178"/></g>
+        </svg>
+      </div>
+    </div>
+    <div class="spec">
+      <h4>Tamanho mínimo</h4>
+      <p>O símbolo permanece legível a partir de <strong>24px</strong>. A logo horizontal completa não deve ser usada abaixo de <strong>120px</strong> de largura.</p>
+      <div class="sizes">
+        <div class="s">
+          <svg width="24" height="24" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><style>.x1{fill:#1a2d6e}.xl{stroke:#1a2d6e;stroke-width:6;fill:none;stroke-linecap:round}.xo{stroke:#f47b20;stroke-width:8;fill:none;stroke-linecap:round}</style></defs><g><path class="xo" d="M66 56 a32 32 0 0 0 0 50"/><path class="xo" d="M134 56 a32 32 0 0 1 0 50"/></g><g><circle class="x1" cx="100" cy="24" r="8"/><line class="xl" x1="100" y1="52" x2="68" y2="172"/><line class="xl" x1="100" y1="52" x2="132" y2="172"/><line class="xl" x1="85" y1="124" x2="115" y2="124"/><line class="xl" x1="60" y1="178" x2="140" y2="178"/></g></svg>
+          <span>24px</span>
+        </div>
+        <div class="s">
+          <svg width="48" height="48" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><style>.y1{fill:#1a2d6e}.yl{stroke:#1a2d6e;stroke-width:4;fill:none;stroke-linecap:round}.yt{stroke:#1a2d6e;stroke-width:2.4;fill:none;stroke-linecap:round}.yo{stroke:#f47b20;stroke-width:6;fill:none;stroke-linecap:round}</style></defs><g><path class="yo" d="M66 56 a32 32 0 0 0 0 50"/><path class="yo" d="M52 44 a48 48 0 0 0 0 74" opacity=".6"/><path class="yo" d="M134 56 a32 32 0 0 1 0 50"/><path class="yo" d="M148 44 a48 48 0 0 1 0 74" opacity=".6"/></g><g><circle class="y1" cx="100" cy="22" r="6"/><line class="yl" x1="100" y1="50" x2="68" y2="172"/><line class="yl" x1="100" y1="50" x2="132" y2="172"/><line class="yt" x1="89.5" y1="100" x2="110.5" y2="100"/><line class="yt" x1="85.5" y1="124" x2="114.5" y2="124"/><path class="yt" d="M89.5 100 L114.5 124 M110.5 100 L85.5 124"/><line class="yl" x1="60" y1="178" x2="140" y2="178"/></g></svg>
+          <span>48px</span>
+        </div>
+        <div class="s">
+          <svg width="80" height="80" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><style>.z1{fill:#1a2d6e}.zl{stroke:#1a2d6e;stroke-width:3.6;fill:none;stroke-linecap:round}.zt{stroke:#1a2d6e;stroke-width:2.1;fill:none;stroke-linecap:round}.zo{stroke:#f47b20;stroke-width:5;fill:none;stroke-linecap:round}</style></defs><g><path class="zo" d="M66 56 a32 32 0 0 0 0 50" opacity=".95"/><path class="zo" d="M52 44 a48 48 0 0 0 0 74" opacity=".66"/><path class="zo" d="M134 56 a32 32 0 0 1 0 50" opacity=".95"/><path class="zo" d="M148 44 a48 48 0 0 1 0 74" opacity=".66"/></g><g><circle class="z1" cx="100" cy="21" r="5.5"/><rect class="z1" x="82" y="52" width="7.5" height="26" rx="2"/><rect class="z1" x="110.5" y="52" width="7.5" height="26" rx="2"/><line class="zl" x1="100" y1="52" x2="68" y2="172"/><line class="zl" x1="100" y1="52" x2="132" y2="172"/><line class="zt" x1="89.5" y1="100" x2="110.5" y2="100"/><line class="zt" x1="85.5" y1="124" x2="114.5" y2="124"/><line class="zt" x1="81.5" y1="148" x2="118.5" y2="148"/><path class="zt" d="M89.5 100 L114.5 124 M110.5 100 L85.5 124"/><path class="zt" d="M85.5 124 L118.5 148 M114.5 124 L81.5 148"/><line class="zl" x1="60" y1="178" x2="140" y2="178"/></g></svg>
+          <span>80px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · APLICAÇÕES -->
+<section>
+  <div class="tag"><span class="num">07</span>Aplicações</div>
+  <h2>A marca no mundo real</h2>
+  <p class="intro">Como a identidade aparece nos pontos de contato prioritários do plano de marketing (Fase 4): WhatsApp Business, favicon do site, documentos e materiais.</p>
+  <div class="apps">
+    <div class="app">
+      <div class="canvas wa">
+        <div class="circle">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><style>.w1{fill:#1a2d6e}.wl{stroke:#1a2d6e;stroke-width:3.6;fill:none;stroke-linecap:round}.wt{stroke:#1a2d6e;stroke-width:2.1;fill:none;stroke-linecap:round}.wo{stroke:#f47b20;stroke-width:5;fill:none;stroke-linecap:round}</style></defs><g><path class="wo" d="M66 56 a32 32 0 0 0 0 50" opacity=".95"/><path class="wo" d="M52 44 a48 48 0 0 0 0 74" opacity=".66"/><path class="wo" d="M134 56 a32 32 0 0 1 0 50" opacity=".95"/><path class="wo" d="M148 44 a48 48 0 0 1 0 74" opacity=".66"/></g><g><circle class="w1" cx="100" cy="21" r="5.5"/><rect class="w1" x="82" y="52" width="7.5" height="26" rx="2"/><rect class="w1" x="110.5" y="52" width="7.5" height="26" rx="2"/><line class="wl" x1="100" y1="52" x2="68" y2="172"/><line class="wl" x1="100" y1="52" x2="132" y2="172"/><line class="wt" x1="89.5" y1="100" x2="110.5" y2="100"/><line class="wt" x1="85.5" y1="124" x2="114.5" y2="124"/><line class="wt" x1="81.5" y1="148" x2="118.5" y2="148"/><path class="wt" d="M89.5 100 L114.5 124 M110.5 100 L85.5 124"/><path class="wt" d="M85.5 124 L118.5 148 M114.5 124 L81.5 148"/><line class="wl" x1="60" y1="178" x2="140" y2="178"/></g></svg>
+        </div>
+      </div>
+      <div class="label"><b>WhatsApp Business</b>Foto de perfil — símbolo isolado</div>
+    </div>
+
+    <div class="app">
+      <div class="canvas fav">
+        <div class="browser">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><style>.f1{fill:#1a2d6e}.fl{stroke:#1a2d6e;stroke-width:6;fill:none;stroke-linecap:round}.fo{stroke:#f47b20;stroke-width:9;fill:none;stroke-linecap:round}</style></defs><g><path class="fo" d="M66 56 a32 32 0 0 0 0 50"/><path class="fo" d="M134 56 a32 32 0 0 1 0 50"/></g><g><circle class="f1" cx="100" cy="26" r="9"/><line class="fl" x1="100" y1="54" x2="68" y2="172"/><line class="fl" x1="100" y1="54" x2="132" y2="172"/><line class="fl" x1="85" y1="124" x2="115" y2="124"/><line class="fl" x1="60" y1="178" x2="140" y2="178"/></g></svg>
+          <span class="url">rsainfralink.com.br</span>
+        </div>
+      </div>
+      <div class="label"><b>Favicon do site</b>Aba do navegador — 24px</div>
+    </div>
+
+    <div class="app">
+      <div class="canvas doc">
+        <div class="paper">
+          <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg"><defs><style>.dn{fill:#1a2d6e}.dor3{fill:#f47b20}.dnl{stroke:#1a2d6e;stroke-width:3;fill:none;stroke-linecap:round}.dnt{stroke:#1a2d6e;stroke-width:1.7;fill:none;stroke-linecap:round}.dol{stroke:#f47b20;stroke-width:4.2;fill:none;stroke-linecap:round}.dwR{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;letter-spacing:-1px}.dwI{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:25.5px;letter-spacing:6.5px;fill:#1a2d6e}</style></defs><g><path class="dol" d="M71 46 a28 28 0 0 0 0 42" opacity=".95"/><path class="dol" d="M59 36 a42 42 0 0 0 0 62" opacity=".68"/><path class="dol" d="M139 46 a28 28 0 0 1 0 42" opacity=".95"/><path class="dol" d="M151 36 a42 42 0 0 1 0 62" opacity=".68"/></g><g><circle class="dn" cx="105" cy="18" r="5"/><line class="dnl" x1="105" y1="20" x2="105" y2="48"/><rect class="dn" x="89" y="48" width="6.5" height="24" rx="1.5"/><rect class="dn" x="114.5" y="48" width="6.5" height="24" rx="1.5"/><line class="dnl" x1="105" y1="48" x2="75" y2="174"/><line class="dnl" x1="105" y1="48" x2="135" y2="174"/><line class="dnt" x1="93.3" y1="112" x2="116.7" y2="112"/><line class="dnt" x1="86" y1="154" x2="124" y2="154"/><path class="dnt" d="M93.3 112 L120.2 133 M116.7 112 L89.8 133"/><path class="dnt" d="M86 154 L135 174 M124 154 L75 174"/><line class="dnl" x1="66" y1="180" x2="144" y2="180"/></g><g><text x="214" y="109" class="dwR"><tspan class="dn">RS</tspan><tspan class="dor3">A</tspan></text><text x="216" y="141" class="dwI">INFRALINK</text></g></svg>
+          <div class="lines"><i></i><i></i><i></i></div>
+        </div>
+      </div>
+      <div class="label"><b>Dossiê / proposta</b>Cabeçalho de documento</div>
+    </div>
+
+    <div class="app">
+      <div class="canvas shirt">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><style>.t1{fill:#eaf1f8}.tl{stroke:#eaf1f8;stroke-width:3.6;fill:none;stroke-linecap:round}.tt{stroke:#cdd9e8;stroke-width:2.1;fill:none;stroke-linecap:round}.to{stroke:#f47b20;stroke-width:5;fill:none;stroke-linecap:round}</style></defs><g><path class="to" d="M66 56 a32 32 0 0 0 0 50" opacity=".95"/><path class="to" d="M52 44 a48 48 0 0 0 0 74" opacity=".66"/><path class="to" d="M134 56 a32 32 0 0 1 0 50" opacity=".95"/><path class="to" d="M148 44 a48 48 0 0 1 0 74" opacity=".66"/></g><g><circle fill="#f47b20" cx="100" cy="21" r="5.5"/><rect class="t1" x="82" y="52" width="7.5" height="26" rx="2"/><rect class="t1" x="110.5" y="52" width="7.5" height="26" rx="2"/><line class="tl" x1="100" y1="52" x2="68" y2="172"/><line class="tl" x1="100" y1="52" x2="132" y2="172"/><line class="tt" x1="89.5" y1="100" x2="110.5" y2="100"/><line class="tt" x1="85.5" y1="124" x2="114.5" y2="124"/><line class="tt" x1="81.5" y1="148" x2="118.5" y2="148"/><path class="tt" d="M89.5 100 L114.5 124 M110.5 100 L85.5 124"/><path class="tt" d="M85.5 124 L118.5 148 M114.5 124 L81.5 148"/><line class="tl" x1="60" y1="178" x2="140" y2="178"/></g></svg>
+      </div>
+      <div class="label"><b>Uniforme / EPI</b>Bordado no peito — versão clara</div>
+    </div>
+
+    <div class="app">
+      <div class="canvas bizcard">
+        <div class="bc">
+          <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg"><defs><style>.cn{fill:#1a2d6e}.cor{fill:#f47b20}.cnl{stroke:#1a2d6e;stroke-width:3;fill:none;stroke-linecap:round}.cnt{stroke:#1a2d6e;stroke-width:1.7;fill:none;stroke-linecap:round}.col{stroke:#f47b20;stroke-width:4.2;fill:none;stroke-linecap:round}.cwR{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;letter-spacing:-1px}.cwI{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:25.5px;letter-spacing:6.5px;fill:#1a2d6e}</style></defs><g><path class="col" d="M71 46 a28 28 0 0 0 0 42" opacity=".95"/><path class="col" d="M139 46 a28 28 0 0 1 0 42" opacity=".95"/><path class="col" d="M59 36 a42 42 0 0 0 0 62" opacity=".68"/><path class="col" d="M151 36 a42 42 0 0 1 0 62" opacity=".68"/></g><g><circle class="cn" cx="105" cy="18" r="5"/><line class="cnl" x1="105" y1="20" x2="105" y2="48"/><rect class="cn" x="89" y="48" width="6.5" height="24" rx="1.5"/><rect class="cn" x="114.5" y="48" width="6.5" height="24" rx="1.5"/><line class="cnl" x1="105" y1="48" x2="75" y2="174"/><line class="cnl" x1="105" y1="48" x2="135" y2="174"/><line class="cnt" x1="93.3" y1="112" x2="116.7" y2="112"/><line class="cnt" x1="86" y1="154" x2="124" y2="154"/><path class="cnt" d="M93.3 112 L120.2 133 M116.7 112 L89.8 133"/><path class="cnt" d="M86 154 L135 174 M124 154 L75 174"/><line class="cnl" x1="66" y1="180" x2="144" y2="180"/></g><g><text x="214" y="109" class="cwR"><tspan class="cn">RS</tspan><tspan class="cor">A</tspan></text><text x="216" y="141" class="cwI">INFRALINK</text></g></svg>
+          <div class="info"><b>Rafael Silveira de Almeida</b>Serviços de campo · telecom<br>RS · SC · PR · WhatsApp</div>
+        </div>
+      </div>
+      <div class="label"><b>Cartão de visita</b>Versão completa colorida</div>
+    </div>
+
+    <div class="app">
+      <div class="canvas" style="background:var(--paper2);flex-direction:column;gap:8px">
+        <div style="font-family:var(--d-display);font-weight:700;font-size:22px;color:var(--nv)">"O parceiro de campo que<br>documenta tudo."</div>
+        <div style="font-family:var(--d-mono);font-size:10px;color:var(--orange);letter-spacing:.1em">TAGLINE / POSICIONAMENTO</div>
+      </div>
+      <div class="label"><b>Assinatura verbal</b>Mensagem central da marca</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>RSA Infralink</b> · Brand Board v1.0 · Território "Torre de Precisão"<br>
+  Conselho Consultivo Estratégico · i9StyleMkt · 14/06/2026 · marca de trabalho provisória (decisão final do Rafael)
+</footer>
+
+</main>
+</body>
+</html>

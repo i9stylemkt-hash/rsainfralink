@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" role="img" aria-labelledby="title desc">
+  <title id="title">RSA Infralink — Sinal em Movimento (colorida com gradiente)</title>
+  <desc id="desc">Torre estilizada com gradiente vertical azul #1a2d6e na base para laranja #f47b20 no topo (jornada do problema à solução), três arcos de sinal, e lettermark RSA INFRALINK centralizado. Fonte recomendada: Space Grotesk (700/800).</desc>
+  <defs>
+    <linearGradient id="gTower" gradientUnits="userSpaceOnUse" x1="200" y1="300" x2="200" y2="88">
+      <stop offset="0" stop-color="#16265f"/><stop offset="0.45" stop-color="#1a2d6e"/><stop offset="1" stop-color="#f47b20"/>
+    </linearGradient>
+    <linearGradient id="gText" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f47b20"/><stop offset="0.6" stop-color="#1a2d6e"/><stop offset="1" stop-color="#16265f"/>
+    </linearGradient>
+  </defs>
+  <g id="simbolo" transform="translate(10,0)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g id="torre" stroke="url(#gTower)">
+      <path d="M178 300L196 132 M222 300L204 132" stroke-width="10"/>
+      <path d="M184 272L216 272 M190 222L210 222 M195 175L205 175" stroke-width="7"/>
+      <path d="M200 132L200 92" stroke-width="8"/>
+      <path d="M189 130L183 96 M211 130L217 96" stroke-width="7"/>
+      <circle cx="200" cy="88" r="5" fill="url(#gTower)" stroke="none"/>
+    </g>
+    <g id="sinais" stroke="url(#gTower)" stroke-width="6">
+      <path d="M168 150Q150 205 168 260"/>
+      <path d="M160 134Q138 205 160 276"/>
+      <path d="M152 118Q126 205 152 292"/>
+    </g>
+  </g>
+  <g id="lettermark" font-family="'Space Grotesk','Montserrat','Segoe UI',Arial,sans-serif" text-anchor="middle">
+    <text x="200" y="388" font-size="80" font-weight="800" fill="url(#gText)" letter-spacing="1">RSA</text>
+    <text x="200" y="424" font-size="32" font-weight="700" fill="#1a2d6e" letter-spacing="7">INFRALINK</text>
+  </g>
+  <g id="tagline" font-family="'Space Grotesk','Montserrat','Segoe UI',Arial,sans-serif" text-anchor="middle">
+    <text x="200" y="452" font-size="14" font-weight="600" fill="#92a8bf" letter-spacing="7">TELECOMUNICAÇÕES</text>
+  </g>
+</svg>

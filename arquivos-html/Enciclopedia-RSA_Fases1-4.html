@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enciclopédia do Negócio · RSA Infralink — Fases 1–4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0a1c2e; --bg2:#0f2740; --bg3:#15314d; --bg4:#1b3c5c;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.16);
+  --ink:#eaf1f8; --muted:#92a8bf; --faint:#637a92;
+  --orange:#f47b20; --orange-soft:#ffb877;
+  --cyan:#38d6c8; --green:#34d399; --amber:#fbbf24; --red:#f87171;
+  --d-display:'Space Grotesk',system-ui,sans-serif;
+  --d-body:'Manrope',system-ui,sans-serif;
+  --d-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(56,214,200,.06), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(244,123,32,.07), transparent 55%),
+    var(--bg);
+  color:var(--ink); font-family:var(--d-body); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.network-bg{position:fixed; inset:0; z-index:0; opacity:.5; pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.10) 1px, transparent 1.4px);
+  background-size:34px 34px; mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 75%);}
+.wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 22px}
+
+/* ---------- Top bar + phase nav ---------- */
+.topbar{position:sticky; top:0; z-index:30; backdrop-filter:blur(10px);
+  background:rgba(10,28,46,.82); border-bottom:1px solid var(--line)}
+.topbar .row{display:flex; align-items:center; gap:16px; padding:12px 0}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--d-display); font-weight:700; letter-spacing:.02em}
+.brand .mark{font-size:20px}
+.brand .mark b{color:var(--orange)}
+.brand small{display:block; font-family:var(--d-body); font-weight:500; font-size:10.5px; color:var(--muted); letter-spacing:.16em; text-transform:uppercase}
+.phases{margin-left:auto; display:flex; gap:6px; overflow-x:auto; max-width:62%; padding-bottom:2px}
+.phases::-webkit-scrollbar{height:0}
+.pchip{flex:0 0 auto; font-family:var(--d-mono); font-size:12px; color:var(--muted);
+  border:1px solid var(--line); border-radius:8px; padding:6px 10px; cursor:pointer; background:transparent;
+  transition:.18s; white-space:nowrap}
+.pchip:hover{border-color:var(--line2); color:var(--ink)}
+.pchip.active{background:var(--orange); color:#10212f; border-color:var(--orange); font-weight:600}
+.pchip.locked{opacity:.5; cursor:not-allowed}
+.pchip.locked::after{content:" ◌"}
+
+/* ---------- Hero ---------- */
+.hero{padding:54px 0 30px; display:grid; grid-template-columns:1.25fr .9fr; gap:30px; align-items:center}
+.eyebrow{font-family:var(--d-mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--orange); font-weight:600}
+.hero h1{font-family:var(--d-display); font-weight:700; font-size:clamp(30px,5vw,48px); line-height:1.05; margin:12px 0 10px; letter-spacing:-.01em}
+.hero h1 .glow{color:var(--cyan)}
+.hero p.lead{color:var(--muted); font-size:16.5px; max-width:46ch; margin:0}
+.tower-wrap{display:flex; justify-content:center; align-items:center; min-height:220px}
+.tower{width:180px; height:200px}
+.arc{fill:none; stroke:var(--orange); stroke-width:9; stroke-linecap:round; opacity:0; transform-origin:97px 60px}
+.signal .arc{animation:ping 3.2s ease-out infinite}
+.signal .a2{animation-delay:.5s} .signal .a3{animation-delay:1s}
+@keyframes ping{0%{opacity:0; transform:scale(.55)}18%{opacity:.95}70%{opacity:0; transform:scale(1.15)}100%{opacity:0}}
+.tower .struct{stroke:var(--cyan); stroke-width:5; fill:none; stroke-linecap:round; opacity:.92}
+.tower .node{fill:var(--orange)}
+
+/* ---------- Stat strip ---------- */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:26px 0 8px}
+.stat{background:linear-gradient(180deg,var(--bg2),var(--bg)); border:1px solid var(--line); border-radius:14px; padding:16px 16px 14px}
+.stat .n{font-family:var(--d-display); font-weight:700; font-size:30px; line-height:1; color:var(--ink)}
+.stat .n .u{color:var(--orange); font-size:18px}
+.stat .l{font-size:12.5px; color:var(--muted); margin-top:7px; letter-spacing:.02em}
+
+/* ---------- Sections ---------- */
+section{padding:40px 0; border-top:1px solid var(--line)}
+.sec-tag{font-family:var(--d-mono); font-size:12px; color:var(--cyan); letter-spacing:.16em; text-transform:uppercase}
+.sec-title{font-family:var(--d-display); font-weight:700; font-size:clamp(22px,3.4vw,30px); margin:8px 0 6px; letter-spacing:-.01em}
+.sec-intro{color:var(--muted); max-width:64ch; margin:0 0 22px}
+
+/* diagnóstico cards */
+.dgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+.dcard{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+.dcard h4{margin:0 0 6px; font-family:var(--d-display); font-size:15.5px; color:var(--orange-soft)}
+.dcard p{margin:0; font-size:14px; color:var(--muted)}
+
+/* teses */
+.tese{display:grid; grid-template-columns:160px 1fr; gap:16px; padding:16px 0; border-bottom:1px dashed var(--line)}
+.tese:last-child{border-bottom:0}
+.tese .who{font-family:var(--d-display); font-weight:600; font-size:15px}
+.tese .role{font-family:var(--d-mono); font-size:11px; color:var(--cyan); text-transform:uppercase; letter-spacing:.1em; margin-top:3px}
+.tese .body{color:var(--muted); font-size:14.5px}
+
+/* debate */
+details.voice{background:var(--bg2); border:1px solid var(--line); border-radius:12px; margin-bottom:10px; overflow:hidden}
+details.voice summary{cursor:pointer; padding:13px 16px; font-family:var(--d-display); font-weight:600; font-size:15px; list-style:none; display:flex; align-items:center; gap:10px}
+details.voice summary::-webkit-details-marker{display:none}
+details.voice summary .tag{font-family:var(--d-mono); font-size:10.5px; color:var(--cyan); border:1px solid var(--line2); border-radius:6px; padding:2px 7px; text-transform:uppercase; letter-spacing:.08em}
+details.voice summary .chev{margin-left:auto; color:var(--faint); transition:.2s}
+details.voice[open] summary .chev{transform:rotate(90deg); color:var(--orange)}
+details.voice .vbody{padding:0 16px 15px; color:var(--muted); font-size:14.5px}
+.converge{margin-top:16px; background:linear-gradient(180deg,rgba(56,214,200,.08),transparent); border:1px solid var(--line); border-left:4px solid var(--cyan); border-radius:12px; padding:14px 18px}
+.converge b{color:var(--cyan)}
+
+/* dashboard */
+.dash{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:22px}
+.panel{background:var(--bg2); border:1px solid var(--line); border-radius:16px; padding:16px 18px}
+.panel h4{margin:0 0 12px; font-family:var(--d-display); font-size:14.5px; color:var(--ink); display:flex; align-items:center; gap:8px}
+.panel h4 .dot{width:8px; height:8px; border-radius:50%; background:var(--orange)}
+.chartbox{position:relative; height:230px}
+
+/* legend + filter */
+.legend{display:flex; flex-wrap:wrap; gap:14px; margin:6px 0 14px; font-size:12.5px; color:var(--muted)}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.legend i{width:11px; height:11px; border-radius:3px; display:inline-block}
+.filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px}
+.fbtn{font-family:var(--d-mono); font-size:12.5px; color:var(--muted); background:transparent; border:1px solid var(--line); border-radius:8px; padding:7px 12px; cursor:pointer; transition:.16s}
+.fbtn:hover{border-color:var(--line2); color:var(--ink)}
+.fbtn.on{background:var(--bg4); color:var(--ink); border-color:var(--orange)}
+
+/* table */
+.tablewrap{border:1px solid var(--line); border-radius:14px; overflow:hidden}
+table{width:100%; border-collapse:collapse; font-size:13.5px}
+thead th{background:var(--bg3); color:var(--ink); text-align:left; padding:11px 12px; font-family:var(--d-mono); font-size:11px; text-transform:uppercase; letter-spacing:.06em; cursor:pointer; user-select:none}
+thead th .ar{color:var(--faint); font-size:10px}
+tbody td{padding:10px 12px; border-top:1px solid var(--line); vertical-align:middle; color:var(--muted)}
+tbody tr:hover{background:rgba(255,255,255,.03)}
+.nm{color:var(--ink); font-weight:600; font-family:var(--d-display)}
+.bar{height:7px; width:74px; background:rgba(255,255,255,.08); border-radius:4px; overflow:hidden; display:inline-block; vertical-align:middle; margin-right:8px}
+.bar > i{display:block; height:7px; background:linear-gradient(90deg,var(--cyan),var(--orange))}
+.score{font-family:var(--d-mono); font-weight:600; color:var(--ink)}
+.badge{font-family:var(--d-mono); font-size:11px; font-weight:600; padding:2px 8px; border-radius:20px; border:1px solid; white-space:nowrap}
+.b-livre{color:var(--green); background:rgba(52,211,153,.12); border-color:rgba(52,211,153,.4)}
+.b-ocup{color:var(--red); background:rgba(248,113,113,.12); border-color:rgba(248,113,113,.4)}
+.b-nao{color:var(--amber); background:rgba(251,191,36,.12); border-color:rgba(251,191,36,.4)}
+.b-nv{color:var(--faint); background:rgba(255,255,255,.05); border-color:var(--line2)}
+
+/* decisão */
+.opts{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-top:8px}
+.opt{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:16px; position:relative}
+.opt .k{font-family:var(--d-display); font-weight:700; color:var(--cyan); font-size:13px; letter-spacing:.08em}
+.opt h5{margin:6px 0 4px; font-family:var(--d-display); font-size:17px}
+.opt p{margin:0; font-size:13px; color:var(--muted)}
+.opt.reco{border-color:var(--orange); box-shadow:0 0 0 1px var(--orange), 0 10px 30px -12px rgba(244,123,32,.4)}
+.opt.reco .ribbon{position:absolute; top:-10px; right:14px; background:var(--orange); color:#10212f; font-family:var(--d-mono); font-size:10.5px; font-weight:600; padding:3px 9px; border-radius:6px; letter-spacing:.05em}
+
+.callout{background:linear-gradient(180deg,rgba(244,123,32,.10),transparent); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:12px; padding:14px 18px; margin-top:18px; font-size:14px; color:var(--ink)}
+.callout b{color:var(--orange-soft)}
+
+footer{padding:30px 0 50px; border-top:1px solid var(--line); color:var(--faint); font-size:12.5px; text-align:center}
+
+/* reveal */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
+.reveal.in{opacity:1; transform:none}
+
+/* ---------- Multi-fase page system ---------- */
+.phase-page{display:none}
+.phase-page.active-page{display:block}
+
+/* ---------- Fases 2/3/4 shared styles ---------- */
+.hero-f2{padding:48px 0 24px; display:grid; grid-template-columns:1fr .8fr; gap:28px; align-items:center}
+.hero-f2 h1{font-family:var(--d-display); font-weight:700; font-size:clamp(26px,4vw,40px); line-height:1.08; margin:10px 0 8px; letter-spacing:-.01em}
+.hero-f2 p.lead{color:var(--muted); font-size:15.5px; max-width:50ch; margin:0}
+.hero-mini h1{font-family:var(--d-display); font-weight:700; font-size:clamp(24px,3.6vw,36px); line-height:1.1; margin:10px 0 8px}
+
+/* kanban */
+.kanban{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:16px 0}
+.kol{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:14px 16px}
+.kol-head{font-family:var(--d-mono); font-size:11px; text-transform:uppercase; letter-spacing:.12em; margin-bottom:10px; display:flex; align-items:center; gap:7px}
+.kol-head .dot{width:9px;height:9px;border-radius:50%}
+.kitem{background:var(--bg3); border-radius:9px; padding:10px 11px; margin-bottom:8px; font-size:13px; color:var(--muted); border-left:3px solid}
+.kitem b{display:block; color:var(--ink); font-size:13.5px; margin-bottom:2px}
+
+/* timeline */
+.timeline{position:relative; padding-left:26px}
+.timeline::before{content:''; position:absolute; left:8px; top:0; bottom:0; width:2px; background:var(--line2)}
+.tl-item{position:relative; margin-bottom:20px}
+.tl-item::before{content:''; position:absolute; left:-22px; top:5px; width:11px; height:11px; border-radius:50%; background:var(--orange); box-shadow:0 0 0 3px rgba(244,123,32,.2)}
+.tl-item h4{margin:0 0 4px; font-family:var(--d-display); font-size:15px}
+.tl-item p{margin:0; font-size:13.5px; color:var(--muted)}
+
+/* mktg priority grid */
+.pgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin:14px 0}
+.pcard{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:16px 18px; display:flex; gap:14px; align-items:flex-start}
+.pcard .prio{font-size:22px; flex-shrink:0; margin-top:2px}
+.pcard .pcontent h4{margin:0 0 4px; font-family:var(--d-display); font-size:15px}
+.pcard .pcontent p{margin:0; font-size:13px; color:var(--muted)}
+.pcard .ptag{font-family:var(--d-mono); font-size:10px; text-transform:uppercase; letter-spacing:.1em; padding:2px 8px; border-radius:6px; border:1px solid; display:inline-block; margin-top:6px}
+.ptag-p0{color:var(--red); border-color:rgba(248,113,113,.4); background:rgba(248,113,113,.08)}
+.ptag-p1{color:var(--orange); border-color:rgba(244,123,32,.4); background:rgba(244,123,32,.08)}
+.ptag-p2{color:var(--amber); border-color:rgba(251,191,36,.4); background:rgba(251,191,36,.08)}
+.ptag-p3{color:var(--cyan); border-color:rgba(56,214,200,.4); background:rgba(56,214,200,.08)}
+.ptag-fut{color:var(--faint); border-color:var(--line2); background:rgba(255,255,255,.04)}
+
+/* checklist */
+.checklist{list-style:none; padding:0; margin:0}
+.checklist li{padding:8px 0 8px 28px; position:relative; font-size:14px; color:var(--muted); border-bottom:1px solid var(--line)}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{content:'○'; position:absolute; left:0; color:var(--faint); font-size:16px}
+.checklist li strong{color:var(--ink)}
+
+/* stack cards */
+.stack-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin:12px 0}
+.stack-card{background:var(--bg2); border:1px solid var(--line); border-radius:11px; padding:13px 14px}
+.stack-card .sn{font-family:var(--d-display); font-weight:600; font-size:14px; margin-bottom:3px}
+.stack-card .su{font-size:12.5px; color:var(--muted)}
+.stack-card .sc{font-family:var(--d-mono); font-size:11px; margin-top:6px; color:var(--green)}
+
+/* i9 highlight */
+.i9box{background:linear-gradient(135deg,rgba(56,214,200,.06),rgba(244,123,32,.06)); border:1px solid var(--line2); border-radius:14px; padding:18px 20px; margin:18px 0}
+.i9box .i9head{font-family:var(--d-display); font-weight:700; font-size:16px; color:var(--cyan); margin-bottom:8px}
+.i9box p{margin:0; font-size:14px; color:var(--muted)}
+.i9box p+p{margin-top:8px}
+
+@media(max-width:820px){
+  .hero-f2{grid-template-columns:1fr}
+  .kanban{grid-template-columns:1fr}
+  .pgrid{grid-template-columns:1fr}
+  .stack-grid{grid-template-columns:1fr}
+}
+
+/* toast */
+.toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--bg4); border:1px solid var(--line2); color:var(--ink); padding:11px 16px; border-radius:10px; font-size:13.5px; opacity:0; pointer-events:none; transition:.25s; z-index:50}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr} .tower-wrap{order:-1; min-height:160px}
+  .stats{grid-template-columns:repeat(2,1fr)} .dgrid{grid-template-columns:1fr}
+  .dash{grid-template-columns:1fr} .tese{grid-template-columns:1fr; gap:6px}
+  .phases{max-width:50%}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important; transition:none!important} html{scroll-behavior:auto}
+  .reveal{opacity:1; transform:none}
+}
+</style>
+</head>
+<body>
+<div class="network-bg"></div>
+
+<div class="topbar">
+  <div class="wrap row">
+    <div class="brand">
+      <span class="mark">R<b>S</b>A</span>
+      <span><small>Enciclopédia do Negócio</small></span>
+    </div>
+    <nav class="phases" id="phases" aria-label="Navegação por fases"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+<div class="phase-page active-page" id="page-1">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Fase 1 — Marca · Etapas 1–3</div>
+      <h1>O nome certo para uma operação que sobe em <span class="glow">torres</span>, não em prédios.</h1>
+      <p class="lead">Reposicionamento de marca de um prestador de serviços de campo para telecomunicações no Sul do Brasil. Da sigla pessoal RSA a uma marca que comunica o que ele realmente faz — sem prometer o que não tem.</p>
+    </div>
+    <div class="tower-wrap">
+      <svg class="tower signal" viewBox="0 0 200 210" aria-hidden="true">
+        <path class="arc a1" d="M120 60 a36 36 0 0 1 0 0" />
+        <path class="arc a1" d="M118 38 A52 52 0 0 1 118 82" />
+        <path class="arc a2" d="M128 26 A66 66 0 0 1 128 94" />
+        <path class="arc a3" d="M138 16 A80 80 0 0 1 138 104" />
+        <circle class="node" cx="97" cy="60" r="7"/>
+        <path class="struct" d="M97 67 L70 195 M97 67 L124 195 M78 120 L116 120 M86 90 L108 90 M74 160 L120 160"/>
+        <path class="struct" d="M62 196 L132 196"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats reveal">
+    <div class="stat"><div class="n" data-count="45">0</div><div class="l">nomes avaliados</div></div>
+    <div class="stat"><div class="n" data-count="15">0</div><div class="l">domínios verificados</div></div>
+    <div class="stat"><div class="n" data-count="10">0</div><div class="l">domínios <b style="color:var(--green)">livres</b></div></div>
+    <div class="stat"><div class="n" data-count="6">0</div><div class="l">critérios de avaliação</div></div>
+  </div>
+
+  <!-- DIAGNÓSTICO -->
+  <section id="diagnostico">
+    <div class="sec-tag reveal">Ponto de partida</div>
+    <h2 class="sec-title reveal">O diagnóstico que orientou a marca</h2>
+    <p class="sec-intro reveal">Quatro descobertas mudaram a estratégia de naming antes mesmo de pensar em nomes.</p>
+    <div class="dgrid">
+      <div class="dcard reveal"><h4>RSA é pessoal</h4><p>São as iniciais de Rafael Silveira de Almeida. Manter a sigla preserva equity de marca — não é teimosia, é ativo.</p></div>
+      <div class="dcard reveal"><h4>O domínio tem erro</h4><p>O atual foi registrado com grafia errada. Como ele teria que registrar outro de qualquer forma, trocar de nome custa quase nada.</p></div>
+      <div class="dcard reveal"><h4>"Engenharia" é proibido</h4><p>O site-rascunho promete engenheiros e métricas que ele não tem. Usar "Engenharia" sem engenheiro registrado é superpromessa com risco junto ao CREA.</p></div>
+      <div class="dcard reveal"><h4>Especialista, não gigante</h4><p>IlhaNet, EQS e AM Telecom são grandes e estruturados. A vantagem do Rafael é ser o parceiro ágil e regional — a marca deve vender isso.</p></div>
+    </div>
+  </section>
+
+  <!-- ETAPA 1 -->
+  <section id="etapa1">
+    <div class="sec-tag reveal">🟦 Etapa 1</div>
+    <h2 class="sec-title reveal">As teses do Conselho</h2>
+    <p class="sec-intro reveal">Cada especialista olhou o problema pela ótica do seu papel.</p>
+    <div class="reveal">
+      <div class="tese"><div><div class="who">Vision Chief</div><div class="role">Estratégia</div></div><div class="body">Manter RSA, mas garantir que a marca escale além do Rafael. O motor é telecom B2B recorrente; reforma é linha secundária. Ancorar em telecom/infra e nunca embutir "Engenharia".</div></div>
+      <div class="tese"><div><div class="who">Brand Chief + Naming</div><div class="role">Arquitetura de nome</div></div><div class="body">Três rotas: RSA + descritor, RSA backronym, ou nome novo. Recomenda a Rota 1. Filtros: pronunciável, sem erro, domínio livre, escalável, sem superpromessa.</div></div>
+      <div class="tese"><div><div class="who">CMO Architect</div><div class="role">Mercado &amp; SEO</div></div><div class="body">Os grandes dominam "Telecom/Engenharia" genéricos. A brecha é "serviço de campo ágil no Sul". Nomes com Redes/Infra/Field + execução impecável vencem.</div></div>
+      <div class="tese"><div><div class="who">Archetype Consultant</div><div class="role">Personalidade</div></div><div class="body">Arquétipo Herói + Sábio: confiável, resolve, mobiliza 24h, com competência técnica. Mata o serif de luxo e a engrenagem mecânica.</div></div>
+    </div>
+  </section>
+
+  <!-- ETAPA 2 -->
+  <section id="etapa2">
+    <div class="sec-tag reveal">🟧 Etapa 2</div>
+    <h2 class="sec-title reveal">O debate cruzado</h2>
+    <p class="sec-intro reveal">Cada voz estressou as opções — oportunidades e pontos cegos. Clique para expandir.</p>
+    <div class="reveal">
+      <details class="voice"><summary><span class="tag">Naming</span> "Infratec parece único, mas não é." <span class="chev">▸</span></summary><div class="vbody">Existem muitos "Infratec". Os realmente distintivos são Infracore e Infralink (infra + termo insider de telecom). Eliminou Infraplay (arquétipo de jogo), Infranet (parece provedor) e Infravertik (armadilha de grafia — a mesma lição do domínio com erro).</div></details>
+      <details class="voice"><summary><span class="tag">CMO</span> "Core e Link puros são genéricos demais." <span class="chev">▸</span></summary><div class="vbody">"RSA Infracore/Infralink" têm SEO praticamente limpo. "Core/Link" isolados colidem com milhares de empresas de TI — o prefixo Infra ancora no setor certo e protege o domínio.</div></details>
+      <details class="voice"><summary><span class="tag">Vision</span> "Cuidado com o excesso de esperteza." <span class="chev">▸</span></summary><div class="vbody">Vertik/Node confundem o público leigo. "Infra" comunica o negócio sem prometer engenharia — honestidade de marca e blindagem legal. Endossa Infracore/Infralink.</div></details>
+      <details class="voice"><summary><span class="tag">Archetype</span> "Resgatem o Inframob." <span class="chev">▸</span></summary><div class="vbody">Radicais duros (Core, Link, Base, Tec) reforçam Herói/Sábio. Flow/Up/Play tombam para o arquétipo errado. "Mob" = mobilização 24h, o diferencial real — subestimado pelo grupo.</div></details>
+    </div>
+    <div class="converge reveal"><b>Convergência:</b> o território <b>INFRA + termo insider</b> vence — comunica o setor, evita "Engenharia" e garante domínio. Finalistas: RSA Infracore (91), RSA Infralink (89), RSA Inframob (85), RSA Infratec (83).</div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard">
+    <div class="sec-tag reveal">Painel de naming</div>
+    <h2 class="sec-title reveal">Os 45 nomes, medidos</h2>
+    <p class="sec-intro reveal">Disponibilidade de domínio verificada no registro.br e pontuação por seis critérios.</p>
+    <div class="dash reveal">
+      <div class="panel"><h4><span class="dot"></span>Status dos domínios verificados</h4><div class="chartbox"><canvas id="donut"></canvas></div></div>
+      <div class="panel"><h4><span class="dot"></span>Pontuação dos finalistas livres</h4><div class="chartbox"><canvas id="bars"></canvas></div></div>
+    </div>
+
+    <div class="callout reveal">⚙️ <b>Leitura estratégica:</b> dentro do Top 5, <b>Infracore, Infralink e Infra</b> seguem a direção INFRA. <b>RSA Redes</b> e <b>RSA Telecom</b> pontuam alto, mas são as opções seguras/óbvias — RSA Telecom é justamente o tipo que decidimos evitar.</div>
+
+    <div class="legend reveal" style="margin-top:22px">
+      <span><i class="b-livre" style="background:var(--green)"></i> Livre</span>
+      <span><i class="b-ocup" style="background:var(--red)"></i> Ocupado</span>
+      <span><i class="b-nao" style="background:var(--amber)"></i> Não confirmado</span>
+      <span><i class="b-nv" style="background:var(--faint)"></i> Não verificado</span>
+    </div>
+    <div class="filters reveal">
+      <button class="fbtn on" data-f="all">Todos (45)</button>
+      <button class="fbtn" data-f="rsa">Com RSA</button>
+      <button class="fbtn" data-f="norsa">Sem RSA</button>
+      <button class="fbtn" data-f="livre">Só disponíveis</button>
+    </div>
+    <div class="tablewrap reveal">
+      <table id="tbl">
+        <thead><tr>
+          <th data-s="nome">Nome <span class="ar">↕</span></th>
+          <th data-s="rsa">Sigla <span class="ar">↕</span></th>
+          <th data-s="nota">Nota <span class="ar">▼</span></th>
+          <th data-s="pos">Forças</th>
+          <th data-s="neg">Atenção</th>
+          <th data-s="dom">Domínio <span class="ar">↕</span></th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ETAPA 3 -->
+  <section id="etapa3">
+    <div class="sec-tag reveal">🟩 Etapa 3 · decisão pendente</div>
+    <h2 class="sec-title reveal">A palavra final é do Mediador</h2>
+    <p class="sec-intro reveal">O Conselho recomenda; Dubes decide (com ou sem o Rafael). Escolha uma direção:</p>
+    <div class="opts reveal">
+      <div class="opt reco"><div class="ribbon">Recomendado</div><div class="k">A</div><h5>RSA Infracore</h5><p>Distintivo, insider (núcleo de rede), domínio livre. 1ª opção do Conselho.</p></div>
+      <div class="opt"><div class="k">B</div><h5>RSA Infralink</h5><p>Muito telecom (enlace), limpo e memorável. 2ª opção.</p></div>
+      <div class="opt"><div class="k">C</div><h5>RSA Inframob</h5><p>Se a marca deve gritar agilidade / mobilização 24h.</p></div>
+      <div class="opt"><div class="k">D</div><h5>RSA Redes</h5><p>A opção mais clara e segura (nota 92).</p></div>
+      <div class="opt"><div class="k">E</div><h5>Não travar ainda</h5><p>Levar o Top 5 ao Rafael e decidir junto antes de fechar a fase.</p></div>
+    </div>
+    <div class="callout reveal">Após a decisão, esta seção vira o <b>fechamento da Fase 1</b> e o ativo ganha o capítulo de identidade visual, arquétipo e tagline — já com o nome escolhido.</div>
+  </section>
+
+  </div><!-- /page-1 -->
+
+  <!-- ===================== FASE 2 — PLANO DE NEGÓCIO ===================== -->
+  <div class="phase-page" id="page-2">
+    <header class="hero-f2">
+      <div>
+        <div class="eyebrow">Fase 2 — Plano de Negócio</div>
+        <h1>De técnico autônomo a <span class="glow">empresa de campo</span> com receita previsível.</h1>
+        <p class="lead">Como estruturar o negócio do Rafael para crescer sem inchar — modelo asset-light, recorrência como espinha dorsal, e reforma como submarca separada.</p>
+      </div>
+      <div style="display:flex;justify-content:center;align-items:center;min-height:180px">
+        <svg viewBox="0 0 160 160" width="150" height="150" aria-hidden="true">
+          <circle cx="80" cy="80" r="60" fill="none" stroke="rgba(56,214,200,.15)" stroke-width="1.5"/>
+          <circle cx="80" cy="80" r="40" fill="none" stroke="rgba(244,123,32,.2)" stroke-width="1.5"/>
+          <circle cx="80" cy="80" r="18" fill="rgba(244,123,32,.18)" stroke="var(--orange)" stroke-width="2"/>
+          <text x="80" y="85" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="11" font-weight="700" fill="var(--orange)">SLA</text>
+          <text x="80" y="50" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="9" fill="var(--muted)">Projetos</text>
+          <text x="80" y="120" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="9" fill="var(--faint)">Reforma</text>
+        </svg>
+      </div>
+    </header>
+
+    <div class="stats reveal">
+      <div class="stat"><div class="n"><span style="color:var(--cyan)">55</span><span style="font-size:18px;color:var(--orange)">%</span></div><div class="l">receita recorrente (meta)</div></div>
+      <div class="stat"><div class="n"><span style="color:var(--green)">3</span></div><div class="l">estados de atuação</div></div>
+      <div class="stat"><div class="n"><span style="color:var(--amber)">24</span></div><div class="l">meses para dobrar faturamento</div></div>
+      <div class="stat"><div class="n"><span style="color:var(--orange)">0</span></div><div class="l">custo fixo desnecessário</div></div>
+    </div>
+
+    <section>
+      <div class="sec-tag reveal">Modelo de negócio</div>
+      <h2 class="sec-title reveal">Asset-light Orchestrator</h2>
+      <p class="sec-intro reveal">Rafael não precisa montar uma empresa grande para crescer. Ele precisa de um modelo que escala sem inchar o custo fixo.</p>
+      <div class="dgrid reveal">
+        <div class="dcard"><h4>Núcleo enxuto</h4><p>Rafael + 1–2 pessoas fixas gerenciam a operação. Rafael evolui de executor para orquestrador — gere mais, executa menos.</p></div>
+        <div class="dcard"><h4>Rede sob demanda</h4><p>Técnicos em RS, SC e PR acionados por projeto — sem encargo, sem custo fixo ocioso. A rede é o ativo competitivo regional.</p></div>
+        <div class="dcard"><h4>Avulso → Recorrência</h4><p>A contradição central: cliente que confia, mas paga por visita. Converter para SLA mensal é a alavanca nº 1 de previsibilidade.</p></div>
+        <div class="dcard"><h4>Reforma = submarca separada</h4><p>Telecom B2B é o motor. Reforma opera com capacidade ociosa e ganha identidade própria — sem poluir o posicionamento técnico.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Unit economics</div>
+      <h2 class="sec-title reveal">Cenários de faturamento (ilustrativos)</h2>
+      <p class="sec-intro reveal">Estimativas de mercado — a substituir pelos números reais do Rafael quando disponíveis.</p>
+      <div class="dash reveal">
+        <div class="panel"><h4><span class="dot"></span>Mix de receita-alvo</h4><div class="chartbox"><canvas id="pie-f2"></canvas></div></div>
+        <div class="panel"><h4><span class="dot"></span>Faturamento mensal por cenário</h4><div class="chartbox"><canvas id="bar-f2"></canvas></div></div>
+      </div>
+      <div class="callout reveal">⚠️ <b>Valores ilustrativos.</b> Premissas a validar com Rafael: preço médio por visita · custo de mobilização · faturamento atual · valor possível de um SLA mensal.</div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Plano faseado</div>
+      <h2 class="sec-title reveal">Crescimento em 3 fases</h2>
+      <div class="timeline reveal">
+        <div class="tl-item"><h4>0–6 meses · Fundação</h4><p>Converter cliente atual em SLA · Padronizar processos (checklist, laudo, NR-35) · Formalizar 2–3 parceiros na rede.</p></div>
+        <div class="tl-item"><h4>6–12 meses · Expansão</h4><p>Land-and-expand no cliente + 1–2 novos clientes acessíveis (ISP regional, towerco) · Estruturar submarca de reforma (leve).</p></div>
+        <div class="tl-item"><h4>12–24 meses · Escala</h4><p>Dobrar faturamento · Consolidar orquestração da rede · Avaliar homologação como fornecedor maior.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Segmentos alvo</div>
+      <h2 class="sec-title reveal">Ordem de ataque ao mercado</h2>
+      <div class="kanban reveal">
+        <div class="kol">
+          <div class="kol-head"><span class="dot" style="background:var(--green)"></span>Acessível agora</div>
+          <div class="kitem" style="border-color:var(--green)"><b>ISPs regionais</b>Donos e gestores de rede · acesso por indicação ou LinkedIn</div>
+          <div class="kitem" style="border-color:var(--green)"><b>Integradores / terceirizadas</b>Via rede de técnicos · ciclo curto de decisão</div>
+        </div>
+        <div class="kol">
+          <div class="kol-head"><span class="dot" style="background:var(--amber)"></span>6–12 meses</div>
+          <div class="kitem" style="border-color:var(--amber)"><b>Towercos</b>Gerentes de operações · requer portfólio e referências</div>
+          <div class="kitem" style="border-color:var(--amber)"><b>Empreiteiras especializadas</b>Subcontratos de campo em projetos maiores</div>
+        </div>
+        <div class="kol">
+          <div class="kol-head"><span class="dot" style="background:var(--faint)"></span>18–36 meses</div>
+          <div class="kitem" style="border-color:var(--faint)"><b>Operadoras grandes</b>Exige homologação formal · processo longo · alta recompensa</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>Conselho Consultivo Estratégico · Projeto RSA Infralink · Fase 2 — Plano de Negócio · 13/06/2026</footer>
+  </div><!-- /page-2 -->
+
+  <!-- ===================== FASE 3 — VENDAS ===================== -->
+  <div class="phase-page" id="page-3">
+    <header style="padding:48px 0 24px">
+      <div class="eyebrow">Fase 3 — Estratégia de Vendas</div>
+      <h1 style="font-family:var(--d-display);font-weight:700;font-size:clamp(26px,4vw,40px);line-height:1.08;margin:10px 0 8px">Construir canal próprio <span class="glow">sem destruir</span> o que já funciona.</h1>
+      <p style="color:var(--muted);font-size:15.5px;max-width:54ch;margin:0">O Rafael não vende — um parceiro informal capta e divide os lucros. Antes de escalar, há que proteger. Depois, construir.</p>
+    </header>
+
+    <section>
+      <div class="sec-tag reveal">Revelação crítica</div>
+      <h2 class="sec-title reveal">A estrutura real de vendas</h2>
+      <p class="sec-intro reveal">A Fase 3 revelou uma situação que muda completamente o ponto de partida comercial.</p>
+      <div class="dgrid reveal">
+        <div class="dcard"><h4>Parceiro informal capta</h4><p>Um parceiro sem PJ capta os contratos, executa junto e divide os lucros 50/50. O CNPJ e toda a responsabilidade legal são do Rafael.</p></div>
+        <div class="dcard"><h4>Acordo só de confiança</h4><p>Nenhum contrato formal — apenas histórico de WhatsApp ou e-mail. Funciona, mas não protege nenhum dos dois.</p></div>
+        <div class="dcard" style="border-color:rgba(248,113,113,.3)"><h4 style="color:var(--red)">Risco: sociedade de fato</h4><p>O parceiro pode reivindicar direitos de sócio retroativamente e acionar o CNPJ do Rafael em processos.</p></div>
+        <div class="dcard" style="border-color:rgba(248,113,113,.3)"><h4 style="color:var(--red)">Risco: passivo trabalhista</h4><p>Habitualidade + divisão de lucros pode caracterizar vínculo empregatício — expondo o Rafael a encargos retroativos.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Camada 0 — Prioridade zero</div>
+      <h2 class="sec-title reveal">Regularizar antes de vender mais</h2>
+      <p class="sec-intro reveal">Construir canal comercial sobre estrutura jurídica instável é construir na areia.</p>
+      <div class="opts reveal">
+        <div class="opt reco"><div class="ribbon">Começar aqui</div><div class="k">1</div><h5>Contrato de Parceria</h5><p>Documento simples 1–2 páginas: escopo, divisão, responsabilidades, saída. R$300–800 com advogado. Não exige nova empresa.</p></div>
+        <div class="opt"><div class="k">2</div><h5>Parceiro como MEI/ME</h5><p>Parceiro abre PJ e emite NF pelos serviços de captação. A divisão vira despesa documentada — elimina risco fiscal.</p></div>
+        <div class="opt"><div class="k">3</div><h5>Inclusão como Sócio</h5><p>Formaliza o que já existe na prática. Só fazer após relação bem testada e documentada. Exige alteração no contrato social.</p></div>
+      </div>
+      <div class="converge reveal" style="margin-top:16px"><b>Script recomendado para o Rafael:</b> "Cara, a gente tá crescendo e quero profissionalizar o que a gente tem. Não é desconfiança — é proteção pra nós dois. Que tal colocar no papel o que já funciona?"</div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Camada 1 — Funil de vendas</div>
+      <h2 class="sec-title reveal">Três estágios, 24 meses</h2>
+      <div class="kanban reveal">
+        <div class="kol">
+          <div class="kol-head"><span class="dot" style="background:var(--red)"></span>Converter · 0–3 meses</div>
+          <div class="kitem" style="border-color:var(--red)"><b>Meta: 1 SLA fechado</b>Parceiro propõe contrato mensal ao contratante atual</div>
+          <div class="kitem" style="border-color:var(--red)"><b>Receita previsível mínima</b>Base para crescimento seguro</div>
+        </div>
+        <div class="kol">
+          <div class="kol-head"><span class="dot" style="background:var(--amber)"></span>Expandir · 3–9 meses</div>
+          <div class="kitem" style="border-color:var(--amber)"><b>Meta: 2–3 clientes</b>Land-and-expand + indicações ativas</div>
+          <div class="kitem" style="border-color:var(--amber)"><b>Nenhum cliente > 60%</b>Diversificar carteira para segurança</div>
+        </div>
+        <div class="kol">
+          <div class="kol-head"><span class="dot" style="background:var(--cyan)"></span>Escalar · 9–24 meses</div>
+          <div class="kitem" style="border-color:var(--cyan)"><b>Meta: 4–6 clientes</b>Canal próprio funcionando via LinkedIn e eventos</div>
+          <div class="kitem" style="border-color:var(--cyan)"><b>Recorrente > 55%</b>Estabilidade financeira consolidada</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Portfólio mínimo viável</div>
+      <h2 class="sec-title reveal">3 ativos para vender com credibilidade</h2>
+      <div class="pgrid reveal">
+        <div class="pcard"><div class="prio">📄</div><div class="pcontent"><h4>Dossiê de serviço</h4><p>1 PDF por projeto: tipo, localidade, fotos antes/depois, resultado.</p><span class="ptag ptag-p0">P0 · Semana 1</span></div></div>
+        <div class="pcard"><div class="prio">📋</div><div class="pcontent"><h4>One-pager da empresa</h4><p>1 página: o que faz, onde atua, como acionar, contato.</p><span class="ptag ptag-p0">P0 · Semana 1</span></div></div>
+        <div class="pcard"><div class="prio">🗺️</div><div class="pcontent"><h4>Mapa de cobertura</h4><p>Cidades com técnico disponível + tipos de serviço + prazo de mobilização.</p><span class="ptag ptag-p1">P1 · Mês 1</span></div></div>
+      </div>
+    </section>
+
+    <footer>Conselho Consultivo Estratégico · Projeto RSA Infralink · Fase 3 — Vendas · 13/06/2026</footer>
+  </div><!-- /page-3 -->
+
+  <!-- ===================== FASE 4 — MARKETING ===================== -->
+  <div class="phase-page" id="page-4">
+    <header style="padding:48px 0 24px">
+      <div class="eyebrow">Fase 4 — Plano de Marketing · 12 meses</div>
+      <h1 style="font-family:var(--d-display);font-weight:700;font-size:clamp(26px,4vw,40px);line-height:1.08;margin:10px 0 8px">Reputação <span class="glow">antes</span> de reach. Evidência antes de canal.</h1>
+      <p style="color:var(--muted);font-size:15.5px;max-width:56ch;margin:0">Marketing B2B de serviço de campo não é feed bonito — é portfólio documentado, presença onde o decisor procura e rede de indicações ativa. Tudo executado por Dubes via i9StyleMkt.</p>
+    </header>
+
+    <div class="i9box reveal">
+      <div class="i9head">🎯 i9StyleMkt · Agência parceira estratégica</div>
+      <p>O Dubes, Mediador deste projeto, é também o responsável por todo o marketing, automações e inteligência de negócios do RSA Infralink — via a <b style="color:var(--cyan)">i9StyleMkt</b>, sua agência em construção especializada em marketing digital e automação IA para pequenos e médios negócios.</p>
+      <p>O Rafael repassa fotos e dados do campo. O Dubes planeja, cria, implementa e escala. <b style="color:var(--orange-soft)">Este projeto é simultaneamente um serviço de amizade, um case real de portfólio e uma relação comercial em formação.</b></p>
+    </div>
+
+    <section>
+      <div class="sec-tag reveal">Princípio estratégico</div>
+      <h2 class="sec-title reveal">Os 3 pilares do marketing B2B de campo</h2>
+      <p class="sec-intro reveal">Em ordem decrescente de impacto para a realidade do RSA Infralink hoje.</p>
+      <div class="pgrid reveal">
+        <div class="pcard"><div class="prio">🏆</div><div class="pcontent"><h4>Autoridade técnica passiva</h4><p>Existir digitalmente de forma que confirme competência quando alguém buscar. Não é sobre aparecer — é sobre não decepcionar quando aparecem.</p><span class="ptag ptag-p0">Pilar 1 · Mais impacto</span></div></div>
+        <div class="pcard"><div class="prio">🤝</div><div class="pcontent"><h4>Reputação ativa por indicação</h4><p>A rede de técnicos e o boca a boca entre gestores é o canal mais poderoso. Cada serviço bem executado é uma peça de marketing.</p><span class="ptag ptag-p1">Pilar 2</span></div></div>
+        <div class="pcard"><div class="prio">🌐</div><div class="pcontent"><h4>Presença técnica no setor</h4><p>Grupos de WhatsApp/Telegram de técnicos, eventos regionais, comentários em LinkedIn de decisores. Existir no ecossistema sem ser spam.</p><span class="ptag ptag-p2">Pilar 3</span></div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Mapa de prioridades</div>
+      <h2 class="sec-title reveal">O que fazer, em que ordem</h2>
+      <div class="pgrid reveal">
+        <div class="pcard"><div class="prio">🔴</div><div class="pcontent"><h4>Kit de identidade + 3 docs de marca</h4><p>Logo em vetor · dossiê de serviço template · one-pager da empresa. Habilita todos os outros canais.</p><span class="ptag ptag-p0">P0 · Semana 1–2</span></div></div>
+        <div class="pcard"><div class="prio">🔴</div><div class="pcontent"><h4>WhatsApp Business</h4><p>Perfil profissional · catálogo de 4–6 serviços · horário · link do site. 30 minutos de setup. O canal que já funciona, profissionalizado.</p><span class="ptag ptag-p0">P0 · Semana 1</span></div></div>
+        <div class="pcard"><div class="prio">🟠</div><div class="pcontent"><h4>LinkedIn do Rafael</h4><p>Validação social B2B — não prospecção. Quando o prospect receber indicação, vai procurar o Rafael aqui antes de ligar.</p><span class="ptag ptag-p1">P1 · Mês 1</span></div></div>
+        <div class="pcard"><div class="prio">🟠</div><div class="pcontent"><h4>Google Meu Negócio</h4><p>ISPs regionais no Sul pesquisam no Google antes de contratar. Custo zero, impacto desproporcional para operações regionais.</p><span class="ptag ptag-p1">P1 · Mês 1</span></div></div>
+        <div class="pcard"><div class="prio">🟡</div><div class="pcontent"><h4>Landing page provisória</h4><p>Substitui o rascunho em rsaemprendimentos.com.br até a Fase 5. Âncora digital funcional para quando rsainfralink.com.br for registrado.</p><span class="ptag ptag-p2">P2 · Mês 1</span></div></div>
+        <div class="pcard"><div class="prio">🟢</div><div class="pcontent"><h4>Portfólio acumulativo</h4><p>Meta: 2 dossiês por mês. Após 6 meses, 12 peças de evidência que valem mais que qualquer anúncio.</p><span class="ptag ptag-p3">P3 · Contínuo</span></div></div>
+        <div class="pcard"><div class="prio">⚪</div><div class="pcontent"><h4>LinkedIn Ads / Google Ads</h4><p>Apenas após consolidar 3 SLAs ativos e portfólio de 10+ dossiês. O funil precisa do que converter.</p><span class="ptag ptag-fut">Futuro · Mês 9–12</span></div></div>
+        <div class="pcard"><div class="prio">⚪</div><div class="pcontent"><h4>Instagram / Redes sociais</h4><p>Zero para telecom B2B agora. Futuro para a submarca de reforma (B2C) — canal separado, identidade separada.</p><span class="ptag ptag-fut">Futuro · Submarca</span></div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Fluxo de produção de conteúdo</div>
+      <h2 class="sec-title reveal">Como gerar marketing com IA, em campo</h2>
+      <p class="sec-intro reveal">Rafael fotografa e descreve. Dubes/i9StyleMkt gera, revisa e publica. Tempo por peça: 15–20 minutos.</p>
+      <div class="dash reveal">
+        <div class="panel" style="grid-column:1/-1">
+          <h4><span class="dot"></span>Pipeline de conteúdo assistido por IA</h4>
+          <div style="display:flex;flex-direction:column;gap:0;margin-top:8px">
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">📸</div>
+              <div><b style="color:var(--ink);font-family:var(--d-display)">Rafael no campo</b><br><span style="font-size:13px;color:var(--muted)">Tira fotos antes/depois · grava áudio de 2 min descrevendo o serviço</span></div>
+              <div style="margin-left:auto;font-family:var(--d-mono);font-size:11px;color:var(--faint)">5 min</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
+              <div style="width:32px;height:32px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">📤</div>
+              <div><b style="color:var(--ink);font-family:var(--d-display)">Repasse para Dubes</b><br><span style="font-size:13px;color:var(--muted)">Fotos + áudio via WhatsApp · nenhuma habilidade de edição necessária</span></div>
+              <div style="margin-left:auto;font-family:var(--d-mono);font-size:11px;color:var(--faint)">2 min</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(56,214,200,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">🤖</div>
+              <div><b style="color:var(--cyan);font-family:var(--d-display)">IA gera o rascunho</b><br><span style="font-size:13px;color:var(--muted)">Claude/ChatGPT: dossiê de serviço + post de LinkedIn com voz de técnico do Sul</span></div>
+              <div style="margin-left:auto;font-family:var(--d-mono);font-size:11px;color:var(--faint)">5 min</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(244,123,32,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">✏️</div>
+              <div><b style="color:var(--orange-soft);font-family:var(--d-display)">Dubes revisa e formata</b><br><span style="font-size:13px;color:var(--muted)">Ajusta tom · aplica template · garante voz autêntica de prestador de campo</span></div>
+              <div style="margin-left:auto;font-family:var(--d-mono);font-size:11px;color:var(--faint)">8 min</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 0">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(52,211,153,.15);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">✅</div>
+              <div><b style="color:var(--green);font-family:var(--d-display)">Rafael aprova e publica</b><br><span style="font-size:13px;color:var(--muted)">5 minutos de leitura · aprovação via WhatsApp · publicação agendada</span></div>
+              <div style="margin-left:auto;font-family:var(--d-mono);font-size:11px;color:var(--faint)">5 min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Calendário de 12 meses</div>
+      <h2 class="sec-title reveal">Da fundação à escala</h2>
+      <div class="timeline reveal">
+        <div class="tl-item"><h4>Semana 1–2 · Fundação visual</h4><p>Kit de identidade atualizado · WhatsApp Business · briefing do portfólio com Rafael</p></div>
+        <div class="tl-item"><h4>Semana 3–4 · Documentos de marca</h4><p>One-pager · dossiê template (4 tipos de serviço) · landing page provisória no domínio atual</p></div>
+        <div class="tl-item"><h4>Mês 1 · Presença digital básica</h4><p>Google Meu Negócio · LinkedIn do Rafael (se aprovado) · primeiras fotos de serviço organizadas</p></div>
+        <div class="tl-item"><h4>Mês 2–3 · Primeiras peças de portfólio</h4><p>2–4 dossiês de serviço produzidos · primeiros posts LinkedIn · alertas de oportunidade ativos</p></div>
+        <div class="tl-item"><h4>Mês 3–6 · Acumulação</h4><p>Meta de 2 dossiês/mês · rede de técnicos ativada como canal de indicação · checkpoint de métricas no mês 6</p></div>
+        <div class="tl-item"><h4>Mês 6 · Checkpoint estratégico</h4><p>Revisar métricas · ajustar cadência · avaliar início de LinkedIn Ads se orçamento permitir</p></div>
+        <div class="tl-item"><h4>Mês 7–12 · Escala de canal</h4><p>LinkedIn Ads segmentado (RS/SC/PR, gestores de ISP/towerco) · Google Ads local após site Fase 5 · email marketing B2B</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Stack de ferramentas</div>
+      <h2 class="sec-title reveal">Tudo com custo mínimo</h2>
+      <div class="stack-grid reveal">
+        <div class="stack-card"><div class="sn">Canva Pro</div><div class="su">Templates de dossiê, one-pager, posts</div><div class="sc">R$55/mês</div></div>
+        <div class="stack-card"><div class="sn">Google Workspace</div><div class="su">Drive compartilhado, e-mail profissional</div><div class="sc">R$30/mês</div></div>
+        <div class="stack-card"><div class="sn">WhatsApp Business</div><div class="su">Canal de comunicação e catálogo</div><div class="sc">Gratuito</div></div>
+        <div class="stack-card"><div class="sn">Google Meu Negócio</div><div class="su">Presença local e avaliações</div><div class="sc">Gratuito</div></div>
+        <div class="stack-card"><div class="sn">LinkedIn (pessoal + empresa)</div><div class="su">Validação social B2B</div><div class="sc">Gratuito</div></div>
+        <div class="stack-card"><div class="sn">Brevo (email marketing)</div><div class="su">Lista B2B futura</div><div class="sc">Gratuito até 300/dia</div></div>
+        <div class="stack-card"><div class="sn">Google Alerts</div><div class="su">Monitoramento de oportunidades</div><div class="sc">Gratuito</div></div>
+        <div class="stack-card"><div class="sn">Claude / ChatGPT</div><div class="su">Ghostwriting, dossiês, scripts</div><div class="sc">Via Dubes</div></div>
+      </div>
+      <div class="callout reveal">💰 <b>Custo total estimado:</b> R$85–100/mês inicial · cresce para R$300–600/mês quando ads forem ativados (Mês 9+). Sem agência externa — tudo via i9StyleMkt.</div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Métricas de acompanhamento</div>
+      <h2 class="sec-title reveal">O que medir mensalmente</h2>
+      <div class="tablewrap reveal">
+        <table>
+          <thead><tr>
+            <th>Métrica</th><th>O que mede</th><th>Meta 6 meses</th><th>Meta 12 meses</th>
+          </tr></thead>
+          <tbody>
+            <tr><td class="nm">Dossiês produzidos</td><td>Acúmulo de portfólio</td><td style="color:var(--green);font-family:var(--d-mono)">≥ 12</td><td style="color:var(--cyan);font-family:var(--d-mono)">≥ 24</td></tr>
+            <tr><td class="nm">Conexões LinkedIn</td><td>Rede B2B relevante</td><td style="color:var(--green);font-family:var(--d-mono)">≥ 150</td><td style="color:var(--cyan);font-family:var(--d-mono)">≥ 400</td></tr>
+            <tr><td class="nm">Avaliações Google</td><td>Reputação local</td><td style="color:var(--green);font-family:var(--d-mono)">≥ 3</td><td style="color:var(--cyan);font-family:var(--d-mono)">≥ 8</td></tr>
+            <tr><td class="nm">Leads inbound</td><td>Efetividade dos canais</td><td style="color:var(--green);font-family:var(--d-mono)">≥ 1/mês</td><td style="color:var(--cyan);font-family:var(--d-mono)">≥ 3/mês</td></tr>
+            <tr><td class="nm">Impressões LinkedIn</td><td>Visibilidade orgânica</td><td style="color:var(--green);font-family:var(--d-mono)">Crescimento</td><td style="color:var(--cyan);font-family:var(--d-mono)">+20%/mês</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Submarca de reforma · diretrizes</div>
+      <h2 class="sec-title reveal">Separação que protege os dois negócios</h2>
+      <div class="dgrid reveal">
+        <div class="dcard"><h4>Nome separado</h4><p>Não usar "Infralink" ou "Infra" no naming da submarca. Identidade visual própria — não confundir com telecom B2B.</p></div>
+        <div class="dcard"><h4>Canal separado</h4><p>Instagram e Google Meu Negócio próprios da submarca. Nunca misturar com o LinkedIn do RSA Infralink.</p></div>
+        <div class="dcard"><h4>Tom separado</h4><p>B2C, mais visual, antes/depois de reformas. Tom amigável e regional — diferente do técnico/direto do telecom.</p></div>
+        <div class="dcard"><h4>Quando criar</h4><p>Após consolidar pelo menos 1 SLA recorrente em telecom. Reforma é oportunista — não dilui o foco agora.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-tag reveal">Pendências</div>
+      <h2 class="sec-title reveal">Próximos passos</h2>
+      <ul class="checklist reveal">
+        <li><strong>Rafael confirmar abertura para criar LinkedIn</strong> — prioridade P1, ainda incerto</li>
+        <li><strong>Verificar Google Meu Negócio</strong> — existe cadastro? Criar ou otimizar</li>
+        <li><strong>Dubes iniciar kit de identidade</strong> — logo atualizado (RSA Infralink), paleta, manual</li>
+        <li><strong>Rafael registrar rsainfralink.com.br</strong> — domínio confirmado como livre; landing provisória pode ir ao ar após registro</li>
+        <li><strong>Rafael enviar primeiras fotos de campo</strong> — para início dos dossiês de serviço</li>
+      </ul>
+    </section>
+
+    <footer>Conselho Consultivo Estratégico · Projeto RSA Infralink · Fase 4 — Marketing · v1.0 · 14/06/2026<br>Ativo vivo — Fase 5 (Site) será acrescentada como próxima seção.</footer>
+  </div><!-- /page-4 -->
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---- Multi-fase navigation ---- */
+const PH=[["1","Marca",false],["2","Negócio",false],["3","Vendas",false],["4","Marketing",false],["5","Site",true],["6","Copy & Imagens",true],["7","Redes Sociais",true],["8","Operações",true],["9","Tecnologia & IA",true],["10","Métricas",true]];
+let activePage = '1';
+const phasesEl=document.getElementById('phases');
+
+function switchPage(n) {
+  if(activePage === n) return;
+  document.querySelectorAll('.phase-page').forEach(p => p.classList.remove('active-page'));
+  document.querySelectorAll('.pchip').forEach(c => c.classList.remove('active'));
+  const page = document.getElementById('page-' + n);
+  if(page) {
+    page.classList.add('active-page');
+    activePage = n;
+    window.scrollTo({top:0, behavior: RM?'auto':'smooth'});
+    // trigger reveals for newly visible page
+    page.querySelectorAll('.reveal:not(.in)').forEach(el => {
+      if(RM){ el.classList.add('in'); } else { io.observe(el); }
+    });
+    // trigger charts for newly visible page
+    if(n === '2') initChartsF2();
+    if(n === '4') initChartsF4();
+  }
+  document.querySelectorAll('.pchip').forEach(c => {
+    if(c.dataset.phase === n) c.classList.add('active');
+  });
+}
+
+PH.forEach(([n,nm,locked])=>{
+  const b=document.createElement('button');
+  b.className='pchip'+(n==="1"?' active':'')+(locked?' locked':'');
+  b.dataset.phase = n;
+  b.textContent=n+' · '+nm;
+  b.onclick=()=>{
+    if(locked){ toast('Fase '+n+' ('+nm+') — em elaboração.'); }
+    else { switchPage(n); }
+  };
+  phasesEl.appendChild(b);
+});
+let tt; function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2600);}
+
+/* ---- reveal on scroll ---- */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>RM?el.classList.add('in'):io.observe(el));
+
+/* ---- count up ---- */
+function countUp(el){const t=+el.dataset.count;if(RM){el.textContent=t;return;}let s=null;const dur=1100;
+  function step(ts){if(!s)s=ts;const p=Math.min((ts-s)/dur,1);el.textContent=Math.round(p*t);if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+const sObs=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){countUp(e.target);sObs.unobserve(e.target);}}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>sObs.observe(el));
+
+/* ---- data naming ---- */
+const D=[
+["RSA Redes",1,92,"Clareza, equity, escalável","Pode soar provedor","livre"],
+["RSA Infracore",1,91,"Distintivo, insider","'Core' exige familiaridade","livre"],
+["RSA Infralink",1,89,"Telecom, limpo","'Link' comum","livre"],
+["RSA Infra",1,86,"B2B, evita 'engenharia'","Abstrato p/ leigo","livre"],
+["RSA Telecom",1,85,"Clareza máxima, SEO","Overclaim leve; 'óbvio'","livre"],
+["RSA Inframob",1,85,"Mobilização 24h, Herói","'Mob' = mobile","livre"],
+["RSA Field",1,84,"Categoria exata B2B","Inglês distancia local","livre"],
+["RSA · Redes, Serviços & Antenas",1,83,"Backronym descritivo","Lockup longo","nv"],
+["RSA Infratec",1,83,"Clareza, seguro","Genérico (muitos existem)","livre"],
+["SinalSul",0,82,"Curto, regional","Perde RSA","ocup"],
+["RSA Inframax",1,82,"Energia","'Max' genérico","nao"],
+["RSA Conecta",1,81,"Amigável, amplo","Pouco específico","nao"],
+["RSA Infrabase",1,80,"Estação base (insider)","Lockup longo","livre"],
+["Ápice Telecom",0,80,"Evocativo (topo)","Perde RSA","ocup"],
+["RSA · Rede de Serviços Ágeis",1,79,"Vende agilidade","Genérico","nv"],
+["RSA Vertik",1,78,"Distintivo (torre)","Armadilha de grafia","nao"],
+["Vertical Redes",0,78,"Moderno, conceito duplo","Perde RSA","nv"],
+["RSA Infrafast",1,78,"Agilidade","'Fast' inglês","livre"],
+["RSA Smart Infra",1,77,"Moderno","Ordem estranha; inglês","nv"],
+["RSA Sul Telecom",1,77,"SEO regional","Engessa geografia","nv"],
+["RSA Altitec",1,76,"Altura/torre","Genérico","nv"],
+["RSA Infraflow",1,76,"Fluxo/uptime","'Flow' suave demais","nv"],
+["Altitude Telecom",0,75,"Evocativo","Genérico; perde RSA","nv"],
+["RSA Sinaltec",1,75,"Telecom (sinal)","Sonoridade dura","nv"],
+["RSA Serviços",1,74,"Guarda-chuva","Genérico","nv"],
+["RSA Linktec",1,74,"Telecom (enlace)","Comum","nv"],
+["Conecta Sul",0,73,"Amigável, regional","Provável ocupado","nv"],
+["RSA Core",1,73,"Curto, B2B","Colide com TI","nv"],
+["RSA Conectec",1,72,"Conectividade","Genérico","nv"],
+["RSA Link",1,72,"Limpo, telecom","Genérico isolado","nv"],
+["RSA Infranet",1,72,"Reconhecível","Parece provedor","nv"],
+["RSA Mob",1,72,"Mobilização","Curto demais","nv"],
+["Núcleo Redes",0,71,"Descritivo PT","Perde RSA","nv"],
+["RSA Grid",1,71,"Rede (grid)","Abstrato","nv"],
+["Linksul",0,70,"Link + Sul","Perde RSA","nv"],
+["RSA Base",1,70,"Estação base","Genérico isolado","nv"],
+["RSA Nodetec",1,70,"Rede (nó)","Abstrato","nv"],
+["RSA Redetec",1,70,"Rede + tec","Sonoridade fraca","nv"],
+["RSA Infraup",1,68,"Momentum","Arquétipo errado","nv"],
+["RSA Ágil",1,66,"Agilidade","Acento atrapalha domínio","nv"],
+["RSA Pro",1,64,"Profissionalismo","Genérico","nv"],
+["RSA Fast",1,62,"Agilidade","Genérico; inglês","nv"],
+["RSA Up",1,58,"Momentum","Arquétipo errado","nv"],
+["RSA Infravertik",1,55,"Conceito torre","Eliminado: grafia","nv"],
+["RSA Infraplay",1,50,"—","Eliminado: arquétipo jogo","nv"],
+];
+const BADGE={livre:["Livre","b-livre"],ocup:["Ocupado","b-ocup"],nao:["Não confirm.","b-nao"],nv:["Não verif.","b-nv"]};
+let curF='all', sortKey='nota', sortDir=-1;
+function pass(r){return curF==='all'||(curF==='rsa'&&r[1]===1)||(curF==='norsa'&&r[1]===0)||(curF==='livre'&&r[5]==='livre');}
+function render(){
+  const tb=document.getElementById('tbody'); tb.innerHTML='';
+  let rows=D.filter(pass);
+  rows.sort((a,b)=>{
+    let x,y;
+    if(sortKey==='nota'){x=a[2];y=b[2];}
+    else if(sortKey==='rsa'){x=a[1];y=b[1];}
+    else if(sortKey==='dom'){const o={livre:0,ocup:1,nao:2,nv:3};x=o[a[5]];y=o[b[5]];}
+    else if(sortKey==='nome'){x=a[0].toLowerCase();y=b[0].toLowerCase();}
+    else {x=a[0];y=b[0];}
+    if(x<y)return -1*sortDir; if(x>y)return 1*sortDir; return 0;
+  });
+  rows.forEach(r=>{
+    const [b,cls]=BADGE[r[5]];
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="nm">${r[0]}</td>
+      <td style="font-family:var(--d-mono);color:var(--faint)">${r[1]?'RSA':'—'}</td>
+      <td><span class="bar"><i style="width:${r[2]}%"></i></span><span class="score">${r[2]}</span></td>
+      <td>${r[3]}</td><td>${r[4]}</td>
+      <td><span class="badge ${cls}">${b}</span></td>`;
+    tb.appendChild(tr);
+  });
+}
+document.querySelectorAll('.fbtn').forEach(b=>b.onclick=()=>{document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');curF=b.dataset.f;render();});
+document.querySelectorAll('#tbl thead th').forEach(th=>{if(th.dataset.s&&th.dataset.s!=='pos'&&th.dataset.s!=='neg')th.onclick=()=>{const k=th.dataset.s;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=(k==='nota')?-1:1;}render();};});
+render();
+
+/* ---- charts fase 1 ---- */
+let chartsF1Done = false;
+function initChartsF1(){
+  if(chartsF1Done || typeof Chart==='undefined') return;
+  chartsF1Done = true;
+  Chart.defaults.color='#92a8bf'; Chart.defaults.font.family="'Manrope',sans-serif";
+  const counts={livre:0,ocup:0,nao:0,nv:0}; D.forEach(r=>counts[r[5]]++);
+  new Chart(document.getElementById('donut'),{type:'doughnut',
+    data:{labels:['Livre','Ocupado','Não confirmado','Não verificado'],
+      datasets:[{data:[counts.livre,counts.ocup,counts.nao,counts.nv],
+      backgroundColor:['#34d399','#f87171','#fbbf24','#3a5170'],borderColor:'#0f2740',borderWidth:3}]},
+    options:{cutout:'62%',plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:14}}},animation:{duration:RM?0:900}}});
+  const fin=D.filter(r=>['RSA Redes','RSA Infracore','RSA Infralink','RSA Infra','RSA Telecom','RSA Inframob','RSA Field','RSA Infratec'].includes(r[0])).sort((a,b)=>b[2]-a[2]);
+  new Chart(document.getElementById('bars'),{type:'bar',
+    data:{labels:fin.map(r=>r[0].replace('RSA ','')),datasets:[{data:fin.map(r=>r[2]),
+      backgroundColor:fin.map((_,i)=>i===0?'#f47b20':'#2f7fae'),borderRadius:6}]},
+    options:{indexAxis:'y',scales:{x:{min:60,max:95,grid:{color:'rgba(255,255,255,.06)'}},y:{grid:{display:false}}},
+      plugins:{legend:{display:false}},animation:{duration:RM?0:900}}});
+}
+
+/* ---- charts fase 2 ---- */
+let chartsF2Done = false;
+function initChartsF2(){
+  if(chartsF2Done || typeof Chart==='undefined') return;
+  chartsF2Done = true;
+  new Chart(document.getElementById('pie-f2'),{type:'doughnut',
+    data:{labels:['Recorrente/SLA','Projetos','Reforma'],
+      datasets:[{data:[55,35,10],backgroundColor:['#38d6c8','#f47b20','#fbbf24'],borderColor:'#0f2740',borderWidth:3}]},
+    options:{cutout:'58%',plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:14}}},animation:{duration:RM?0:900}}});
+  new Chart(document.getElementById('bar-f2'),{type:'bar',
+    data:{labels:['Conservador','Realista','Otimista'],
+      datasets:[
+        {label:'Recorrente',data:[3000,6000,10000],backgroundColor:'#38d6c8',borderRadius:4},
+        {label:'Projetos',data:[4000,7000,12000],backgroundColor:'#f47b20',borderRadius:4},
+        {label:'Reforma',data:[1000,2000,3000],backgroundColor:'#fbbf24',borderRadius:4}
+      ]},
+    options:{scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,grid:{color:'rgba(255,255,255,.06)'},ticks:{callback:v=>'R$'+v.toLocaleString('pt-BR')}}},
+      plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:12}}},animation:{duration:RM?0:900}}});
+}
+
+/* ---- charts fase 4 ---- */
+let chartsF4Done = false;
+function initChartsF4(){
+  if(chartsF4Done || typeof Chart==='undefined') return;
+  chartsF4Done = true;
+  // nenhum chart específico na fase 4 além dos visuais em HTML puro
+}
+
+window.addEventListener('load',()=>{
+  initChartsF1();
+});
+</script>
+</body>
+</html>

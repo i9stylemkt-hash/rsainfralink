@@ -1,0 +1,15 @@
+<svg viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">RSA Infralink — Monograma símbolo isolado</title>
+  <desc id="d">Símbolo isolado: A/torre (infra) com enlace de dois nós (link). Para favicon e app icon. Fundo transparente.</desc>
+  <defs><style>.nv{fill:#1a2d6e}.or{fill:#f47b20}</style></defs>
+  <g id="simbolo">
+    <path class="nv" d="M28 158 L70 44 L85 44 L52 158 Z"/>
+    <path class="nv" d="M122 158 L80 44 L65 44 L98 158 Z"/>
+    <rect class="nv" x="52" y="106" width="46" height="13" rx="2.5"/>
+    <line x1="75" y1="30" x2="116" y2="14" stroke="#f47b20" stroke-width="6.5" stroke-linecap="round"/>
+    <circle class="nv" cx="75" cy="30" r="16"/>
+    <circle cx="75" cy="30" r="7" fill="#f47b20"/>
+    <circle class="or" cx="120" cy="12" r="10.5"/>
+    <circle cx="120" cy="12" r="4" fill="#fff"/>
+  </g>
+</svg>

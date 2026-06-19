@@ -1,0 +1,54 @@
+<svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">RSA Infralink — Logo Torre de Precisão (colorida horizontal)</title>
+  <desc id="d">Torre de telecomunicações treliçada em azul marinho com antena e ondas de sinal em laranja, ao lado do lettermark RSA INFRALINK e tagline regional.</desc>
+  <defs>
+    <style>
+      .nv{fill:#1a2d6e}
+      .or{fill:#f47b20}
+      .nvline{stroke:#1a2d6e;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+      .nvthin{stroke:#1a2d6e;stroke-width:1.7;fill:none;stroke-linecap:round}
+      .orline{stroke:#f47b20;stroke-width:4.2;fill:none;stroke-linecap:round}
+      .wordRSA{font-family:'Space Grotesk','Montserrat',system-ui,sans-serif;font-weight:700;font-size:64px;letter-spacing:-1px}
+      .wordINFRA{font-family:'Space Grotesk','Montserrat',system-ui,sans-serif;font-weight:600;font-size:25.5px;letter-spacing:6.5px}
+      .tag{font-family:'Space Grotesk','Montserrat',system-ui,sans-serif;font-weight:500;font-size:11px;letter-spacing:4px;fill:#92a8bf}
+    </style>
+  </defs>
+  <g id="sinais">
+    <path class="orline" d="M71 46 a28 28 0 0 0 0 42" opacity="0.95"/>
+    <path class="orline" d="M59 36 a42 42 0 0 0 0 62" opacity="0.68"/>
+    <path class="orline" d="M47 26 a56 56 0 0 0 0 82" opacity="0.42"/>
+    <path class="orline" d="M139 46 a28 28 0 0 1 0 42" opacity="0.95"/>
+    <path class="orline" d="M151 36 a42 42 0 0 1 0 62" opacity="0.68"/>
+    <path class="orline" d="M163 26 a56 56 0 0 1 0 82" opacity="0.42"/>
+  </g>
+  <g id="torre">
+    <line class="nvline" x1="105" y1="20" x2="105" y2="48"/>
+    <circle class="nv" cx="105" cy="18" r="5"/>
+    <rect class="nv" x="89" y="48" width="6.5" height="24" rx="1.5"/>
+    <rect class="nv" x="114.5" y="48" width="6.5" height="24" rx="1.5"/>
+    <line class="nvline" x1="105" y1="48" x2="75" y2="174"/>
+    <line class="nvline" x1="105" y1="48" x2="135" y2="174"/>
+    <line class="nvthin" x1="99.5" y1="70"  x2="110.5" y2="70"/>
+    <line class="nvthin" x1="96.5" y1="91"  x2="113.5" y2="91"/>
+    <line class="nvthin" x1="93.3" y1="112" x2="116.7" y2="112"/>
+    <line class="nvthin" x1="89.8" y1="133" x2="120.2" y2="133"/>
+    <line class="nvthin" x1="86"   y1="154" x2="124"   y2="154"/>
+    <path class="nvthin" d="M99.5 70 L113.5 91  M110.5 70 L96.5 91"/>
+    <path class="nvthin" d="M96.5 91 L116.7 112 M113.5 91 L93.3 112"/>
+    <path class="nvthin" d="M93.3 112 L120.2 133 M116.7 112 L89.8 133"/>
+    <path class="nvthin" d="M89.8 133 L124 154  M120.2 133 L86 154"/>
+    <path class="nvthin" d="M86 154 L135 174    M124 154 L75 174"/>
+    <line class="nvline" x1="66" y1="180" x2="144" y2="180"/>
+    <line class="nvthin" x1="75" y1="174" x2="68" y2="180"/>
+    <line class="nvthin" x1="135" y1="174" x2="142" y2="180"/>
+    <line class="nvthin" x1="86" y1="174" x2="92" y2="180"/>
+    <line class="nvthin" x1="124" y1="174" x2="118" y2="180"/>
+  </g>
+  <g id="lettermark">
+    <text x="214" y="109" class="wordRSA"><tspan class="nv">RS</tspan><tspan class="or">A</tspan></text>
+    <text x="216" y="141" class="wordINFRA nv">INFRALINK</text>
+  </g>
+  <g id="tagline">
+    <text x="217" y="167" class="tag">TELECOMUNICAÇÕES · RS · SC · PR</text>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="title desc">
+  <title id="title">RSA Infralink — Símbolo Torre de Precisão (favicon/app icon)</title>
+  <desc id="desc">Símbolo isolado: torre treliçada azul marinho #1a2d6e com ondas de sinal laranja #f47b20, sem texto. Para favicon, avatar e app icon. Fundo transparente.</desc>
+  <g id="simbolo" transform="translate(0,-3)">
+    <g id="torre" fill="none" stroke="#1a2d6e" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M60 180L86 62 M140 180L114 62 M100 62L100 34" stroke-width="3"/>
+      <path d="M60 180L140 180 M65.3 156L134.7 156 M70.6 132L129.4 132 M75.9 108L124.1 108 M81.2 84L118.8 84 M86 62L114 62" stroke-width="2.2"/>
+      <path d="M60 180L134.7 156 M140 180L65.3 156 M65.3 156L129.4 132 M134.7 156L70.6 132 M70.6 132L124.1 108 M129.4 132L75.9 108 M75.9 108L118.8 84 M124.1 108L81.2 84 M81.2 84L114 62 M118.8 84L86 62" stroke-width="1.8"/>
+      <path d="M50 181L150 181 M60 180L52 187 M140 180L148 187" stroke-width="4"/>
+      <path d="M94 50L106 50" stroke-width="2.4"/>
+      <circle cx="100" cy="33" r="2.2" fill="#1a2d6e" stroke="none"/>
+    </g>
+    <g id="sinais" fill="none" stroke="#f47b20" stroke-width="3.2" stroke-linecap="round">
+      <path d="M84 58A16 16 0 0 1 100 42"/>
+      <path d="M74 58A26 26 0 0 1 100 32"/>
+      <path d="M64 58A36 36 0 0 1 100 22"/>
+      <path d="M116 58A16 16 0 0 0 100 42"/>
+      <path d="M126 58A26 26 0 0 0 100 32"/>
+      <path d="M136 58A36 36 0 0 0 100 22"/>
+    </g>
+  </g>
+</svg>

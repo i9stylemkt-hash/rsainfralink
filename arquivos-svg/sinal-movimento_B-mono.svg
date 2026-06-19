@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" role="img" aria-labelledby="title desc">
+  <title id="title">RSA Infralink — Sinal em Movimento (monocromática azul)</title>
+  <desc id="desc">Versão monocromática sólida em azul marinho #1a2d6e (sem gradiente) para fundos claros e impressão econômica. Torre estilizada, arcos de sinal e lettermark RSA INFRALINK. Fonte recomendada: Space Grotesk (700/800).</desc>
+  <g id="simbolo" transform="translate(10,0)" fill="none" stroke="#1a2d6e" stroke-linecap="round" stroke-linejoin="round">
+    <g id="torre">
+      <path d="M178 300L196 132 M222 300L204 132" stroke-width="10"/>
+      <path d="M184 272L216 272 M190 222L210 222 M195 175L205 175" stroke-width="7"/>
+      <path d="M200 132L200 92" stroke-width="8"/>
+      <path d="M189 130L183 96 M211 130L217 96" stroke-width="7"/>
+      <circle cx="200" cy="88" r="5" fill="#1a2d6e" stroke="none"/>
+    </g>
+    <g id="sinais" stroke-width="6">
+      <path d="M168 150Q150 205 168 260"/>
+      <path d="M160 134Q138 205 160 276"/>
+      <path d="M152 118Q126 205 152 292"/>
+    </g>
+  </g>
+  <g id="lettermark" font-family="'Space Grotesk','Montserrat','Segoe UI',Arial,sans-serif" text-anchor="middle">
+    <text x="200" y="388" font-size="80" font-weight="800" fill="#1a2d6e" letter-spacing="1">RSA</text>
+    <text x="200" y="424" font-size="32" font-weight="700" fill="#1a2d6e" letter-spacing="7">INFRALINK</text>
+  </g>
+  <g id="tagline" font-family="'Space Grotesk','Montserrat','Segoe UI',Arial,sans-serif" text-anchor="middle">
+    <text x="200" y="452" font-size="14" font-weight="600" fill="#1a2d6e" letter-spacing="7" opacity="0.7">TELECOMUNICAÇÕES</text>
+  </g>
+</svg>

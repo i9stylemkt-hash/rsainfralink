@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">RSA Infralink — Símbolo Monograma (favicon/app icon)</title>
+  <desc id="desc">Símbolo monograma escalável: uprights convergentes azul marinho #1a2d6e (INFRA/torre/A) com nó de conexão laranja #f47b20 no ápice (LINK) e arco de sinal ciano #38d6c8. Legível em 24px. Fundo transparente.</desc>
+  <g id="simbolo" transform="translate(0,1)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path id="uprights" d="M28 104L60 30 M92 104L60 30" stroke="#1a2d6e" stroke-width="13"/>
+    <path id="link-bar" d="M40 76L80 76" stroke="#1a2d6e" stroke-width="11"/>
+    <path id="sinal" d="M48 19Q60 9 72 19" stroke="#38d6c8" stroke-width="3.5"/>
+    <circle id="no" cx="60" cy="30" r="9.5" fill="#f47b20" stroke="none"/>
+  </g>
+</svg>

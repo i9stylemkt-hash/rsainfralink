@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">RSA Infralink — Símbolo Monograma (monocromático 1 cor)</title>
+  <desc id="desc">Versão monocromática do monograma em azul marinho #1a2d6e (uma cor) para carimbo, bordado, gravação e fundos difíceis. Fundo transparente.</desc>
+  <g id="simbolo" transform="translate(0,1)" fill="none" stroke="#1a2d6e" stroke-linecap="round" stroke-linejoin="round">
+    <path id="uprights" d="M28 104L60 30 M92 104L60 30" stroke-width="13"/>
+    <path id="link-bar" d="M40 76L80 76" stroke-width="11"/>
+    <circle id="no" cx="60" cy="30" r="9.5" fill="#1a2d6e" stroke="none"/>
+  </g>
+</svg>

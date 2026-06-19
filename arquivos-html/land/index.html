@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<!--
+  ✅ DADOS DE CONTATO ATUALIZADOS:
+  WhatsApp oficial: +55 47 99278-0061 (wa.me/5547992780061)
+  E-mail oficial: contato@rsainfralink.com.br
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSA Infralink · Serviços de Campo para Telecomunicações — RS · SC · PR</title>
+<meta name="description" content="Vistorias, manutenções e instalações em torres de telecomunicações no Sul do Brasil. Mobilização ágil, documentação técnica completa. Atendimento RS, SC e PR.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a1c2e; --bg2:#0f2740; --bg3:#15314d; --bg4:#1b3c5c;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.18);
+  --ink:#eaf1f8; --muted:#92a8bf; --faint:#637a92;
+  --orange:#f47b20; --orange-soft:#ffb877;
+  --cyan:#38d6c8; --green:#34d399; --amber:#fbbf24;
+  --d-display:'Space Grotesk',system-ui,sans-serif;
+  --d-body:'Manrope',system-ui,sans-serif;
+  --d-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(56,214,200,.07), transparent 60%),
+    radial-gradient(900px 500px at -10% 15%, rgba(244,123,32,.08), transparent 55%),
+    var(--bg);
+  color:var(--ink); font-family:var(--d-body); font-size:16px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.network-bg{position:fixed; inset:0; z-index:0; opacity:.45; pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.10) 1px, transparent 1.4px);
+  background-size:34px 34px; mask-image:radial-gradient(circle at 50% 20%, #000 0%, transparent 70%);}
+.wrap{position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:0 22px}
+
+/* ---------- Top bar ---------- */
+.topbar{position:sticky; top:0; z-index:40; backdrop-filter:blur(10px);
+  background:rgba(10,28,46,.85); border-bottom:1px solid var(--line)}
+.topbar .row{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+.brand{display:flex; align-items:center; gap:10px}
+.brand svg{width:34px; height:34px; flex:0 0 auto}
+.brand .word{font-family:var(--d-display); font-weight:700; font-size:19px; letter-spacing:.01em; line-height:1.1}
+.brand .word b{color:var(--orange)}
+.brand .word small{display:block; font-family:var(--d-mono); font-size:9.5px; font-weight:400; color:var(--muted); letter-spacing:.18em; margin-top:1px}
+.topbar nav{display:flex; align-items:center; gap:26px}
+.topbar nav a{color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; transition:.15s}
+.topbar nav a:hover{color:var(--ink)}
+.cta-btn{display:inline-flex; align-items:center; gap:8px; background:var(--orange); color:#1a1006; font-family:var(--d-display); font-weight:700; font-size:14px; padding:10px 18px; border-radius:9px; text-decoration:none; white-space:nowrap; transition:.18s; border:1px solid var(--orange)}
+.cta-btn:hover{background:var(--orange-soft); border-color:var(--orange-soft); transform:translateY(-1px)}
+.cta-btn.ghost{background:transparent; color:var(--ink); border-color:var(--line2)}
+.cta-btn.ghost:hover{border-color:var(--orange); color:var(--orange-soft); background:rgba(244,123,32,.08)}
+.cta-btn svg{width:16px;height:16px}
+.menu-toggle{display:none}
+
+/* ---------- Hero ---------- */
+.hero{padding:64px 0 40px; display:grid; grid-template-columns:1.15fr .85fr; gap:36px; align-items:center}
+.eyebrow{font-family:var(--d-mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--orange); font-weight:600; display:flex; align-items:center; gap:8px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--green); box-shadow:0 0 0 3px rgba(52,211,153,.18)}
+.hero h1{font-family:var(--d-display); font-weight:700; font-size:clamp(30px,4.6vw,46px); line-height:1.08; margin:14px 0 16px; letter-spacing:-.01em}
+.hero h1 .accent{color:var(--cyan)}
+.hero p.lead{color:var(--muted); font-size:17px; max-width:48ch; margin:0 0 26px}
+.hero .ctas{display:flex; gap:12px; flex-wrap:wrap}
+.hero .trust{display:flex; gap:22px; margin-top:34px; flex-wrap:wrap}
+.hero .trust div{display:flex; flex-direction:column; gap:2px}
+.hero .trust .n{font-family:var(--d-display); font-weight:700; font-size:22px; color:var(--ink)}
+.hero .trust .l{font-size:12px; color:var(--faint); letter-spacing:.02em}
+
+.tower-stage{display:flex; justify-content:center; align-items:center; min-height:280px; position:relative}
+.tower{width:230px; height:260px; position:relative; z-index:2}
+.arc{fill:none; stroke:var(--orange); stroke-width:8; stroke-linecap:round; opacity:0; transform-origin:115px 70px}
+.signal .arc{animation:ping 3.2s ease-out infinite}
+.signal .a2{animation-delay:.5s} .signal .a3{animation-delay:1s}
+@keyframes ping{0%{opacity:0; transform:scale(.55)}18%{opacity:.95}70%{opacity:0; transform:scale(1.15)}100%{opacity:0}}
+.tower .struct{stroke:var(--orange); stroke-width:5; fill:none; stroke-linecap:round; opacity:.95}
+.tower .node{fill:var(--orange)}
+.tower-ring{position:absolute; width:340px; height:340px; border:1px dashed var(--line2); border-radius:50%; z-index:1; opacity:.5}
+
+/* ---------- Stat strip ---------- */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:0 0 8px}
+.stat{background:linear-gradient(180deg,var(--bg2),var(--bg)); border:1px solid var(--line); border-radius:14px; padding:16px 16px 14px}
+.stat .n{font-family:var(--d-display); font-weight:700; font-size:24px; line-height:1; color:var(--ink)}
+.stat .l{font-size:12px; color:var(--muted); margin-top:8px; letter-spacing:.01em; line-height:1.4}
+
+/* ---------- Sections ---------- */
+section{padding:64px 0; border-top:1px solid var(--line)}
+.sec-tag{font-family:var(--d-mono); font-size:12px; color:var(--cyan); letter-spacing:.16em; text-transform:uppercase}
+.sec-title{font-family:var(--d-display); font-weight:700; font-size:clamp(24px,3.6vw,32px); margin:8px 0 10px; letter-spacing:-.01em}
+.sec-intro{color:var(--muted); max-width:60ch; margin:0 0 36px; font-size:15.5px}
+
+/* serviços */
+.services{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+.svc{background:var(--bg2); border:1px solid var(--line); border-radius:16px; padding:22px; transition:.18s}
+.svc:hover{border-color:var(--line2); transform:translateY(-2px)}
+.svc .ico{width:42px; height:42px; border-radius:10px; background:rgba(244,123,32,.12); border:1px solid rgba(244,123,32,.3); display:flex; align-items:center; justify-content:center; margin-bottom:14px}
+.svc .ico svg{width:22px; height:22px; stroke:var(--orange)}
+.svc h3{font-family:var(--d-display); font-size:16.5px; margin:0 0 8px}
+.svc p{margin:0; color:var(--muted); font-size:14px}
+
+/* área de atuação */
+.coverage{display:grid; grid-template-columns:1fr 1fr; gap:30px; align-items:center}
+.coverage-card{background:var(--bg2); border:1px solid var(--line); border-radius:18px; padding:26px}
+.uf-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:18px}
+.uf{background:var(--bg3); border:1px solid var(--line); border-radius:12px; padding:16px 12px; text-align:center}
+.uf .code{font-family:var(--d-display); font-weight:700; font-size:22px; color:var(--orange-soft)}
+.uf .name{font-size:11.5px; color:var(--muted); margin-top:4px; letter-spacing:.02em}
+.cov-list{display:flex; flex-direction:column; gap:14px}
+.cov-item{display:flex; gap:12px; align-items:flex-start}
+.cov-item .chk{flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:rgba(56,214,200,.15); border:1px solid rgba(56,214,200,.4); display:flex; align-items:center; justify-content:center; margin-top:1px}
+.cov-item .chk svg{width:11px; height:11px; stroke:var(--cyan)}
+.cov-item p{margin:0; font-size:14.5px; color:var(--muted)}
+.cov-item strong{color:var(--ink)}
+
+/* diferenciais */
+.diffs{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+.diff{padding:20px 4px}
+.diff .num{font-family:var(--d-mono); font-size:12px; color:var(--faint); letter-spacing:.1em}
+.diff h4{font-family:var(--d-display); font-size:16px; margin:8px 0 8px; color:var(--orange-soft)}
+.diff p{margin:0; font-size:14px; color:var(--muted)}
+
+/* portfólio placeholder */
+.portfolio-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+.pf-card{background:var(--bg2); border:1px solid var(--line); border-radius:14px; overflow:hidden}
+.pf-photo{aspect-ratio:4/3; background:
+    linear-gradient(135deg, rgba(244,123,32,.08), rgba(56,214,200,.06)),
+    var(--bg3);
+  display:flex; align-items:center; justify-content:center; position:relative}
+.pf-photo svg{width:46px; height:46px; opacity:.35}
+.pf-photo .tag{position:absolute; bottom:10px; left:10px; font-family:var(--d-mono); font-size:10px; color:var(--faint); background:rgba(10,28,46,.7); padding:3px 8px; border-radius:6px; letter-spacing:.06em}
+.pf-body{padding:14px 16px}
+.pf-body h5{margin:0 0 4px; font-family:var(--d-display); font-size:14px}
+.pf-body p{margin:0; font-size:12.5px; color:var(--faint)}
+.pf-note{margin-top:18px; font-size:13px; color:var(--faint); display:flex; align-items:center; gap:8px}
+.pf-note svg{width:14px;height:14px; stroke:var(--faint)}
+
+/* CTA final */
+.cta-final{background:linear-gradient(180deg, rgba(244,123,32,.10), transparent); border:1px solid var(--line); border-radius:22px; padding:44px 36px; text-align:center; position:relative; overflow:hidden}
+.cta-final::before{content:""; position:absolute; inset:0; background-image:radial-gradient(rgba(255,255,255,.08) 1px, transparent 1.4px); background-size:28px 28px; mask-image:radial-gradient(circle at 50% 0%, #000 0%, transparent 70%); pointer-events:none}
+.cta-final h2{font-family:var(--d-display); font-weight:700; font-size:clamp(22px,3.2vw,30px); margin:0 0 12px; position:relative}
+.cta-final p{color:var(--muted); max-width:50ch; margin:0 auto 26px; position:relative; font-size:15.5px}
+.cta-final .ctas{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; position:relative}
+
+/* footer */
+footer{padding:36px 0 40px; border-top:1px solid var(--line)}
+.foot-grid{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:24px}
+.foot-brand{display:flex; align-items:center; gap:10px}
+.foot-brand svg{width:28px;height:28px}
+.foot-brand span{font-family:var(--d-display); font-weight:700; font-size:15px}
+.foot-meta{color:var(--faint); font-size:12.5px; max-width:36ch; margin-top:10px; line-height:1.6}
+.foot-links{display:flex; gap:28px; flex-wrap:wrap}
+.foot-col h6{font-family:var(--d-mono); font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; margin:0 0 10px}
+.foot-col a{display:block; color:var(--faint); text-decoration:none; font-size:13.5px; margin-bottom:7px; transition:.15s}
+.foot-col a:hover{color:var(--orange-soft)}
+.foot-bottom{margin-top:30px; padding-top:20px; border-top:1px solid var(--line); color:var(--faint); font-size:12px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px}
+
+/* whatsapp float */
+.wa-float{position:fixed; bottom:22px; right:22px; z-index:50; width:58px; height:58px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 22px rgba(0,0,0,.35); transition:.2s; text-decoration:none}
+.wa-float:hover{transform:scale(1.07)}
+.wa-float svg{width:30px; height:30px; fill:#fff}
+
+/* reveal */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
+.reveal.in{opacity:1; transform:none}
+
+@media (max-width:860px){
+  .topbar nav{display:none}
+  .hero{grid-template-columns:1fr; padding-top:36px}
+  .tower-stage{order:-1; min-height:200px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .services{grid-template-columns:1fr}
+  .coverage{grid-template-columns:1fr}
+  .diffs{grid-template-columns:1fr}
+  .portfolio-grid{grid-template-columns:1fr}
+  .foot-grid{flex-direction:column}
+  .foot-links{gap:30px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important; transition:none!important} html{scroll-behavior:auto}
+  .reveal{opacity:1; transform:none}
+}
+</style>
+</head>
+<body>
+<div class="network-bg"></div>
+
+<div class="topbar">
+  <div class="wrap row">
+    <div class="brand">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 75,40 Q 55,65 75,90" fill="none" stroke="#f47b20" stroke-width="6"/>
+          <path d="M 65,25 Q 35,65 65,105" fill="none" stroke="#f47b20" stroke-width="7"/>
+          <path d="M 55,10 Q 15,65 55,120" fill="none" stroke="#f47b20" stroke-width="8"/>
+          <path d="M 125,40 Q 145,65 125,90" fill="none" stroke="#f47b20" stroke-width="6"/>
+          <path d="M 135,25 Q 165,65 135,105" fill="none" stroke="#f47b20" stroke-width="7"/>
+          <path d="M 145,10 Q 185,65 145,120" fill="none" stroke="#f47b20" stroke-width="8"/>
+          <line x1="100" y1="70" x2="100" y2="30" stroke="#f47b20" stroke-width="10"/>
+          <circle cx="100" cy="25" r="12" fill="#f47b20"/>
+          <line x1="100" y1="70" x2="65" y2="180" stroke="#f47b20" stroke-width="14"/>
+          <line x1="100" y1="70" x2="135" y2="180" stroke="#f47b20" stroke-width="14"/>
+          <line x1="86" y1="115" x2="114" y2="115" stroke="#f47b20" stroke-width="8"/>
+          <line x1="75" y1="150" x2="125" y2="150" stroke="#f47b20" stroke-width="9"/>
+          <line x1="66" y1="180" x2="134" y2="180" stroke="#f47b20" stroke-width="10"/>
+          <line x1="86" y1="115" x2="114" y2="150" stroke="#f47b20" stroke-width="6"/>
+          <line x1="114" y1="115" x2="86" y2="150" stroke="#f47b20" stroke-width="6"/>
+          <line x1="75" y1="150" x2="125" y2="180" stroke="#f47b20" stroke-width="6"/>
+          <line x1="125" y1="150" x2="75" y2="180" stroke="#f47b20" stroke-width="6"/>
+        </g>
+      </svg>
+      <span class="word">RS<b>A</b> Infralink<small>SERVIÇOS DE CAMPO · TELECOM</small></span>
+    </div>
+    <nav aria-label="Navegação principal">
+      <a href="#servicos">Serviços</a>
+      <a href="#atuacao">Área de atuação</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="https://wa.me/5547992780061?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." class="cta-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.3A8.86 8.86 0 0 0 12.06 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.93 8.93 0 0 0 5.36 1.8h0a8.94 8.94 0 0 0 6.32-15.23ZM12.06 19.9a7.4 7.4 0 0 1-3.77-1.04l-.27-.16-2.8.97.94-2.73-.18-.28a7.43 7.43 0 0 1 11.6-9.2 7.4 7.4 0 0 1-5.52 12.44Zm4.08-5.56c-.22-.11-1.32-.65-1.53-.73-.2-.08-.35-.11-.5.11-.15.22-.57.73-.7.88-.13.15-.26.16-.48.05a6.1 6.1 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.24-1.55c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43a.82.82 0 0 0-.6.28 2.5 2.5 0 0 0-.78 1.86c0 1.1.8 2.16.91 2.31.11.15 1.57 2.4 3.8 3.36.53.23.95.37 1.27.47.54.17 1.02.15 1.41.09.43-.06 1.32-.54 1.5-1.06.19-.52.19-.96.13-1.06-.05-.1-.2-.16-.42-.27Z"/></svg>
+        WhatsApp
+      </a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div>
+      <div class="eyebrow reveal in"><span class="dot"></span>Disponível agora · RS · SC · PR</div>
+      <h1 class="reveal in">O parceiro de campo que chega onde os grandes não chegam — e <span class="accent">documenta tudo</span>.</h1>
+      <p class="lead reveal in">Vistorias, manutenções e instalações em torres de telecomunicações no Sul do Brasil. Mobilização ágil, execução técnica e relatório completo em cada serviço.</p>
+      <div class="ctas reveal in">
+        <a href="https://wa.me/5547992780061?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." class="cta-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.3A8.86 8.86 0 0 0 12.06 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.93 8.93 0 0 0 5.36 1.8h0a8.94 8.94 0 0 0 6.32-15.23ZM12.06 19.9a7.4 7.4 0 0 1-3.77-1.04l-.27-.16-2.8.97.94-2.73-.18-.28a7.43 7.43 0 0 1 11.6-9.2 7.4 7.4 0 0 1-5.52 12.44Zm4.08-5.56c-.22-.11-1.32-.65-1.53-.73-.2-.08-.35-.11-.5.11-.15.22-.57.73-.7.88-.13.15-.26.16-.48.05a6.1 6.1 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.24-1.55c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43a.82.82 0 0 0-.6.28 2.5 2.5 0 0 0-.78 1.86c0 1.1.8 2.16.91 2.31.11.15 1.57 2.4 3.8 3.36.53.23.95.37 1.27.47.54.17 1.02.15 1.41.09.43-.06 1.32-.54 1.5-1.06.19-.52.19-.96.13-1.06-.05-.1-.2-.16-.42-.27Z"/></svg>
+          Solicitar orçamento
+        </a>
+        <a href="#servicos" class="cta-btn ghost">Ver serviços</a>
+      </div>
+      <div class="trust reveal in">
+        <div><span class="n">3</span><span class="l">estados de<br>atuação</span></div>
+        <div><span class="n">24h</span><span class="l">mobilização<br>de emergência</span></div>
+        <div><span class="n">100%</span><span class="l">serviços<br>documentados</span></div>
+      </div>
+    </div>
+    <div class="tower-stage">
+      <div class="tower-ring"></div>
+      <svg class="tower signal" viewBox="0 0 230 250" aria-hidden="true">
+        <path class="arc a1" d="M138 70 a40 40 0 0 1 0 0" />
+        <path class="arc a1" d="M136 46 A58 58 0 0 1 136 94" />
+        <path class="arc a2" d="M147 32 A74 74 0 0 1 147 108" />
+        <path class="arc a3" d="M158 18 A90 90 0 0 1 158 122" />
+        <circle class="node" cx="113" cy="70" r="8"/>
+        <path class="struct" d="M113 78 L82 228 M113 78 L144 228 M91 138 L135 138 M100 105 L126 105 M86 184 L140 184"/>
+        <path class="struct" d="M72 230 L154 230"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats reveal">
+    <div class="stat"><div class="n">Vistorias</div><div class="l">técnicas com laudo fotográfico</div></div>
+    <div class="stat"><div class="n">Manutenções</div><div class="l">preventivas e corretivas</div></div>
+    <div class="stat"><div class="n">Instalações</div><div class="l">de antenas e equipamentos</div></div>
+    <div class="stat"><div class="n">NR-35</div><div class="l">segurança em trabalho em altura</div></div>
+  </div>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="sec-tag reveal">O que fazemos</div>
+    <h2 class="sec-title reveal">Serviços de campo, do diagnóstico à entrega</h2>
+    <p class="sec-intro reveal">Cobertura completa do ciclo de manutenção de infraestrutura de telecomunicações — sempre com registro técnico do que foi feito.</p>
+    <div class="services">
+      <div class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <h3>Vistoria técnica</h3>
+        <p>Inspeção estrutural e de equipamentos com relatório fotográfico detalhado — antes de qualquer decisão de manutenção.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>Manutenção preventiva</h3>
+        <p>Cronograma de revisão que evita falhas antes que elas aconteçam — reduz parada não planejada e custo de emergência.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>Manutenção corretiva</h3>
+        <p>Resposta rápida a falhas e intercorrências em campo, com mobilização ágil para minimizar tempo de indisponibilidade.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h3>Instalação de antenas</h3>
+        <p>Instalação e configuração de equipamentos de transmissão, com testes de sinal e documentação de comissionamento.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÁREA DE ATUAÇÃO -->
+  <section id="atuacao">
+    <div class="sec-tag reveal">Cobertura regional</div>
+    <h2 class="sec-title reveal">Presença real no Sul do Brasil</h2>
+    <p class="sec-intro reveal">Não somos uma central distante atendendo de longe — mobilizamos tecnicamente dentro da região.</p>
+    <div class="coverage">
+      <div class="coverage-card reveal">
+        <div class="uf-grid">
+          <div class="uf"><div class="code">RS</div><div class="name">Rio Grande do Sul</div></div>
+          <div class="uf"><div class="code">SC</div><div class="name">Santa Catarina</div></div>
+          <div class="uf"><div class="code">PR</div><div class="name">Paraná</div></div>
+        </div>
+      </div>
+      <div class="cov-list reveal">
+        <div class="cov-item"><div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><p><strong>Mobilização regional ágil</strong> — equipe e rede de técnicos posicionados nos três estados, sem depender de deslocamento de longa distância.</p></div>
+        <div class="cov-item"><div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><p><strong>Atendimento para ISPs, towercos e integradoras</strong> — atuação B2B especializada em infraestrutura de telecomunicações.</p></div>
+        <div class="cov-item"><div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><p><strong>Segurança como padrão</strong> — procedimentos alinhados à NR-35 para trabalho em altura.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section id="diferenciais">
+    <div class="sec-tag reveal">Por que RSA Infralink</div>
+    <h2 class="sec-title reveal">O diferencial não é tamanho — é resposta</h2>
+    <p class="sec-intro reveal">Não competimos em estrutura com operadoras nacionais. Competimos em velocidade, proximidade e confiabilidade.</p>
+    <div class="diffs">
+      <div class="diff reveal"><div class="num">01</div><h4>Mobilização rápida</h4><p>Resposta ágil a chamados, com equipe próxima ao ponto de atendimento — sem espera de deslocamento de outro estado.</p></div>
+      <div class="diff reveal"><div class="num">02</div><h4>Documentação completa</h4><p>Todo serviço gera registro fotográfico e relatório técnico — prova de execução para auditoria e histórico de manutenção.</p></div>
+      <div class="diff reveal"><div class="num">03</div><h4>Parceria de confiança</h4><p>Relação direta e transparente, sem intermediação burocrática — comunicação clara do início ao fim de cada serviço.</p></div>
+    </div>
+  </section>
+
+  <!-- PORTFÓLIO (placeholder até envio das fotos) -->
+  <section id="portfolio">
+    <div class="sec-tag reveal">Em campo</div>
+    <h2 class="sec-title reveal">Serviços recentes</h2>
+    <p class="sec-intro reveal">Registro fotográfico de execuções recentes — em atualização contínua.</p>
+    <div class="portfolio-grid">
+      <div class="pf-card reveal">
+        <div class="pf-photo">
+          <svg viewBox="0 0 200 200" fill="none" stroke="#f47b20" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M97 67 L70 195 M97 67 L124 195 M78 120 L116 120 M86 90 L108 90 M74 160 L120 160"/><path d="M62 196 L132 196"/><circle cx="97" cy="60" r="7" fill="#f47b20"/></svg>
+          <span class="tag">FOTO EM BREVE</span>
+        </div>
+        <div class="pf-body"><h5>Vistoria técnica</h5><p>Torre de transmissão · RS</p></div>
+      </div>
+      <div class="pf-card reveal">
+        <div class="pf-photo">
+          <svg viewBox="0 0 200 200" fill="none" stroke="#38d6c8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M97 67 L70 195 M97 67 L124 195 M78 120 L116 120 M86 90 L108 90 M74 160 L120 160"/><path d="M62 196 L132 196"/><circle cx="97" cy="60" r="7" fill="#38d6c8"/></svg>
+          <span class="tag">FOTO EM BREVE</span>
+        </div>
+        <div class="pf-body"><h5>Manutenção preventiva</h5><p>Central de telefonia fixa · SC</p></div>
+      </div>
+      <div class="pf-card reveal">
+        <div class="pf-photo">
+          <svg viewBox="0 0 200 200" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M97 67 L70 195 M97 67 L124 195 M78 120 L116 120 M86 90 L108 90 M74 160 L120 160"/><path d="M62 196 L132 196"/><circle cx="97" cy="60" r="7" fill="#fbbf24"/></svg>
+          <span class="tag">FOTO EM BREVE</span>
+        </div>
+        <div class="pf-body"><h5>Instalação de antena</h5><p>Ponto de transmissão · PR</p></div>
+      </div>
+    </div>
+    <div class="pf-note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      Portfólio fotográfico completo em atualização — novos casos são publicados conforme os serviços são concluídos.
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section style="border-top:none; padding-top:0">
+    <div class="cta-final reveal">
+      <h2>Precisa de um parceiro de campo no Sul?</h2>
+      <p>Fale agora pelo WhatsApp e receba uma resposta direta — sem formulário, sem espera.</p>
+      <div class="ctas">
+        <a href="https://wa.me/5547992780061?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." class="cta-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.3A8.86 8.86 0 0 0 12.06 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.93 8.93 0 0 0 5.36 1.8h0a8.94 8.94 0 0 0 6.32-15.23ZM12.06 19.9a7.4 7.4 0 0 1-3.77-1.04l-.27-.16-2.8.97.94-2.73-.18-.28a7.43 7.43 0 0 1 11.6-9.2 7.4 7.4 0 0 1-5.52 12.44Zm4.08-5.56c-.22-.11-1.32-.65-1.53-.73-.2-.08-.35-.11-.5.11-.15.22-.57.73-.7.88-.13.15-.26.16-.48.05a6.1 6.1 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.24-1.55c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43a.82.82 0 0 0-.6.28 2.5 2.5 0 0 0-.78 1.86c0 1.1.8 2.16.91 2.31.11.15 1.57 2.4 3.8 3.36.53.23.95.37 1.27.47.54.17 1.02.15 1.41.09.43-.06 1.32-.54 1.5-1.06.19-.52.19-.96.13-1.06-.05-.1-.2-.16-.42-.27Z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <g stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 75,40 Q 55,65 75,90" fill="none" stroke="#f47b20" stroke-width="6"/>
+              <path d="M 65,25 Q 35,65 65,105" fill="none" stroke="#f47b20" stroke-width="7"/>
+              <path d="M 55,10 Q 15,65 55,120" fill="none" stroke="#f47b20" stroke-width="8"/>
+              <path d="M 125,40 Q 145,65 125,90" fill="none" stroke="#f47b20" stroke-width="6"/>
+              <path d="M 135,25 Q 165,65 135,105" fill="none" stroke="#f47b20" stroke-width="7"/>
+              <path d="M 145,10 Q 185,65 145,120" fill="none" stroke="#f47b20" stroke-width="8"/>
+              <line x1="100" y1="70" x2="100" y2="30" stroke="#f47b20" stroke-width="10"/>
+              <circle cx="100" cy="25" r="12" fill="#f47b20"/>
+              <line x1="100" y1="70" x2="65" y2="180" stroke="#f47b20" stroke-width="14"/>
+              <line x1="100" y1="70" x2="135" y2="180" stroke="#f47b20" stroke-width="14"/>
+              <line x1="86" y1="115" x2="114" y2="115" stroke="#f47b20" stroke-width="8"/>
+              <line x1="75" y1="150" x2="125" y2="150" stroke="#f47b20" stroke-width="9"/>
+              <line x1="66" y1="180" x2="134" y2="180" stroke="#f47b20" stroke-width="10"/>
+              <line x1="86" y1="115" x2="114" y2="150" stroke="#f47b20" stroke-width="6"/>
+              <line x1="114" y1="115" x2="86" y2="150" stroke="#f47b20" stroke-width="6"/>
+              <line x1="75" y1="150" x2="125" y2="180" stroke="#f47b20" stroke-width="6"/>
+              <line x1="125" y1="150" x2="75" y2="180" stroke="#f47b20" stroke-width="6"/>
+            </g>
+          </svg>
+          <span>RSA Infralink</span>
+        </div>
+        <p class="foot-meta">Serviços de campo para telecomunicações no Sul do Brasil. Vistorias, manutenções e instalações com mobilização ágil e documentação técnica completa.</p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h6>Navegação</h6>
+          <a href="#servicos">Serviços</a>
+          <a href="#atuacao">Área de atuação</a>
+          <a href="#diferenciais">Diferenciais</a>
+          <a href="#portfolio">Portfólio</a>
+        </div>
+        <div class="foot-col">
+          <h6>Contato</h6>
+          <a href="https://wa.me/5547992780061" target="_blank">WhatsApp</a>
+          <a href="mailto:contato@rsainfralink.com.br" style="display:block; margin-top:7px">contato@rsainfralink.com.br</a>
+          <span style="display:block; color:var(--faint); font-size:13.5px; margin-top:7px">RS · SC · PR</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 RSA Infralink · Todos os direitos reservados</span>
+      <span>rsainfralink.com.br</span>
+    </div>
+  </footer>
+
+</main>
+
+<a href="https://wa.me/5547992780061?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento." class="wa-float" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 6.3A8.86 8.86 0 0 0 12.06 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.93 8.93 0 0 0 5.36 1.8h0a8.94 8.94 0 0 0 6.32-15.23ZM12.06 19.9a7.4 7.4 0 0 1-3.77-1.04l-.27-.16-2.8.97.94-2.73-.18-.28a7.43 7.43 0 0 1 11.6-9.2 7.4 7.4 0 0 1-5.52 12.44Zm4.08-5.56c-.22-.11-1.32-.65-1.53-.73-.2-.08-.35-.11-.5.11-.15.22-.57.73-.7.88-.13.15-.26.16-.48.05a6.1 6.1 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.24-1.55c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43a.82.82 0 0 0-.6.28 2.5 2.5 0 0 0-.78 1.86c0 1.1.8 2.16.91 2.31.11.15 1.57 2.4 3.8 3.36.53.23.95.37 1.27.47.54.17 1.02.15 1.41.09.43-.06 1.32-.54 1.5-1.06.19-.52.19-.96.13-1.06-.05-.1-.2-.16-.42-.27Z"/></svg>
+</a>
+
+<script>
+const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>RM?el.classList.add('in'):io.observe(el));
+</script>
+</body>
+</html>

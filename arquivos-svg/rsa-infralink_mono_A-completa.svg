@@ -1,0 +1,35 @@
+<svg viewBox="0 0 580 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">RSA Infralink — Monograma Infralink (horizontal completa)</title>
+  <desc id="d">Símbolo geométrico que funde infraestrutura vertical (torre/A) e enlace ponto-a-ponto (link), ao lado do lettermark RSA INFRALINK.</desc>
+  <defs>
+    <style>
+      .nv{fill:#1a2d6e}
+      .or{fill:#f47b20}
+      .wordINFRA{font-family:'Space Grotesk','Montserrat',system-ui,sans-serif;font-weight:500;font-size:22px;letter-spacing:5.5px}
+      .tag{font-family:'Space Grotesk','Montserrat',system-ui,sans-serif;font-weight:500;font-size:10px;letter-spacing:3.5px;fill:#92a8bf}
+    </style>
+  </defs>
+
+  <g id="simbolo">
+    <!-- A/torre: duas pernas convergentes sólidas -->
+    <path class="nv" d="M40 152 L75 50 L88 50 L60 152 Z"/>
+    <path class="nv" d="M122 152 L87 50 L74 50 L102 152 Z"/>
+    <!-- travessa = base da infraestrutura -->
+    <rect class="nv" x="57" y="108" width="48" height="11" rx="2"/>
+    <!-- ELO/LINK ponto-a-ponto: nó central + nó satélite conectados -->
+    <!-- linha de enlace -->
+    <line x1="81" y1="36" x2="116" y2="22" stroke="#f47b20" stroke-width="5.5" stroke-linecap="round"/>
+    <!-- nó principal no ápice da torre -->
+    <circle class="nv" cx="81" cy="36" r="14"/>
+    <circle cx="81" cy="36" r="6" fill="#f47b20"/>
+    <!-- nó satélite (o "link" remoto) -->
+    <circle class="or" cx="120" cy="20" r="9"/>
+    <circle cx="120" cy="20" r="3.5" fill="#fff"/>
+  </g>
+
+  <g id="lettermark">
+    <text x="168" y="92" font-family="'Space Grotesk','Montserrat',system-ui,sans-serif" font-weight="700" font-size="56"><tspan class="nv">RS</tspan><tspan class="or">A</tspan></text>
+    <text x="170" y="122" class="wordINFRA"><tspan class="nv">INFRA</tspan><tspan class="or">LINK</tspan></text>
+    <text x="171" y="145" class="tag">TELECOMUNICAÇÕES · RS · SC · PR</text>
+  </g>
+</svg>

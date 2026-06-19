@@ -1,0 +1,51 @@
+<svg viewBox="0 0 460 510" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">RSA Infralink — Logo Sinal em Movimento (vertical, gradiente)</title>
+  <desc id="d">Torre de telecom estilizada com gradiente azul para laranja e ondas de sinal dinâmicas, com lettermark RSA INFRALINK centralizado abaixo.</desc>
+  <defs>
+    <linearGradient id="gradTorre" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#1a2d6e"/>
+      <stop offset="0.5" stop-color="#2f6dae"/>
+      <stop offset="1" stop-color="#f47b20"/>
+    </linearGradient>
+    <linearGradient id="gradSinal" x1="0" y1="0" x2="1" y2="0.6">
+      <stop offset="0" stop-color="#2f6dae"/>
+      <stop offset="0.55" stop-color="#3a86c0"/>
+      <stop offset="1" stop-color="#f47b20"/>
+    </linearGradient>
+    <style>
+      .sig{stroke:url(#gradSinal);stroke-width:7;fill:none;stroke-linecap:round}
+      .wordINFRA{font-family:'Space Grotesk','Montserrat',system-ui,sans-serif;font-weight:600;font-size:30px;letter-spacing:9px;text-anchor:middle;fill:#1a2d6e}
+      .tag{font-family:'Space Grotesk','Montserrat',system-ui,sans-serif;font-weight:500;font-size:12.5px;letter-spacing:5px;text-anchor:middle;fill:#92a8bf}
+    </style>
+  </defs>
+
+  <g id="sinais">
+    <path class="sig" d="M150 118 a52 52 0 0 0 0 88" opacity="0.95"/>
+    <path class="sig" d="M128 94 a76 76 0 0 0 0 136" opacity="0.58"/>
+    <path class="sig" d="M106 70 a100 100 0 0 0 0 184" opacity="0.3"/>
+    <path class="sig" d="M310 118 a52 52 0 0 1 0 88" opacity="0.95"/>
+    <path class="sig" d="M332 94 a76 76 0 0 1 0 136" opacity="0.58"/>
+    <path class="sig" d="M354 70 a100 100 0 0 1 0 184" opacity="0.3"/>
+  </g>
+
+  <g id="torre">
+    <circle cx="230" cy="68" r="9" fill="#f47b20"/>
+    <line x1="230" y1="76" x2="230" y2="102" stroke="url(#gradTorre)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M230 102 L196 298 L264 298 Z" fill="url(#gradTorre)" opacity="0.15"/>
+    <line x1="230" y1="102" x2="190" y2="310" stroke="url(#gradTorre)" stroke-width="9" stroke-linecap="round"/>
+    <line x1="230" y1="102" x2="270" y2="310" stroke="url(#gradTorre)" stroke-width="9" stroke-linecap="round"/>
+    <line x1="214" y1="168" x2="246" y2="168" stroke="url(#gradTorre)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="207" y1="223" x2="253" y2="223" stroke="url(#gradTorre)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="200" y1="278" x2="260" y2="278" stroke="url(#gradTorre)" stroke-width="6" stroke-linecap="round"/>
+    <line x1="184" y1="316" x2="276" y2="316" stroke="#f47b20" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <g id="lettermark">
+    <!-- RSA centralizado como bloco único, sem gap -->
+    <text y="398" font-family="'Space Grotesk','Montserrat',system-ui,sans-serif" font-weight="700" font-size="80" text-anchor="middle"><tspan x="195" fill="#1a2d6e">R</tspan><tspan x="230" fill="#1a2d6e">S</tspan><tspan x="265" fill="#f47b20">A</tspan></text>
+    <text x="230" y="438" class="wordINFRA">INFRALINK</text>
+  </g>
+  <g id="tagline">
+    <text x="230" y="468" class="tag">TELECOMUNICAÇÕES · RS · SC · PR</text>
+  </g>
+</svg>

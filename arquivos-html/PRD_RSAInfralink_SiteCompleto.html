@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRD · RSA Infralink — Site Completo (Fase 5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a1c2e; --bg2:#0f2740; --bg3:#15314d; --bg4:#1b3c5c;
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.18);
+  --ink:#eaf1f8; --muted:#92a8bf; --faint:#637a92;
+  --orange:#f47b20; --orange-soft:#ffb877;
+  --cyan:#38d6c8; --green:#34d399; --amber:#fbbf24; --red:#f87171;
+  --d-display:'Space Grotesk',system-ui,sans-serif;
+  --d-body:'Manrope',system-ui,sans-serif;
+  --d-mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(56,214,200,.06), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(244,123,32,.07), transparent 55%),
+    var(--bg);
+  color:var(--ink); font-family:var(--d-body); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.network-bg{position:fixed; inset:0; z-index:0; opacity:.5; pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.10) 1px, transparent 1.4px);
+  background-size:34px 34px; mask-image:radial-gradient(circle at 50% 20%, #000 0%, transparent 75%);}
+.wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 22px}
+
+/* ---------- Top bar + section nav ---------- */
+.topbar{position:sticky; top:0; z-index:30; backdrop-filter:blur(10px);
+  background:rgba(10,28,46,.85); border-bottom:1px solid var(--line)}
+.topbar .row{display:flex; align-items:center; gap:16px; padding:12px 0}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--d-display); font-weight:700; letter-spacing:.02em}
+.brand .mark{font-size:18px}
+.brand .mark b{color:var(--orange)}
+.brand small{display:block; font-family:var(--d-body); font-weight:500; font-size:10px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase}
+.secnav{margin-left:auto; display:flex; gap:5px; overflow-x:auto; max-width:66%; padding-bottom:2px}
+.secnav::-webkit-scrollbar{height:0}
+.schip{flex:0 0 auto; font-family:var(--d-mono); font-size:11.5px; color:var(--muted);
+  border:1px solid var(--line); border-radius:8px; padding:6px 10px; cursor:pointer; background:transparent;
+  transition:.18s; white-space:nowrap; text-decoration:none}
+.schip:hover{border-color:var(--line2); color:var(--ink)}
+
+/* ---------- Hero ---------- */
+.hero{padding:50px 0 28px}
+.eyebrow{font-family:var(--d-mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--orange); font-weight:600; display:flex; align-items:center; gap:8px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan); box-shadow:0 0 0 3px rgba(56,214,200,.18)}
+.hero h1{font-family:var(--d-display); font-weight:700; font-size:clamp(28px,4.6vw,42px); line-height:1.1; margin:12px 0 10px; letter-spacing:-.01em}
+.hero p.lead{color:var(--muted); font-size:16px; max-width:68ch; margin:0}
+.docmeta{display:flex; gap:22px; flex-wrap:wrap; margin-top:22px; font-family:var(--d-mono); font-size:12px; color:var(--faint)}
+.docmeta b{color:var(--muted); font-weight:600}
+
+/* ---------- Sections ---------- */
+section{padding:38px 0; border-top:1px solid var(--line)}
+.sec-tag{font-family:var(--d-mono); font-size:12px; color:var(--cyan); letter-spacing:.16em; text-transform:uppercase}
+.sec-title{font-family:var(--d-display); font-weight:700; font-size:clamp(21px,3.2vw,27px); margin:8px 0 6px; letter-spacing:-.01em}
+.sec-intro{color:var(--muted); max-width:68ch; margin:0 0 22px}
+
+/* objetivo / métricas */
+.obj-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.obj-card{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+.obj-card h4{margin:0 0 8px; font-family:var(--d-display); font-size:15px; color:var(--orange-soft)}
+.obj-card p{margin:0; color:var(--muted); font-size:14px}
+.metrics-table{width:100%; border-collapse:collapse; font-size:13.5px; margin-top:6px}
+.metrics-table th{background:var(--bg3); text-align:left; padding:9px 12px; font-family:var(--d-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted)}
+.metrics-table td{padding:9px 12px; border-top:1px solid var(--line); color:var(--muted)}
+.metrics-table td:first-child{color:var(--ink); font-weight:600; font-family:var(--d-display)}
+
+/* arquitetura técnica */
+.stack-diagram{background:var(--bg2); border:1px solid var(--line); border-radius:16px; padding:24px; margin-bottom:18px}
+.stack-row{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+.stack-row:last-child{margin-bottom:0}
+.stack-box{flex:1; background:var(--bg3); border:1px solid var(--line2); border-radius:10px; padding:12px 16px; font-family:var(--d-mono); font-size:13px; display:flex; align-items:center; justify-content:space-between; gap:10px}
+.stack-box .lbl{color:var(--ink); font-weight:600}
+.stack-box .tag{font-size:10.5px; color:var(--cyan); border:1px solid rgba(56,214,200,.35); border-radius:6px; padding:2px 8px; text-transform:uppercase; letter-spacing:.06em}
+.stack-arrow{text-align:center; color:var(--faint); font-size:18px; margin:2px 0}
+.adr-box{background:linear-gradient(180deg,rgba(56,214,200,.08),transparent); border:1px solid var(--line); border-left:4px solid var(--cyan); border-radius:12px; padding:16px 20px; margin-top:18px}
+.adr-box h5{margin:0 0 8px; font-family:var(--d-display); font-size:14px; color:var(--cyan)}
+.adr-box dl{margin:0; display:grid; grid-template-columns:120px 1fr; gap:6px 14px; font-size:13.5px}
+.adr-box dt{color:var(--faint); font-family:var(--d-mono); font-size:11px; text-transform:uppercase; letter-spacing:.06em; padding-top:2px}
+.adr-box dd{margin:0; color:var(--muted)}
+
+/* mapa de páginas */
+.sitemap{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:22px}
+.sm-node{background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:14px 12px; text-align:center; position:relative}
+.sm-node.home{border-color:var(--orange); box-shadow:0 0 0 1px var(--orange)}
+.sm-node .n{font-family:var(--d-mono); font-size:10px; color:var(--faint)}
+.sm-node h5{margin:6px 0 0; font-family:var(--d-display); font-size:13.5px}
+.sm-connector{display:none}
+
+.page-spec{background:var(--bg2); border:1px solid var(--line); border-radius:16px; padding:20px 22px; margin-bottom:14px}
+.page-spec summary{cursor:pointer; list-style:none; display:flex; align-items:center; gap:12px; font-family:var(--d-display); font-weight:600; font-size:16px}
+.page-spec summary::-webkit-details-marker{display:none}
+.page-spec summary .pn{font-family:var(--d-mono); font-size:11px; color:var(--orange); border:1px solid rgba(244,123,32,.35); border-radius:6px; padding:3px 9px}
+.page-spec summary .chev{margin-left:auto; color:var(--faint); transition:.2s}
+.page-spec[open] summary .chev{transform:rotate(90deg); color:var(--orange)}
+.page-spec .pbody{margin-top:16px; padding-top:16px; border-top:1px dashed var(--line)}
+.wireframe{background:var(--bg3); border:1px solid var(--line2); border-radius:10px; padding:14px; font-family:var(--d-mono); font-size:12px; color:var(--muted); white-space:pre; overflow-x:auto; line-height:1.5; margin-bottom:14px}
+.page-meta{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.page-meta h6{margin:0 0 6px; font-family:var(--d-mono); font-size:10.5px; color:var(--cyan); text-transform:uppercase; letter-spacing:.08em}
+.page-meta ul{margin:0; padding-left:18px; color:var(--muted); font-size:13.5px}
+.page-meta li{margin-bottom:4px}
+
+/* schema */
+.schema-card{background:var(--bg2); border:1px solid var(--line); border-radius:16px; padding:22px; margin-bottom:16px}
+.schema-card h4{margin:0 0 4px; font-family:var(--d-display); font-size:16px}
+.schema-card .sub{color:var(--faint); font-size:12.5px; font-family:var(--d-mono); margin-bottom:16px}
+.field-table{width:100%; border-collapse:collapse; font-size:13.5px}
+.field-table th{background:var(--bg3); text-align:left; padding:8px 12px; font-family:var(--d-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted)}
+.field-table td{padding:8px 12px; border-top:1px solid var(--line); color:var(--muted)}
+.field-table td:first-child{color:var(--ink); font-family:var(--d-mono); font-weight:600}
+.field-table .req{color:var(--green); font-size:11px; font-family:var(--d-mono)}
+.field-table .opt{color:var(--faint); font-size:11px; font-family:var(--d-mono)}
+
+/* requisitos não-funcionais */
+.nfr-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+.nfr-card{background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+.nfr-card .ico{width:36px; height:36px; border-radius:9px; background:rgba(56,214,200,.12); border:1px solid rgba(56,214,200,.3); display:flex; align-items:center; justify-content:center; margin-bottom:12px; font-size:17px}
+.nfr-card h5{margin:0 0 6px; font-family:var(--d-display); font-size:14.5px}
+.nfr-card p{margin:0; color:var(--muted); font-size:13.5px}
+
+/* checklist implementação */
+.impl-phase{display:grid; grid-template-columns:140px 1fr; gap:16px; padding:16px 0; border-bottom:1px dashed var(--line)}
+.impl-phase:last-child{border-bottom:0}
+.impl-phase .when{font-family:var(--d-mono); font-size:12px; color:var(--orange-soft); padding-top:2px}
+.impl-phase .tasks{color:var(--muted); font-size:14px}
+.impl-phase .tasks ul{margin:6px 0 0; padding-left:18px}
+.impl-phase .tasks li{margin-bottom:5px}
+.impl-phase h5{margin:0; font-family:var(--d-display); font-size:15px; color:var(--ink)}
+
+.callout{background:linear-gradient(180deg,rgba(244,123,32,.10),transparent); border:1px solid var(--line); border-left:4px solid var(--orange); border-radius:12px; padding:14px 18px; margin-top:18px; font-size:14px; color:var(--ink)}
+.callout b{color:var(--orange-soft)}
+.callout.warn{border-left-color:var(--amber); background:linear-gradient(180deg,rgba(251,191,36,.10),transparent)}
+.callout.warn b{color:var(--amber)}
+
+footer{padding:30px 0 50px; border-top:1px solid var(--line); color:var(--faint); font-size:12.5px; text-align:center}
+
+.reveal{opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .55s ease}
+.reveal.in{opacity:1; transform:none}
+
+@media (max-width:860px){
+  .obj-grid, .nfr-grid, .page-meta{grid-template-columns:1fr}
+  .sitemap{grid-template-columns:repeat(2,1fr)}
+  .secnav{max-width:50%}
+  .impl-phase{grid-template-columns:1fr; gap:6px}
+  .adr-box dl{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important; transition:none!important} html{scroll-behavior:auto}
+  .reveal{opacity:1; transform:none}
+}
+</style>
+</head>
+<body>
+<div class="network-bg"></div>
+
+<div class="topbar">
+  <div class="wrap row">
+    <div class="brand">
+      <span class="mark">R<b>S</b>A</span>
+      <span><small>PRD · Site Completo</small></span>
+    </div>
+    <nav class="secnav" aria-label="Navegação por seções">
+      <a class="schip" href="#objetivo">Objetivo</a>
+      <a class="schip" href="#arquitetura">Arquitetura</a>
+      <a class="schip" href="#paginas">Páginas</a>
+      <a class="schip" href="#schema">Schema</a>
+      <a class="schip" href="#nfr">Requisitos</a>
+      <a class="schip" href="#implementacao">Implementação</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span>Fase 5 · Documento B — PRD Funcional</div>
+    <h1>O blueprint do site completo de <span style="color:var(--cyan)">rsainfralink.com.br</span></h1>
+    <p class="lead">Documento de requisitos funcionais para a construção em WordPress — páginas, dados, arquitetura técnica e requisitos não-funcionais. Recorte enxuto, focado no que muda na implementação real.</p>
+    <div class="docmeta">
+      <span><b>Versão</b> 1.0</span>
+      <span><b>Data</b> 19/06/2026</span>
+      <span><b>Status</b> Aprovado pelo Conselho · pronto para implementação</span>
+      <span><b>Stack</b> WordPress · Hostinger</span>
+    </div>
+  </header>
+
+  <!-- OBJETIVO -->
+  <section id="objetivo">
+    <div class="sec-tag reveal">Por que este site existe</div>
+    <h2 class="sec-title reveal">Objetivo e métricas de sucesso</h2>
+    <p class="sec-intro reveal">O site não é vitrine genérica — é a ferramenta que sustenta o funil de vendas de 3 estágios (Fase 3) e os canais de marketing já definidos (Fase 4).</p>
+    <div class="obj-grid reveal">
+      <div class="obj-card">
+        <h4>Job principal</h4>
+        <p>Converter visitante (gestor de ISP, towerco ou integrador) em contato via WhatsApp — CTA único, repetido em cada seção, sem fricção de formulário longo.</p>
+      </div>
+      <div class="obj-card">
+        <h4>Job secundário</h4>
+        <p>Sustentar a credibilidade técnica via portfólio de dossiês de serviço (Fase 4) — provar competência antes mesmo do primeiro contato humano.</p>
+      </div>
+    </div>
+    <table class="metrics-table reveal">
+      <thead><tr><th>Métrica</th><th>O que mede</th><th>Meta (6 meses)</th></tr></thead>
+      <tbody>
+        <tr><td>Cliques no CTA WhatsApp</td><td>Intenção de contato direto</td><td>Crescimento mês a mês</td></tr>
+        <tr><td>Leads via WhatsApp originados do site</td><td>Efetividade real de conversão</td><td>≥ 1/mês a partir do mês 3</td></tr>
+        <tr><td>Casos publicados no Portfólio</td><td>Profundidade de prova social</td><td>≥ 12 (alinhado à meta de dossiês da Fase 4)</td></tr>
+        <tr><td>Core Web Vitals (mobile)</td><td>Performance / SEO técnico</td><td>"Bom" nas 3 métricas (LCP, INP, CLS)</td></tr>
+        <tr><td>Páginas indexadas no Google</td><td>Presença orgânica</td><td>5/5 páginas indexadas até mês 2</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ARQUITETURA -->
+  <section id="arquitetura">
+    <div class="sec-tag reveal">Decisão técnica</div>
+    <h2 class="sec-title reveal">Arquitetura e stack</h2>
+    <p class="sec-intro reveal">Decisão tomada na Etapa 3 do Conselho: WordPress nativo via Hostinger (infraestrutura já contratada), tema leve sem builder, código direto.</p>
+
+    <div class="stack-diagram reveal">
+      <div class="stack-row">
+        <div class="stack-box"><span class="lbl">Hostinger — hospedagem compartilhada/premium</span><span class="tag">já contratado</span></div>
+      </div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-row">
+        <div class="stack-box"><span class="lbl">WordPress (instalação 1-clique via hPanel)</span><span class="tag">CMS</span></div>
+      </div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-row">
+        <div class="stack-box"><span class="lbl">Tema: GeneratePress ou Astra (free)</span><span class="tag">leve / CSS custom</span></div>
+      </div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-row">
+        <div class="stack-box"><span class="lbl">Código direto no tema (sem Elementor)</span><span class="tag">performance</span></div>
+      </div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-row">
+        <div class="stack-box"><span class="lbl">Portfólio = posts padrão + categoria "Portfólio"</span><span class="tag">zero plugin extra</span></div>
+      </div>
+    </div>
+
+    <div class="adr-box reveal">
+      <h5>ADR-01 · Hospedagem e CMS</h5>
+      <dl>
+        <dt>Contexto</dt><dd>Mediador já possui Hostinger contratada com cPanel/WordPress 1-clique. Pediu "CMS sem código" e "zero manutenção" simultaneamente.</dd>
+        <dt>Decisão</dt><dd>WordPress nativo na Hostinger resolve as duas exigências sem peça extra (Decap/Tina seriam redundantes).</dd>
+        <dt>Alternativas</dt><dd>Estático + CMS headless (mais peças móveis); Next.js/Vercel (over-engineering para o estágio atual).</dd>
+        <dt>Consequências</dt><dd>+ Usa o que já está pago · + CMS de verdade para o Mediador editar · − Superfície de manutenção de plugins/updates do WordPress (mitigado: poucos plugins).</dd>
+      </dl>
+    </div>
+
+    <div class="adr-box reveal">
+      <h5>ADR-02 · Tema sem page builder</h5>
+      <dl>
+        <dt>Contexto</dt><dd>Risco de diluição de marca com temas "prontos"; Mediador prioriza performance e edita via Claude, não precisa de builder visual.</dd>
+        <dt>Decisão</dt><dd>GeneratePress ou Astra (versões gratuitas) + CSS customizado direto no tema, sem Elementor.</dd>
+        <dt>Alternativas</dt><dd>Elementor free (mais fácil editar sozinho, mas adiciona JS/CSS extra e risco de "visual de corretor de imóveis").</dd>
+        <dt>Consequências</dt><dd>+ Performance máxima, CSS 100% sob controle da marca · − Edição de layout futura passa pelo código (aceito: Mediador edita via Claude).</dd>
+      </dl>
+    </div>
+
+    <div class="adr-box reveal">
+      <h5>ADR-03 · Local de instalação durante construção</h5>
+      <dl>
+        <dt>Contexto</dt><dd>Landing estática já ocupa o domínio raiz hoje; site completo precisa ser construído sem derrubar o que está no ar.</dd>
+        <dt>Decisão</dt><dd>WordPress instalado em subdomínio <code>novo.rsainfralink.com.br</code>; troca de apontamento no domínio raiz quando pronto.</dd>
+        <dt>Alternativas</dt><dd>Subpasta (<code>/novo</code>) — rejeitada: exigiria busca-e-troca de URLs no banco de dados na migração final.</dd>
+        <dt>Consequências</dt><dd>+ Migração final é só reapontamento de DNS/domínio, sem tocar no banco · − Subdomínio fica indexável temporariamente (mitigar com <code>noindex</code> até o lançamento).</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- MAPA DE PÁGINAS -->
+  <section id="paginas">
+    <div class="sec-tag reveal">Arquitetura de informação</div>
+    <h2 class="sec-title reveal">As 5 páginas do site</h2>
+    <p class="sec-intro reveal">Estrutura aprovada na Etapa 3 — cada página existe para servir um estágio do funil de vendas ou um canal de marketing, não por completismo institucional.</p>
+
+    <div class="sitemap reveal">
+      <div class="sm-node home"><div class="n">/</div><h5>Home</h5></div>
+      <div class="sm-node"><div class="n">/servicos</div><h5>Serviços</h5></div>
+      <div class="sm-node"><div class="n">/portfolio</div><h5>Portfólio</h5></div>
+      <div class="sm-node"><div class="n">/sobre</div><h5>Sobre</h5></div>
+      <div class="sm-node"><div class="n">/contato</div><h5>Contato</h5></div>
+    </div>
+
+    <details class="page-spec reveal" open>
+      <summary><span class="pn">01</span> Home <span class="chev">▸</span></summary>
+      <div class="pbody">
+        <div class="wireframe">┌────────────────────────────────────────┐
+│ TOPBAR · logo + nav + CTA WhatsApp      │
+├────────────────────────────────────────┤
+│ HERO                                    │
+│ "O parceiro de campo que chega onde     │
+│  os grandes não chegam — e documenta    │
+│  tudo." + CTA + ilustração torre/sinal  │
+├────────────────────────────────────────┤
+│ STAT STRIP (4 cards rápidos)            │
+├────────────────────────────────────────┤
+│ RESUMO DE SERVIÇOS (4 cards, link p/    │
+│ página Serviços)                        │
+├────────────────────────────────────────┤
+│ MAPA RS·SC·PR (área de atuação)         │
+├────────────────────────────────────────┤
+│ 2-3 CASOS DE DESTAQUE (link Portfólio)  │
+├────────────────────────────────────────┤
+│ CTA FINAL + FOOTER                      │
+└────────────────────────────────────────┘</div>
+        <div class="page-meta">
+          <div>
+            <h6>Conteúdo</h6>
+            <ul>
+              <li>Proposta de valor (herdada da Fase 2/4, já testada na landing)</li>
+              <li>Prova de capacidade regional (RS/SC/PR)</li>
+              <li>Amostra do portfólio (3 casos mais recentes, dinâmico via query de posts)</li>
+            </ul>
+          </div>
+          <div>
+            <h6>Comportamento</h6>
+            <ul>
+              <li>CTA WhatsApp fixo (botão flutuante) em toda a página</li>
+              <li>Casos em destaque puxados automaticamente dos 3 posts mais recentes da categoria Portfólio</li>
+              <li>Zero formulário — contato é só WhatsApp, conforme decisão da Fase 4</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="page-spec reveal">
+      <summary><span class="pn">02</span> Serviços <span class="chev">▸</span></summary>
+      <div class="pbody">
+        <div class="wireframe">┌────────────────────────────────────────┐
+│ Header de página + intro curta          │
+├────────────────────────────────────────┤
+│ 4 BLOCOS DETALHADOS (1 por serviço):    │
+│  · Vistoria técnica                     │
+│  · Manutenção preventiva                │
+│  · Manutenção corretiva                 │
+│  · Instalação de antenas                │
+│  (cada bloco: descrição + "o que está   │
+│   incluso" + CTA "solicitar este        │
+│   serviço" pré-preenchendo a msg do     │
+│   WhatsApp)                             │
+├────────────────────────────────────────┤
+│ CTA FINAL + FOOTER                      │
+└────────────────────────────────────────┘</div>
+        <div class="page-meta">
+          <div>
+            <h6>Conteúdo</h6>
+            <ul>
+              <li>Os 4 serviços já definidos na Fase 4 — texto expandido em relação à landing (Home/landing é resumo, esta página é completa)</li>
+              <li>Linguagem dirigida a gestor técnico (ISP/towerco), não consumidor leigo</li>
+            </ul>
+          </div>
+          <div>
+            <h6>Comportamento</h6>
+            <ul>
+              <li>Cada CTA de serviço usa link <code>wa.me</code> com mensagem pré-preenchida específica (ex: "Vim pelo site, quero falar sobre Vistoria técnica")</li>
+              <li>Página estática (sem necessidade de CMS dinâmico — conteúdo muda raramente)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="page-spec reveal">
+      <summary><span class="pn">03</span> Portfólio / Casos <span class="chev">▸</span></summary>
+      <div class="pbody">
+        <div class="wireframe">┌────────────────────────────────────────┐
+│ Header de página + intro                │
+├────────────────────────────────────────┤
+│ FILTRO POR TIPO DE SERVIÇO (opcional,   │
+│ via categoria/tag do WordPress)         │
+├────────────────────────────────────────┤
+│ GRID DE CASOS (cards, 3 colunas desktop)│
+│  cada card = 1 post da categoria        │
+│  "Portfólio" → ver schema na seção      │
+│  Schema de Dados                        │
+├────────────────────────────────────────┤
+│ PAGINAÇÃO (padrão WordPress)            │
+├────────────────────────────────────────┤
+│ CTA FINAL + FOOTER                      │
+└────────────────────────────────────────┘</div>
+        <div class="page-meta">
+          <div>
+            <h6>Conteúdo</h6>
+            <ul>
+              <li>É a página que mais cresce com o tempo — meta de 12 dossiês em 6 meses (Fase 4)</li>
+              <li>Esta é a página que justifica a decisão de CMS de verdade (Mediador edita sem código)</li>
+            </ul>
+          </div>
+          <div>
+            <h6>Comportamento</h6>
+            <ul>
+              <li>Cada "caso" é um post padrão do WordPress na categoria "Portfólio" — ver Schema de Dados abaixo</li>
+              <li>Estado vazio inicial (zero dossiês no lançamento): mensagem honesta tipo "portfólio em atualização", igual à landing — nunca fingir conteúdo que não existe</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="page-spec reveal">
+      <summary><span class="pn">04</span> Sobre <span class="chev">▸</span></summary>
+      <div class="pbody">
+        <div class="wireframe">┌────────────────────────────────────────┐
+│ Header de página                        │
+├────────────────────────────────────────┤
+│ QUEM SOMOS (Rafael + missão da empresa) │
+├────────────────────────────────────────┤
+│ COMO TRABALHAMOS (mobilização, rede de  │
+│ técnicos sob demanda — sem expor a      │
+│ fragilidade da parceria informal da     │
+│ Fase 3)                                 │
+├────────────────────────────────────────┤
+│ SEGURANÇA (NR-35) — ativo competitivo   │
+│ mapeado na Fase 2                       │
+├────────────────────────────────────────┤
+│ CTA FINAL + FOOTER                      │
+└────────────────────────────────────────┘</div>
+        <div class="page-meta">
+          <div>
+            <h6>Conteúdo</h6>
+            <ul>
+              <li>Constrói confiança B2B — quem é, como mobiliza, por que confiar</li>
+              <li><b style="color:var(--amber)">Atenção de copy:</b> não mencionar o parceiro informal nem a estrutura societária — é informação interna (Fase 3), não pública</li>
+            </ul>
+          </div>
+          <div>
+            <h6>Comportamento</h6>
+            <ul>
+              <li>Página estática, conteúdo muda raramente</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="page-spec reveal">
+      <summary><span class="pn">05</span> Contato <span class="chev">▸</span></summary>
+      <div class="pbody">
+        <div class="wireframe">┌────────────────────────────────────────┐
+│ Header de página                        │
+├────────────────────────────────────────┤
+│ CTA WHATSAPP (primário, grande,         │
+│ destaque visual máximo)                 │
+├────────────────────────────────────────┤
+│ INFORMAÇÕES DE CONTATO SECUNDÁRIAS:     │
+│  · Área de atuação (RS/SC/PR)           │
+│  · Horário de atendimento               │
+│  · (opcional) e-mail                    │
+├────────────────────────────────────────┤
+│ FOOTER                                  │
+└────────────────────────────────────────┘</div>
+        <div class="page-meta">
+          <div>
+            <h6>Conteúdo</h6>
+            <ul>
+              <li>Mínimo necessário — WhatsApp é o canal real, o resto é contexto</li>
+            </ul>
+          </div>
+          <div>
+            <h6>Comportamento</h6>
+            <ul>
+              <li>Sem formulário de contato no lançamento (decisão da Fase 4: WhatsApp é o CTA único). Formulário pode ser avaliado em fase futura se houver demanda real</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- SCHEMA -->
+  <section id="schema">
+    <div class="sec-tag reveal">Estrutura de dados</div>
+    <h2 class="sec-title reveal">Schema do Portfólio (dossiê de serviço)</h2>
+    <p class="sec-intro reveal">Decisão da Etapa 2: posts padrão do WordPress + categoria "Portfólio", reaproveitando exatamente o template de dossiê já definido na Fase 4 — sem Custom Post Type, sem plugin extra.</p>
+
+    <div class="schema-card reveal">
+      <h4>Post type: <code style="color:var(--cyan)">post</code> padrão</h4>
+      <div class="sub">categoria fixa: "Portfólio" · campos mapeados para os elementos nativos do WordPress</div>
+      <table class="field-table">
+        <thead><tr><th>Campo do dossiê (Fase 4)</th><th>Mapeado para</th><th>Obrigatório</th></tr></thead>
+        <tbody>
+          <tr><td>Título do caso</td><td>Título do post</td><td><span class="req">obrigatório</span></td></tr>
+          <tr><td>Tipo de serviço</td><td>Tag (ex: "vistoria", "manutenção-preventiva", "instalação")</td><td><span class="req">obrigatório</span></td></tr>
+          <tr><td>Localidade (cidade/UF)</td><td>Tag adicional (ex: "RS", "SC", "PR") + texto no corpo</td><td><span class="req">obrigatório</span></td></tr>
+          <tr><td>Data do serviço</td><td>Data de publicação do post (ou campo customizado se precisar divergir)</td><td><span class="req">obrigatório</span></td></tr>
+          <tr><td>Cliente</td><td>Texto no corpo — <b style="color:var(--amber)">pode ser omitido</b> (confidencialidade)</td><td><span class="opt">opcional</span></td></tr>
+          <tr><td>Escopo resumido</td><td>Excerpt (resumo) do post</td><td><span class="req">obrigatório</span></td></tr>
+          <tr><td>Fotos antes/depois (2-3)</td><td>Imagem destacada + galeria no corpo</td><td><span class="req">obrigatório</span></td></tr>
+          <tr><td>Resultado/observação técnica</td><td>Texto no corpo do post</td><td><span class="req">obrigatório</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout reveal"><b>Por que isso é a escolha certa:</b> o Mediador (Dubes) já vai gerar esses dossiês na Fase 4/6 com assistência de IA — publicar como post padrão do WordPress é o mesmo esforço de "escrever um post de blog", sem aprender uma interface nova de Custom Post Type. Cada dossiê novo = 1 post novo, categoria "Portfólio" marcada, pronto.</div>
+  </section>
+
+  <!-- REQUISITOS NÃO-FUNCIONAIS -->
+  <section id="nfr">
+    <div class="sec-tag reveal">Qualidade do produto</div>
+    <h2 class="sec-title reveal">Requisitos não-funcionais</h2>
+    <p class="sec-intro reveal">O público-alvo (gestor de ISP/towerco) frequentemente acessa via celular, possivelmente com conexão rural fraca. Performance não é luxo — é requisito de conversão.</p>
+    <div class="nfr-grid">
+      <div class="nfr-card reveal">
+        <div class="ico">⚡</div>
+        <h5>Performance mobile-first</h5>
+        <p>Poucos plugins, sem page builder pesado. Meta: Core Web Vitals "Bom" nas 3 métricas, mesmo em conexão 3G/4G fraca.</p>
+      </div>
+      <div class="nfr-card reveal">
+        <div class="ico">🎨</div>
+        <h5>Fidelidade de marca</h5>
+        <p>Tema Signal/NOC escuro herdado 1:1 da Enciclopédia — mesmas variáveis de cor, tipografia (Space Grotesk/Manrope/JetBrains Mono).</p>
+      </div>
+      <div class="nfr-card reveal">
+        <div class="ico">♿</div>
+        <h5>Contraste WCAG AA</h5>
+        <p>Mitigação do risco de legibilidade do fundo escuro (apontado pelo Brand Chief): contraste mínimo AA em todo texto, tipografia maior que o padrão em mobile.</p>
+      </div>
+      <div class="nfr-card reveal">
+        <div class="ico">📱</div>
+        <h5>Responsivo real</h5>
+        <p>Técnico de campo acessa pelo celular. Testar em viewport real de 360-390px, não só redimensionar desktop.</p>
+      </div>
+      <div class="nfr-card reveal">
+        <div class="ico">💬</div>
+        <h5>WhatsApp click-to-chat</h5>
+        <p>Todo CTA usa <code>wa.me</code> com mensagem pré-preenchida contextual (varia por página/serviço). Botão flutuante presente em todas as páginas.</p>
+      </div>
+      <div class="nfr-card reveal">
+        <div class="ico">🔍</div>
+        <h5>SEO técnico básico</h5>
+        <p>Title/meta description por página com termos regionais (Fase 4): "serviço de campo telecom RS SC PR", "manutenção de torres SC" etc. Sitemap XML + Search Console.</p>
+      </div>
+      <div class="nfr-card reveal">
+        <div class="ico">🚫</div>
+        <h5>Restrição de naming</h5>
+        <p>Regra inegociável da Fase 1: nenhuma menção a "Engenharia" em qualquer copy, meta tag, alt text ou nome de arquivo.</p>
+      </div>
+      <div class="nfr-card reveal">
+        <div class="ico">🔒</div>
+        <h5>Segurança básica</h5>
+        <p>WordPress + plugins sempre atualizados; subdomínio de construção com <code>noindex</code> até o lançamento; HTTPS obrigatório (SSL gratuito via Hostinger).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPLEMENTAÇÃO -->
+  <section id="implementacao">
+    <div class="sec-tag reveal">Plano de execução</div>
+    <h2 class="sec-title reveal">Checklist de implementação faseada</h2>
+    <p class="sec-intro reveal">A landing estática (já entregue) já está no ar/pronta para subir. O que segue é a construção do site completo em paralelo, sem pressa.</p>
+
+    <div class="reveal">
+      <div class="impl-phase">
+        <div class="when">Etapa 1</div>
+        <div class="tasks"><h5>Infraestrutura</h5>
+          <ul>
+            <li>Criar subdomínio <code>novo.rsainfralink.com.br</code> via hPanel</li>
+            <li>Instalar WordPress 1-clique nesse subdomínio</li>
+            <li>Instalar tema GeneratePress ou Astra (decisão final no início desta etapa)</li>
+            <li>Configurar <code>noindex</code> temporário (não indexar o subdomínio de construção)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="impl-phase">
+        <div class="when">Etapa 2</div>
+        <div class="tasks"><h5>Tema e identidade</h5>
+          <ul>
+            <li>Aplicar CSS customizado com as variáveis de marca (paleta, tipografia Google Fonts)</li>
+            <li>Subir logos vetorizadas (entregues nesta fase) como assets do tema</li>
+            <li>Configurar favicon a partir do símbolo isolado</li>
+          </ul>
+        </div>
+      </div>
+      <div class="impl-phase">
+        <div class="when">Etapa 3</div>
+        <div class="tasks"><h5>Páginas estáticas</h5>
+          <ul>
+            <li>Codificar Home, Serviços, Sobre, Contato direto no tema (templates customizados)</li>
+            <li>Configurar categoria "Portfólio" e template de listagem/single post</li>
+            <li>WhatsApp click-to-chat com mensagens contextuais por página/serviço</li>
+          </ul>
+        </div>
+      </div>
+      <div class="impl-phase">
+        <div class="when">Etapa 4</div>
+        <div class="tasks"><h5>Conteúdo e QA</h5>
+          <ul>
+            <li>Publicar primeiros dossiês reais (assim que Rafael enviar fotos) na categoria Portfólio</li>
+            <li>QA de performance (Core Web Vitals), responsivo real, contraste</li>
+            <li>SEO básico: title/meta por página, sitemap, Search Console</li>
+          </ul>
+        </div>
+      </div>
+      <div class="impl-phase">
+        <div class="when">Etapa 5</div>
+        <div class="tasks"><h5>Lançamento</h5>
+          <ul>
+            <li>Remover <code>noindex</code> do site completo</li>
+            <li>Trocar apontamento do domínio raiz (<code>rsainfralink.com.br</code>) do estático para o WordPress</li>
+            <li>Validar que a landing estática sai de circulação sem quebrar links já compartilhados</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn reveal"><b>Não bloqueante:</b> a escolha final entre GeneratePress e Astra pode ocorrer no início da Etapa 1 de implementação — ambos pré-aprovados pelo Conselho, sem necessidade de nova rodada de decisão.</div>
+  </section>
+
+  <footer>Conselho Consultivo Estratégico · Projeto RSA Infralink · Fase 5 — PRD do Site · v1.0 · 19/06/2026<br>Documento complementar à Súmula da Fase 5 e à Enciclopédia do Negócio.</footer>
+</main>
+
+<script>
+const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>RM?el.classList.add('in'):io.observe(el));
+</script>
+</body>
+</html>
