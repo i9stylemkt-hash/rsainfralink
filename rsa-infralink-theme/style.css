@@ -33,7 +33,16 @@ Version: 1.0.0
 }
 
 /* Reset e Estilos Globais do Tema */
-body {
+body,
+.inside-article,
+.inside-navigation,
+.inside-header,
+.separate-containers .inside-article,
+.separate-containers .comments-area,
+.separate-containers .page-header,
+.site-content,
+#content,
+.sidebar .widget {
   background-color: var(--bg-main) !important;
   background-image: 
     radial-gradient(1200px 600px at 85% -10%, rgba(56, 214, 200, 0.06), transparent 60%),
@@ -42,6 +51,30 @@ body {
   font-family: var(--font-body) !important;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Forçar legibilidade do conteúdo do WordPress */
+.entry-title,
+.entry-title a,
+.entry-content,
+.entry-content p,
+.entry-content h1,
+.entry-content h2,
+.entry-content h3,
+.entry-content h4,
+.entry-content h5,
+.entry-content h6,
+.entry-meta,
+.wp-block-post-title,
+.widget-title {
+  color: var(--color-text) !important;
+}
+
+.entry-meta,
+.entry-meta a,
+.entry-meta span {
+  color: var(--color-muted) !important;
+}
+
 
 /* Tipografia */
 h1, h2, h3, h4, h5, h6 {

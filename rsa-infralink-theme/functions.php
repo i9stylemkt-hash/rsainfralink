@@ -67,3 +67,16 @@ function rsa_infralink_svg_display_aspect_ratio( $response, $attachment, $meta )
     return $response;
 }
 add_filter( 'wp_prepare_attachment_for_js', 'rsa_infralink_svg_display_aspect_ratio', 10, 3 );
+
+/**
+ * Desativa a exibição da barra lateral (sidebar) em todo o site
+ */
+add_filter( 'generate_sidebar_layout', function( $layout ) {
+    return 'no-sidebar';
+} );
+
+/**
+ * Desativa o título nativo das páginas e posts para evitar duplicidades visuais
+ */
+add_filter( 'generate_show_title', '__return_false' );
+
